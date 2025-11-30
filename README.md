@@ -130,7 +130,7 @@ If you understand what this means, you know what to do.
 
 ## Technical Documentation
 
-Full paper: [SODPF_paper.html](SODPF_paper.html)  
+Full paper: [SODPF_paper.html](index.html)  
 Simulation code: [Coming soon]  
 CAD models: [Coming soon]  
 Build instructions: [Coming soon]
