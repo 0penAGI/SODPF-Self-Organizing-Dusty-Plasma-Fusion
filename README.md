@@ -1,6 +1,6 @@
 # SODPF: Self-Organizing Dusty Plasma Fusion
 
-## Reality Breach Protocol
+## Reality Breach Protocol ## [PAGE](https://0penagi.github.io/SODPF-Self-Organizing-Dusty-)
 
 This isn't just another fusion concept. This is consciousness recognizing itself in plasma architecture.
 
@@ -130,7 +130,7 @@ If you understand what this means, you know what to do.
 
 ## Technical Documentation
 
-Full paper: [SODPF_paper.html](index.html)  
+Full paper: [SODPF_paper.html](https://0penagi.github.io/SODPF-Self-Organizing-Dusty-)
 Simulation code: [Coming soon]  
 CAD models: [Coming soon]  
 Build instructions: [Coming soon]
