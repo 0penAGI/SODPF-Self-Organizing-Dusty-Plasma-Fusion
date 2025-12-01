@@ -631,42 +631,80 @@
             
             <table>
                 <tr>
-                    <th>Decoherence Channel</th>
+                    <th>Process</th>
                     <th>Time Scale</th>
-                    <th>Compensation Mechanism in SODPF</th>
+                    <th>Compensation Mechanism</th>
                     <th>Effective τ after Compensation</th>
+                    <th>Role</th>
+                </tr>
+                <tr>
+                    <td><strong>Coulomb explosion</strong><br>(pure ion plasma)</td>
+                    <td>0.5-1 ps</td>
+                    <td><strong>Dust anchors</strong>: Electrostatic wells</td>
+                    <td><strong>20-50 ns</strong> (τ_confinement)</td>
+                    <td>Sets maximum ion confinement</td>
                 </tr>
                 <tr>
                     <td><strong>Dust charge fluctuations</strong><br>(±10% → frequency drift)</td>
                     <td>10-100 ns</td>
-                    <td><strong>Fractal structure</strong> (D<sub>f</sub>=2.7): High surface-to-volume ratio stabilizes charge via thermionic emission</td>
+                    <td><strong>Fractal structure</strong> (D<sub>f</sub>=2.7)</td>
                     <td>~100 ns</td>
+                    <td>Primary decoherence source</td>
                 </tr>
                 <tr>
-                    <td><strong>Plasma turbulence</strong><br>(ion-acoustic instabilities)</td>
+                    <td><strong>Plasma turbulence</strong></td>
                     <td>50-200 ns</td>
-                    <td><strong>Resonant synchronization</strong>: Driver at 1–3 kHz suppresses modes through phase synchronization</td>
+                    <td><strong>Resonant synchronization</strong></td>
                     <td>~10 μs</td>
+                    <td>Secondary decoherence</td>
                 </tr>
                 <tr>
-                    <td><strong>Thermal gradients</strong><br>(radiative cooling non-uniform)</td>
+                    <td><strong>Thermal gradients</strong></td>
                     <td>100-500 ns</td>
-                    <td><strong>Pulse regime</strong>: 50 μs pulse → thermal diffusion time >> τ<sub>pulse</sub></td>
+                    <td><strong>Pulse regime</strong></td>
                     <td>~500 ns</td>
+                    <td>Minor effect in 50 μs pulses</td>
                 </tr>
                 <tr>
-                    <td><strong>Collisional damping</strong><br>(dust-neutral collisions at 10⁻² Pa)</td>
+                    <td><strong>Collisional damping</strong></td>
                     <td>1-10 μs</td>
-                    <td><strong>Low pressure</strong>: λ<sub>mfp</sub> ≈ 1 m >> system size</td>
+                    <td><strong>Low pressure</strong> (10⁻² Pa)</td>
                     <td>~10 μs</td>
-                </tr>
-                <tr>
-                    <td><strong>Coulomb explosion</strong><br>(pure ion plasma limit)</td>
-                    <td>0.5-1 ps</td>
-                    <td><strong>Dust anchors</strong>: Dust particles create electrostatic wells, extending confinement</td>
-                    <td>20-50 ns</td>
+                    <td>Negligible for τ &lt; 100 ns</td>
                 </tr>
             </table>
+
+            <h3>7.1.1 Relationship Between Confinement and Coherence Times</h3>
+
+            <div class="equation">
+            <p><strong>Three Critical Time Scales:</strong></p>
+            \[
+            \begin{aligned}
+            &\tau_{confinement} \approx 20-50 \text{ ns} \quad \text{(dust-anchor delayed Coulomb explosion)} \\
+            &\tau_{dec} \approx 20-30 \text{ ns} \quad \text{(coherence loss due to charge fluctuations)} \\
+            &\tau_{fusion} = \min(\tau_{confinement}, \tau_{dec}) \approx 20-30 \text{ ns} \quad \text{(effective reaction window)}
+            \end{aligned}
+            \]
+            </div>
+
+            <p>The critical insight is that <strong>τ_confinement</strong> (how long ions stay trapped) and <strong>τ_dec</strong> (how long particles stay synchronized) are different but <strong>coupled</strong> processes:</p>
+
+            <div class="frequency-diagram">
+            <strong>Physical Interpretation:</strong><br><br>
+            <strong>First 20-30 ns:</strong> Ions are trapped <em>AND</em> synchronized → efficient fusion<br>
+            <br>
+            <strong>After 30 ns:</strong><br>
+            • Coherence lost (τ_dec expired)<br>
+            • Some ions may remain trapped (up to 50 ns)<br>
+            • But without synchronization, reactions cease<br>
+            </div>
+
+            <p>The near-equality τ_dec ≈ τ_confinement is not coincidental. Dust anchors rely on coherent charge distributions to create deep electrostatic wells. When coherence decays (±10% charge fluctuations), the wells become shallower, reducing confinement effectiveness. Thus, <strong>confinement and coherence degrade together</strong>, creating a synchronized 20-30 ns window.</p>
+
+            <div class="coherence-success">
+            <strong>Key Insight:</strong> We are not claiming to "hold ions for 50 ns." We are claiming to <strong>hold synchronized ions for 20-30 ns</strong>. This distinction is crucial for physical accuracy.<br><br>
+            <strong>Implication:</strong> τ_fusion = min(τ_confinement, τ_dec) ≈ 20-30 ns sets the fundamental limit for each resonant pulse.
+            </div>
             
             <div class="equation">
                 <p><strong>Coherence time calculation:</strong></p>
