@@ -289,14 +289,7 @@ SODPF-Self-Organizing-Dusty-Plasma-Fusion/
 ├── README.md               # This file
 ├── requirements.txt        # Python dependencies
 ├── plasma_control_model.pt # Pre-trained model (optional)
-├── assets/                 # Images and data
-│   ├── gamma_evolution.png
-│   ├── roc_curve.png
-│   └── temperature_profile.png
-└── examples/              # Usage examples
-    ├── basic_control.py
-    ├── training_example.py
-    └── simulation_test.py
+
 ```
 
 ## 🎯 Getting Involved
