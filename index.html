@@ -212,6 +212,17 @@
             font-size: 10pt;
         }
         
+        .reactor-image {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            display: block;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 5px;
+            background: white;
+        }
+        
         @media print {
             body {
                 font-size: 10pt;
@@ -229,6 +240,10 @@
             
             canvas {
                 height: 200px !important;
+            }
+            
+            .reactor-image {
+                max-width: 400px;
             }
         }
     </style>
@@ -452,7 +467,21 @@
                 </tr>
             </table>
 
-            <h3>5.2 6-Month Timeline with Gates</h3>
+            <h3>5.2 Conceptual Reactor Design</h3>
+            <p>Figure 5 shows the conceptual reactor design for the proposed experimental setup. The design includes:</p>
+            <ul>
+                <li>Cubic vacuum chamber (40×40×40 cm) with multiple viewports</li>
+                <li>Helmholtz coils for generating uniform magnetic field (0.3 T)</li>
+                <li>Helicon antenna wrapped around quartz tube for efficient RF coupling</li>
+                <li>Nano-dust injection system with precise piezoelectric dispenser</li>
+                <li>Diagnostic ports for cameras, spectrometers, and Langmuir probes</li>
+                <li>Water cooling channels integrated into chamber walls</li>
+            </ul>
+            
+            <img src="reactor.JPG" alt="Conceptual Reactor Design for Pulsed SODPF Experiment" class="reactor-image">
+            <div class="figure-caption">Figure 5: Conceptual reactor design for pulsed SODPF experimental setup. The cubic chamber allows optimal optical access for diagnostics, while Helmholtz coils provide uniform magnetic field. RF antenna is wrapped around quartz tube for efficient helicon wave excitation.</div>
+
+            <h3>5.3 6-Month Timeline with Gates</h3>
             <table>
                 <tr>
                     <th>Month</th>
