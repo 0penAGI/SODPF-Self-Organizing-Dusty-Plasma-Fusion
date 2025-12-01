@@ -420,7 +420,7 @@
         
         <div class="section" id="abstract">
             <h2>Abstract</h2>
-            <p>We present <strong>experimentally-validated PIC simulations</strong> showing that boron nitride nano-dust (100 nm, fractal dimension 2.7) in helicon plasma with Schumann resonance modulation spontaneously forms <strong>self-organized hot spots</strong> with ion temperature >100 keV for 40–60 μs. The system exhibits:</p>
+            <p>We present <strong>high-fidelity 3D PIC simulations</strong> showing that boron nitride nano-dust (100 nm, fractal dimension 2.7) in helicon plasma with Schumann resonance modulation spontaneously forms <strong>self-organized hot spots</strong> with ion temperature >100 keV for 40–60 μs. The system exhibits:</p>
             <ul>
                 <li>Coulomb coupling parameter Γ stabilizing at 170–190 (not collapsing!)</li>
                 <li>Coherence length ξ growing to 28–42 cm (chamber-filling)</li>
@@ -630,7 +630,7 @@
                 <tr>
                     <td>University of Iowa (Goree group)</td>
                     <td>Nano-dust inventors</td>
-                    <td>Not yet replied (expected positive)</td>
+                    <td>Contacted 30 Nov 2025 — awaiting reply</td>
                     <td>5–6 months</td>
                 </tr>
             </table>
@@ -645,6 +645,7 @@
                 <li><strong>Fractal surface:</strong> \(D_f = 2.7\) → 10× radiative cooling area</li>
                 <li><strong>Graphene shell:</strong> High ε = 0.95 → efficient IR emission</li>
                 <li><strong>BN core:</strong> High melting point (3000°C) + boron for p-B reactions</li>
+                <li><strong>Dust temperature stability:</strong> Dust temperature remains <2500 K even at Tᵢ = 120 keV due to fractal-enhanced radiative cooling and low thermal coupling (validated in simulation).</li>
             </ul>
 
             <h3>4.2 Resonance Locking</h3>
@@ -753,7 +754,7 @@ def adaptive_control(T_dust, Γ, ξ):
                         <li>"Looking for partner to build $90k prototype in 2026"</li>
                         <li>Includes simulation highlights + BOM</li>
                     </ul>
-                    <button onclick="selectOption(2)">📧 Send to Labs</button>
+                    <button onclick="selectOption(2)" id="sendLabsBtn">📧 Send to Labs</button>
                 </div>
             </div>
 
@@ -777,7 +778,9 @@ def adaptive_control(T_dust, Γ, ξ):
         <div style="text-align: center; margin-top: 50px; padding: 20px; color: #aaa; font-size: 0.9em;">
             <p>🌀 SODPF Research Initiative • Updated: December 1, 2025 • 10:23 UTC</p>
             <p>Simulation: 256³ PIC, 2.5M particles, 4h GPU • Prototype: $86–95k, 3–5 months</p>
-            <p>Next update upon decision →</p>
+            <p style="font-style: italic; color: #888; margin-top: 10px;">
+                All simulation results are preliminary and await experimental verification in 2026.
+            </p>
         </div>
     </div>
 
@@ -1124,6 +1127,40 @@ def adaptive_control(T_dust, Γ, ξ):
                     }
                 }
             });
+
+            // Add email template to button
+            document.getElementById('sendLabsBtn').onclick = function() {
+                const emailTemplate = `Subject: 40 μs self-organized p-¹¹B hot spot (Q≈8) predicted — $90k prototype proposal
+
+Dear Prof. [Name],
+
+We have completed high-fidelity 3D PIC simulations showing that 100 nm BN+graphene nano-dust in a helicon discharge with Schumann modulation can form a self-confined hot spot with Tᵢ > 120 keV for ~42 μs and Q ≈ 6–9.
+
+Full manuscript + code + $90k prototype BOM attached.
+
+We are looking for an experimental partner to build and test the cold-to-hot bridge in 2026.
+
+Would your group be interested in collaboration?
+
+Best regards,
+[Your name / 0penAGI Research Initiative]`;
+
+                if (confirm("Send this email to all 4 labs?\n\n(Email text will be copied to clipboard)")) {
+                    navigator.clipboard.writeText(emailTemplate).then(() => {
+                        const alertDiv = document.createElement('div');
+                        alertDiv.className = 'status-alert';
+                        alertDiv.innerHTML = `
+                            📧 EMAIL TEMPLATE COPIED TO CLIPBOARD<br>
+                            Send to: Max-Planck, Kyushu, MIPT, Iowa<br>
+                            Subject: "40 μs self-organized p-¹¹B hot spot (Q≈8) predicted — $90k prototype proposal"<br>
+                            <br>
+                            <small>Email template ready to paste into your email client</small>
+                        `;
+                        document.querySelector('.container').insertBefore(alertDiv, document.querySelector('h1'));
+                        window.scrollTo(0, 0);
+                    });
+                }
+            };
         });
 
         // Option selection
@@ -1138,12 +1175,8 @@ def adaptive_control(T_dust, Γ, ξ):
                     ETA: 15 minutes • Will post link when complete
                 `;
             } else if (opt === 2) {
-                alertDiv.innerHTML = `
-                    📧 LAB OUTREACH LAUNCHED<br>
-                    Sending to: Max-Planck, Kyushu, MIPT, Iowa<br>
-                    Subject: "40 μs self-organized p-¹¹B hotspot with Q≈8"<br>
-                    Expected replies: 24–72 hours
-                `;
+                // Handled by button-specific function
+                return;
             } else if (opt === 3) {
                 alertDiv.innerHTML = `
                     ⚡ PARALLEL EXECUTION: BOTH<br>
