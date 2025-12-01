@@ -1,344 +1,186 @@
-# SODPF: Self-Organizing Dusty Plasma Fusion
+**Pulsed Nano-Dust Hot Spot Fusion via Self-Organization**
 
  [PAGE](https://0penagi.github.io/SODPF-Self-Organizing-Dusty-Plasma-Fusion/)
 
-
-**End-to-end machine learning control system for resonant dusty plasma fusion experiments**
 
 [![Live Demo](https://img.shields.io/badge/LIVE-DEMO-blue?style=for-the-badge)](https://0penagi.github.io/SODPF-Self-Organizing-Dusty-Plasma-Fusion/)
 [![ML Controller](https://img.shields.io/badge/ML-Controller-purple?style=for-the-badge)](ML.py)
 [![Paper](https://img.shields.io/badge/Research-Paper-green?style=for-the-badge)](index.html)
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
+[![Status](https://img.shields.io/badge/status-experimental-orange)](https://0penagi.github.io/SODPF-Self-Organizing-Dusty-Plasma-Fusion/#status)
 
-> **Reality Breach Protocol**: Breaking through experimental complexity with adaptive ML control
 
 ## 📖 Overview
 
-**SODPF** (Self-Organizing Dusty Plasma Fusion) is a novel approach to fusion energy that leverages:
-- **Nano-dust self-organization** (BN particles, fractal D≈2.7)
-- **Pulsed helicon plasma** with Schumann resonance modulation (7.83 Hz)
-- **Machine learning control** for real-time resonance optimization
-- **Hot spot formation** with Tᵢ > 100 keV predicted by 3D PIC simulations
+This repository contains the full implementation and documentation for the **SODPF (Self-Organizing Dusty Plasma Fusion)** project, which investigates pulsed plasma fusion using nano-dust hot spots. The approach leverages self-organizing dusty plasma phenomena with Schumann resonance modulation to achieve localized fusion conditions.
 
-This repository contains:
-- ✅ **Research paper** (HTML with interactive visualizations)
-- ✅ **Full ML control system** (PyTorch implementation)
-- ✅ **Simulation environment** with 12 sensor streams
-- ✅ **Experimental protocol** (3-gate verification)
-- ✅ **$90k prototype design** and 6-month timeline
+**Live Status Page:** [https://0penagi.github.io/SODPF-Self-Organizing-Dusty-Plasma-Fusion/#status](https://0penagi.github.io/SODPF-Self-Organizing-Dusty-Plasma-Fusion/#status)
 
-## 🔬 Key Results from Simulation
+## 🎯 Key Features
 
-| Parameter | Value | Significance |
-|-----------|-------|--------------|
-| Coulomb parameter Γ | 170-190 | Self-organization threshold |
-| Hot spot temperature | 120-150 keV | p-¹¹B fusion possible |
-| Pulse duration | 42 ± 8 μs | Dust survival enabled |
-| ML detection AUC | 0.94 | Rare event detection |
-| Dust survival (ML) | 82.3% ± 3.1% | vs 45.7% baseline |
-| Estimated Q | 6-9 per pulse | Energy positive |
-
-## 🧠 ML Control System Architecture
-
-### Real-Time Processing Pipeline
-```python
-┌─────────────────────────────────────────┐
-│       12 Sensor Streams @ 1 MHz         │
-│  • B-field (500 kHz) │ E-field (500 kHz)│
-│  • Plasma density (100 kHz)             │
-│  • Electron/ion temperature (10 kHz)    │
-│  • Dust tracking (1 kHz, 3D)           │
-│  • Acoustic/RF noise (1 MHz)           │
-└─────────────────────────────────────────┘
-                    ↓
-┌─────────────────────────────────────────┐
-│   Feature Extractor (512 dimensions)    │
-│  • Time-domain statistics               │
-│  • Frequency analysis (FFT)             │
-│  • Cross-sensor correlations            │
-│  • Phase synchronization                │
-└─────────────────────────────────────────┘
-                    ↓
-┌─────────────────────────────────────────┐
-│  Neural Controller (LSTM + Attention)   │
-│  • Bidirectional LSTM: 256 hidden       │
-│  • Multi-head attention: 8 heads        │
-│  • Safety layer with hard constraints   │
-│  • PPO reinforcement learning           │
-└─────────────────────────────────────────┘
-                    ↓
-┌─────────────────────────────────────────┐
-│       4 Control Outputs                 │
-│  • RF power (0-2 kW)                    │
-│  • Pulse width (10-100 μs)              │
-│  • Modulation frequency (7.73-7.93 Hz)  │
-│  • Phase shift (0-360°)                 │
-└─────────────────────────────────────────┘
-```
-
-## 🚀 Quick Start
-
-### Installation
-```bash
-# Clone repository
-git clone https://github.com/0penAGI/SODPF-Self-Organizing-Dusty-Plasma-Fusion.git
-cd SODPF-Self-Organizing-Dusty-Plasma-Fusion
-
-# Install dependencies
-pip install torch numpy matplotlib
-
-# Run the ML control system
-python ML.py
-
-# Or train a new controller
-python ML.py --train
-```
-
-### Basic Usage
-```python
-from ML import RealTimePlasmaController, PlasmaSensorSimulator
-
-# Initialize controller
-controller = RealTimePlasmaController(model_path='plasma_control_model.pt')
-
-# Simulate sensor data
-sensor_sim = PlasmaSensorSimulator()
-
-# Run control loop
-for step in range(1000):
-    # Get sensor readings
-    readings = sensor_sim.read_sensors(controller.system_state)
-    
-    # Update controller
-    controller.update_sensors(readings)
-    
-    # Get optimal control action
-    controls = controller.get_control_action()
-    
-    # Emergency stop if needed
-    if controller.system_state['T_dust'] > 2500:
-        controls = controller.emergency_stop()
-```
-
-## 📊 Interactive Paper
-
-Open `index.html` in any modern browser to view the complete research paper with:
-
-- **Live charts** showing Γ evolution, ROC curves, temperature profiles
-- **Interactive tables** with simulation parameters
-- **Mathematical equations** rendered with MathJax
-- **Experimental protocol** with success criteria
-- **Budget breakdown** and timeline
-
-**Live version:** https://0penagi.github.io/SODPF-Self-Organizing-Dusty-Plasma-Fusion/
-
-## 🔧 ML System Components
-
-### 1. Sensor Simulation (`PlasmaSensorSimulator`)
-```python
-# Simulates 12 diagnostic sensors
-sensors = {
-    'B_field': {'freq': 500e3, 'noise': 0.1},
-    'E_field': {'freq': 500e3, 'noise': 0.15},
-    'plasma_density': {'freq': 100e3, 'trend': 1e19},
-    # ... 9 more sensors
-}
-```
-
-### 2. Feature Extraction (`FeatureExtractor`)
-- **512-dimensional feature vector**
-- Time-domain statistics (mean, std)
-- Frequency analysis (FFT peaks)
-- Cross-sensor correlations
-- Dust clustering metrics
-- Hot spot indicators
-
-### 3. Neural Controller (`PlasmaControlNet`)
-```python
-class PlasmaControlNet(nn.Module):
-    def __init__(self):
-        self.lstm = nn.LSTM(512, 256, bidirectional=True)
-        self.attention = nn.MultiheadAttention(512, 8)
-        self.policy_net = nn.Sequential(...)
-        self.safety_layer = SafetyLayer()
-```
-
-### 4. Reinforcement Learning (`PPOAgent`)
-- **Proximal Policy Optimization** with safety constraints
-- **Reward function**: `R = 0.5M + 0.3S + 0.2H - 0.01E`
-  - M = dust mass preservation
-  - S = cluster stability  
-  - H = hot spot formation
-  - E = energy consumption
-
-### 5. Safety System (`SafetyLayer`)
-```python
-# Hard constraints
-max_rf_power = 2.0  # kW
-max_pulse_width = 100.0  # μs
-max_freq_deviation = 0.1  # Hz from 7.83
-max_phase_step = 10.0  # degrees per step
-
-# Thermal protection
-if T_dust > 2500:  # K
-    rf_power *= 0.5  # Reduce power
-```
-
-## 🧪 Experimental Protocol (3 Gates)
-
-### Gate 0: Baseline Operation
-- **Goal**: Dust injection & basic plasma
-- **Success**: Visible dust clouds, Γ > 50
-- **ML role**: Baseline calibration
-
-### Gate 1: Dust Survival
-- **Goal**: Dust in warm plasma (30-50 eV)
-- **Success**: >80% mass retention for >1 s
-- **ML role**: Real-time mass estimation
-
-### Gate 2: Clustering
-- **Goal**: Void formation & self-organization
-- **Success**: Voids observed, ξ > 10 cm
-- **ML role**: Automatic void detection
-
-### Gate 3: Hot Spot Detection
-- **Goal**: Localized energy concentration
-- **Success**: Tᵢ > 1 keV for >1 μs
-- **ML role**: CNN-LSTM triggering
-
-## 💰 Prototype Specifications ($90k)
-
-| Component | Specification | Cost |
-|-----------|---------------|------|
-| Vacuum chamber | 40×40×40 cm, 10⁻⁶ Torr | $25k |
-| Pulsed RF | 13.56 MHz, 2 kW, 50 μs pulses | $15k |
-| Diagnostics | Phantom VEO 410, HR4000 spectrometer | $20k |
-| ML hardware | NVIDIA Jetson AGX Orin (32 TOPS) | $5k |
-| Dust injector | Piezo-electric, 200-500 nm BN | $5k |
-| Data pipeline | 10 GbE real-time processing | $10k |
-| **Total** | **Complete experimental setup** | **$90k** |
-
-## 📈 Performance Metrics
-
-### ML System Performance
-- **Inference latency**: < 2 ms (real-time capable)
-- **Detection accuracy**: 94% AUC at 1% FPR
-- **Noise immunity**: +14.4 dB PSNR improvement
-- **Training convergence**: 400k steps (stable policy)
-- **Sim-to-real transfer**: Gradual adaptation strategy
-
-### Physics Predictions
-- **Hot spot diameter**: 3-4 cm (simulation)
-- **Peak ion temperature**: 120-150 keV
-- **Fusion reactions/pulse**: 8×10¹⁷ (p-¹¹B)
-- **Alpha energy/pulse**: 11.5 kJ ± 3 kJ
-- **Energy gain Q**: 6-9 per pulse
-
-## 🔬 Scientific Innovation
-
-### 1. **Pulsed Operation for Dust Survival**
-```python
-# Heat balance during pulse
-dT_d/dt = (P_in - σ_SB·ε·A_fractal·T_d⁴) / (m_d·c_p)
-
-# Sputtering loss rate  
-dm/dt = -Y(E)·Γ_i·m_atom
-```
-- **50 μs pulses** allow dust survival despite high T
-- **10 ms off-time** for radiative cooling
-- **Fractal surfaces** (D≈2.7) enhance cooling 10×
-
-### 2. **Schumann Resonance Coupling**
-- **7.83 Hz modulation** matches Earth-ionosphere cavity
-- **Resonance enhancement** of plasma oscillations
-- **Low-frequency control** reduces power requirements
-
-### 3. **ML as Experimental Accelerator**
-- **Noise immunity**: Detects signals 10× below noise floor
-- **Adaptive control**: Adjusts to changing plasma conditions
-- **Rapid optimization**: Explores parameter space faster than manual tuning
-- **Real-time feedback**: Enables closed-loop resonance enhancement
-
-## 🚨 Safety Considerations
-
-### System Safety
-```python
-# Emergency stop conditions
-if T_dust > 2500:  # Dust overheating
-    emergency_stop()
-    
-if Gamma > 250:    # Plasma instability
-    reduce_power(0.3)
-    
-if vacuum > 1e-4:  # Pressure too high
-    shutdown_rf()
-```
-
-### Experimental Safety
-- **BN dust toxicity**: HEPA filtration required
-- **High-voltage pulsed RF**: Isolated systems with interlocks
-- **Neutron/alpha production**: Shielding and monitoring
-- **ML safety**: Hard constraints + human oversight
+- **Pulsed Operation**: 50-100 μs pulses with 10 ms cooling intervals
+- **Nano-dust Enhanced**: Boron nitride particles (100-300 nm) with graphene coatings
+- **Self-Organization**: Coulomb coupling (Γ ≈ 180) leads to vortex formation
+- **p-¹¹B Fusion**: Proton-boron-11 aneutronic fusion reactions
+- **ML Control**: Reinforcement learning system for real-time plasma stabilization
 
 ## 📁 Repository Structure
 
 ```
 SODPF-Self-Organizing-Dusty-Plasma-Fusion/
-├── index.html              # Research paper (interactive)
-├── ML.py                   # Complete ML control system
-├── README.md               # This file
-├── requirements.txt        # Python dependencies
-├── plasma_control_model.pt # Pre-trained model (optional)
+├── SODPF_Paper.html          # Complete research paper (HTML)
+├── ML.py                     # Machine learning control system
+├── README.md                 # This file
+├── requirements.txt          # Python dependencies
 
 ```
 
-## 🎯 Getting Involved
+## 🔬 Core Components
 
-### For Researchers
-1. **Review the paper**: `index.html` contains complete methodology
-2. **Run simulations**: `python ML.py` to test the control system
-3. **Adapt for your experiment**: Modify sensor models for your setup
-4. **Collaborate**: Contact thedubsty@gmail.com
+### 1. Physics Simulation
+3D Particle-in-Cell (PIC) simulations predict:
+- Hot spot formation with Tᵢ > 100 keV
+- Coulomb parameter stabilization at Γ ≈ 170-190
+- Fusion energy gain Q ≈ 6-9 per pulse
+- Dust survival via pulsed operation and radiative cooling
 
-### For Developers
-1. **Extend the ML system**: Add new sensor types or control strategies
-2. **Improve training**: Experiment with different RL algorithms
-3. **Create visualization tools**: Real-time dashboards for experiments
-4. **Optimize for hardware**: Deploy on FPGA or specialized hardware
+### 2. Machine Learning Control (`ML.py`)
+**Purpose**: Real-time stabilization and optimization of pulsed plasma parameters
 
-### For Experimentalists
-1. **Follow 3-gate protocol**: Validate each stage before proceeding
-2. **Use ML as assistant**: Human-in-the-loop control recommended
-3. **Document everything**: Compare predictions with actual results
-4. **Share data**: Contribute to training dataset improvement
+**Architecture**:
+- **LSTM + Attention Neural Network**: Processes 512 sensor features
+- **PPO Reinforcement Learning**: Trains on simulated plasma dynamics
+- **Safety Layer**: Hard-coded constraints for system protection
+- **Feature Extraction**: 12 virtual sensors → 512-dimensional features
+
+**Key Features**:
+- **4 Control Outputs**: RF power, pulse width, modulation frequency, phase
+- **Safety Constraints**: T_dust < 2500K, Γ < 250, rate limiting
+- **Emergency Protocols**: Automatic shutdown on overheating
+- **Training Environment**: Simulated plasma with reward functions
+
+### 3. Experimental Protocol
+**Three-Gate Verification**:
+1. **Gate 0**: Cold dust injection (Tₑ < 10 eV)
+2. **Gate 1**: Warm plasma testing (Tₑ = 30-50 eV, dust survival)
+3. **Gate 2**: Pulsed helicon + dust clustering
+4. **Gate 3**: Hot spot detection (Tᵢ > 1 keV)
+
+**$90k Prototype**:
+- 40×40×40 cm vacuum chamber
+- 13.56 MHz pulsed RF generator (2 kW)
+- Helmholtz coils (B₀ = 0.3 T)
+- Nano-dust piezoelectric dispenser
+- Phantom VEO 410 fast camera (10⁶ fps)
+
+## 🚀 Getting Started
+
+### Prerequisites
+```bash
+Python 3.8+
+PyTorch 1.9+
+NumPy, Matplotlib
+CUDA-capable GPU (optional, for training)
+```
+
+### Installation
+```bash
+git clone https://github.com/0penAGI/SODPF-Self-Organizing-Dusty-Plasma-Fusion.git
+cd SODPF-Self-Organizing-Dusty-Plasma-Fusion
+pip install -r requirements.txt
+```
+
+### Running the ML Controller
+```python
+python ML.py
+```
+
+**Options**:
+- Train new controller: `y` (runs 50 episodes of PPO training)
+- Run simulation: `n` (executes real-time control simulation)
+
+### Viewing the Paper
+Open `SODPF_Paper.html` in any modern web browser to see:
+- Interactive charts of simulation results
+- Complete methodology and physics analysis
+- Experimental design and timeline
+- References and contact information
+
+## 📊 Results Summary
+
+### Simulation Predictions
+| Parameter | Value | Significance |
+|-----------|-------|--------------|
+| Pulse Duration | 50-100 μs | Limits heat flux to dust |
+| Pulse Period | 10 ms | Allows radiative cooling |
+| Peak Tᵢ | >120 keV | Enables p-¹¹B fusion |
+| Dust Temperature | <2500 K | Below BN sublimation |
+| Coulomb Γ | 170-190 | Self-organization threshold |
+| Fusion Q | 6-9 | Energy gain per pulse |
+
+### ML Control Performance
+- **Input Features**: 512 dimensions from 12 sensors
+- **Control Actions**: 4 parameters with safety constraints
+- **Training Time**: ~2 hours on RTX 4090
+- **Stability**: Maintains Γ within target range
+- **Safety**: Automatic emergency shutdown protocols
+
+## 📈 Project Status
+
+**Current Phase**: Simulation validation and ML controller training
+
+**Next Milestones**:
+1. Experimental hardware assembly (Gate 0)
+2. Cold plasma dust injection tests
+3. Warm plasma survival validation (Gate 1)
+4. Pulsed operation and clustering observation (Gate 2)
+
+**Timeline**: 6-month experimental verification plan outlined in paper
+
+## 🤝 Contributing
+
+We welcome contributions in:
+- Physics simulations and modeling
+- ML algorithm improvements
+- Experimental design and diagnostics
+- Data analysis and visualization
+
+**Steps**:
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## 📚 References
 
-1. Fortov, V. E., et al. "Complex (dusty) plasmas: Current status, open issues, perspectives." *Physics Reports* 421.1-2 (2005)
-2. Goree, J., et al. "Plasma crystal: Coulomb crystallization in a dusty plasma." *Physical Review Letters* 69.2 (1992)
-3. Schulman, J., et al. "Proximal policy optimization algorithms." *arXiv:1707.06347* (2017)
-4. Hora, H., et al. "Road map to clean energy using laser boron fusion." *Laser and Particle Beams* 35.4 (2017)
+Key papers cited in our research:
+1. Fortov et al., "Complex (dusty) plasmas" (2005)
+2. Goree et al., "Plasma crystal: Coulomb crystallization" (1992)
+3. Tsytovich et al., "From plasma crystals to inorganic living matter" (2007)
+4. Hora et al., "Road map to clean energy using laser boron fusion" (2017)
 
-## 📞 Contact & Collaboration
+## 📧 Contact
 
-**Lead Researcher**: thedubsty@gmail.com  
-**Repository**: https://github.com/0penAGI/SODPF-Self-Organizing-Dusty-Plasma-Fusion  
-**Live Paper**: https://0penagi.github.io/SODPF-Self-Organizing-Dusty-Plasma-Fusion/
+**Lead Researcher**: 0penAGI Collective  
+**Email**: [thedubsty@gmail.com](mailto:thedubsty@gmail.com)  
+**Repository**: [https://github.com/0penAGI/SODPF-Self-Organizing-Dusty-Plasma-Fusion](https://github.com/0penAGI/SODPF-Self-Organizing-Dusty-Plasma-Fusion)  
+**Status Page**: [https://0penagi.github.io/SODPF-Self-Organizing-Dusty-Plasma-Fusion](https://0penagi.github.io/SODPF-Self-Organizing-Dusty-Plasma-Fusion)
 
----
+## ⚠️ Disclaimer
 
-## ⚡ Reality Breach Protocol Status: **ACTIVE**
+This research presents simulation results and theoretical predictions. **All findings require experimental verification** via the gate-based protocol outlined in Section 4.3 of the paper. The ML controller (`ML.py`) is a simulation tool for future experimental integration, not a validated control system.
 
-**Mission**: Demonstrate that machine learning can control complex plasma systems in real-time, enabling experimental investigation of self-organizing fusion concepts that were previously too difficult to study.
+## 📄 License
 
-**Success Criteria**:
-- ✅ Complete ML system implemented and tested in simulation
-- ✅ 3-gate experimental protocol defined with clear metrics  
-- ✅ $90k prototype design ready for construction
-- 🚧 Experimental validation in progress (2026 target)
-
-**Join the breach**: Fork, experiment, collaborate. Let's see if dusty plasma wants to fuse.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-*"The most exciting phrase to hear in science, the one that heralds new discoveries, is not 'Eureka!' but 'That's funny...'"* - Isaac Asimov
+*"The most exciting phrase to hear in science, the one that heralds new discoveries, is not 'Eureka!' but 'That's funny...'" - Isaac Asimov*
+
+---
+
+**Last Updated**: December 2025  
+**Version**: 1.0  
+**Status**: 🔬 Active Research
