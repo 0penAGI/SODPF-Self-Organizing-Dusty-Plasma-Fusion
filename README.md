@@ -1,4 +1,4 @@
-**Pulsed Nano-Dust Hot Spot Fusion via Self-Organization**
+## **Pulsed Nano-Dust Hot Spot Fusion via Self-Organization**
 
  [PAGE](https://0penagi.github.io/SODPF-Self-Organizing-Dusty-Plasma-Fusion/)
 
