@@ -1,0 +1,91 @@
+# SODPF: Self-Organizing Dusty Plasma Fusion
+# ML Control System Requirements
+
+torch>=2.0.0
+numpy>=1.24.0
+matplotlib>=3.7.0
+scipy>=1.10.0
+scikit-learn>=1.2.0
+pandas>=2.0.0
+tqdm>=4.65.0
+h5py>=3.8.0
+pyyaml>=6.0
+seaborn>=0.12.0
+plotly>=5.14.0
+kaleido>=0.2.0  # For plotly static export
+
+# For real-time control (optional)
+pyserial>=3.5
+pynput>=1.7.0  # For keyboard control
+opencv-python>=4.7.0  # For image processing
+PyOpenGL>=3.1.0  # For 3D visualization
+pygame>=2.4.0  # For GUI
+
+# For reinforcement learning
+gym>=0.26.0
+stable-baselines3>=2.0.0
+ray[rllib]>=2.5.0
+
+# For neural network visualization
+torchviz>=0.0.2
+tensorboard>=2.13.0
+wandb>=0.15.0  # Weights & Biases for experiment tracking
+
+# For physics simulation (PIC)
+numba>=0.57.0
+cupy-cuda11x>=12.0.0  # GPU acceleration (optional)
+
+# For data acquisition simulation
+pydaqmx>=0.5.0  # NI DAQ simulation
+
+# For web interface (optional)
+flask>=2.3.0
+flask-socketio>=5.3.0
+dash>=2.11.0
+dash-bootstrap-components>=1.4.0
+
+# Development tools
+black>=23.0.0
+flake8>=6.0.0
+pytest>=7.3.0
+jupyter>=1.0.0
+ipython>=8.12.0
+notebook>=6.5.0
+
+# Documentation
+sphinx>=7.0.0
+sphinx-rtd-theme>=1.2.0
+nbsphinx>=0.9.0
+
+# System utilities
+psutil>=5.9.0
+gpustat>=1.0.0
+rich>=13.4.0
+
+# Version specific for reproducibility
+# (These versions are known to work together)
+torchvision>=0.15.0
+torchaudio>=2.0.0
+transformers>=4.30.0  # For pretrained models if needed
+
+# Optional: For advanced ML architectures
+pytorch-lightning>=2.0.0
+torchmetrics>=1.0.0
+
+# Optional: For Bayesian optimization
+botorch>=0.8.0
+gpytorch>=1.10.0
+
+# Optional: For distributed training
+accelerate>=0.20.0
+deepspeed>=0.9.0
+
+# Platform specific (comment out if not needed)
+# For Windows:
+# pywin32>=305
+
+# For Linux:
+# python-xlib>=0.33  # For X11 control
+
+# For macOS:
+# pyobjc>=9.2  # For macOS system integration
