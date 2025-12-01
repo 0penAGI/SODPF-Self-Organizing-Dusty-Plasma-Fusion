@@ -32,7 +32,7 @@ SODPF-Self-Organizing-Dusty-Plasma-Fusion/
 ├── ML.py                     # Machine learning control system
 ├── README.md                 # This file
 ├── requirements.txt          # Python dependencies
-
+├── reactor.JPG               # Conceptual Design
 ```
 
 ## 🔬 Core Components
