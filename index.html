@@ -159,7 +159,7 @@
         
         .reactor-image {
             width: 100%;
-            max-width: 500px;
+            max-width: 600px;
             margin: 20px auto;
             display: block;
             border: 1px solid var(--figure-border);
@@ -337,6 +337,35 @@
             border: 1px solid #dee2e6;
             vertical-align: top;
         }
+        
+        .frequency-diagram {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: monospace;
+            font-size: 10pt;
+            line-height: 1.4;
+        }
+        
+        .coherence-warning {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-size: 10pt;
+        }
+        
+        .coherence-success {
+            background: #d1e7dd;
+            border-left: 4px solid #198754;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-size: 10pt;
+        }
     </style>
 </head>
 <body>
@@ -457,18 +486,52 @@
             <div class="figure-caption">Coulomb parameter Γ(t) during the compression cycle. The stepped increases correspond to resonant excitation phases, reaching Γ = 170–190 at compression peak (t = 8 ms). XDUST stabilization reduces fluctuations by approximately 30% compared to baseline.</div>
         </div>
         
-        <p>The resonant compression protocol follows a hierarchical frequency structure:</p>
+        <h3>3.2 Multi-Frequency Resonance Protocol</h3>
         
-        <ol>
-            <li>7.83 Hz: Global phase synchronization (Schumann resonance reference)</li>
-            <li>1–3 kHz: Dust-acoustic wave excitation (transverse compression)</li>
-            <li>50–100 kHz: Ion-acoustic wave preparation (plasma background)</li>
-            <li>13.56 MHz: Helicon wave generation (base plasma production)</li>
-        </ol>
-        
-        <p>Compression pulses (50 μs duration) are triggered when dust lattice oscillation amplitude reaches 30% of the inter-particle distance. XDUST composites reduce coherence buildup time from 5 ms to 3–4 ms through charge stabilization.</p>
-        
-        <h3>3.2 Charge Stability Enhancement</h3>
+        <div class="frequency-diagram">
+            <strong>Frequency Hierarchy for Coherent Compression:</strong><br>
+            7.83 Hz (External phase reference / "Schumann" oscillator) → Global phase synchronization<br>
+            1–3 kHz (Dust-acoustic) → Transverse excitation<br>
+            50–100 kHz (Ion-acoustic) → Plasma background preparation<br>
+            13.56 MHz (Helicon) → Base plasma generation<br>
+            <br>
+            <strong>Trigger condition:</strong> A_transverse ≥ 0.3×a₀ (a₀ ≈ 80 μm)
+        </div>
+
+        <table>
+            <tr>
+                <th>Resonance Parameter</th>
+                <th>Value</th>
+                <th>Physical Role</th>
+            </tr>
+            <tr>
+                <td>Dust lattice wave frequency</td>
+                <td>1.2–2.8 kHz</td>
+                <td>Transverse mode excitation</td>
+            </tr>
+            <tr>
+                <td>Amplitude threshold</td>
+                <td>24 μm (30% of a₀)</td>
+                <td>Nonlinear regime trigger</td>
+            </tr>
+            <tr>
+                <td>Coherence buildup time</td>
+                <td>5–8 ms</td>
+                <td>Phase synchronization period</td>
+            </tr>
+            <tr>
+                <td>Main pulse duration</td>
+                <td>50 μs</td>
+                <td>Compression/heating phase</td>
+            </tr>
+            <tr>
+                <td>Effective hot spot time</td>
+                <td>50–100 ns</td>
+                <td>Fusion window per pulse</td>
+            </tr>
+        </table>
+
+        <h3>3.3 Charge Stability Enhancement</h3>
         
         <div class="figure">
             <div class="figure-title">Figure 2: Dust Charge Fluctuation Comparison</div>
@@ -486,7 +549,7 @@
             <div class="equation-number">(5)</div>
         </div>
         
-        <h3>3.3 Fusion Performance Parameters</h3>
+        <h3>3.4 Fusion Performance Parameters</h3>
         
         <table>
             <tr>
@@ -539,7 +602,7 @@
             </tr>
         </table>
         
-        <h3>3.4 Temporal Fusion Power Profile</h3>
+        <h3>3.5 Temporal Fusion Power Profile</h3>
         
         <div class="figure">
             <div class="figure-title">Figure 3: Alpha Power Output During Compression Pulse</div>
@@ -559,7 +622,7 @@
         
         <p>where \( \langle \sigma v \rangle \approx 8 \times 10^{-27} \, \text{m}^3/\text{s} \) at 120 keV [11], \( V \approx 10^{-8} \, \text{m}^3 \), and \( \tau_{\text{fusion}} = 50\text{–}100 \, \text{ns} \).</p>
         
-        <h3>3.5 Energy Gain Evolution</h3>
+        <h3>3.6 Energy Gain Evolution</h3>
         
         <div class="figure">
             <div class="figure-title">Figure 4: Q-factor Evolution During Operation</div>
@@ -645,7 +708,7 @@
         
         <div class="figure">
             <div class="figure-title">Figure 5: Experimental Setup Schematic</div>
-            <img src="https://via.placeholder.com/600x400/CCCCCC/666666?text=Experimental+Setup+Schematic" alt="Experimental setup schematic" class="reactor-image">
+            <img src="reactor.JPG" alt="Experimental setup schematic" class="reactor-image">
             <div class="figure-caption">Schematic of the experimental setup showing (1) vacuum chamber, (2) RF antenna system, (3) XDUST dispenser, (4) laser scattering diagnostics, (5) magnetic coils, and (6) data acquisition system.</div>
         </div>
         
@@ -767,6 +830,10 @@
         
         <h3>5.2 Decoherence Time Budget Analysis</h3>
         
+        <div class="coherence-warning">
+            <strong>Fundamental Challenge:</strong> Dusty plasma is a dissipative system. Every collision, every charge fluctuation, every thermal gradient causes phase loss. The greater the number of particles involved (10²⁰), the faster coherence collapses if not actively managed.
+        </div>
+        
         <div class="figure">
             <div class="figure-title">Figure 6: Decoherence Time Scale Comparison</div>
             <canvas id="decoherenceComparisonChart"></canvas>
@@ -812,6 +879,11 @@
         </div>
         
         <p>where τ<sub>burn</sub> ≈ 30–50 ns (main pulse phase) and τ<sub>cool</sub> ≈ 100–200 ns (radiative cooling). With XDUST, τ<sub>dec</sub> becomes the limiting factor at 50–100 ns.</p>
+        
+        <div class="coherence-success">
+            <strong>Key Insight:</strong> We are not claiming to "hold ions for 50 ns." We are claiming to <strong>hold synchronized ions for 50–100 ns</strong>. This distinction is crucial for physical accuracy.<br><br>
+            <strong>Implication:</strong> τ_fusion = min(τ_confinement, τ_dec) ≈ 50–100 ns sets the fundamental limit for each resonant pulse.
+        </div>
         
         <h3>5.4 Comparison with Alternative Approaches</h3>
         
