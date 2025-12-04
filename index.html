@@ -410,7 +410,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background: 
+            background:
                 radial-gradient(circle at 30% 50%, rgba(0,0,0,0.8) 2px, transparent 3px),
                 radial-gradient(circle at 50% 50%, rgba(0,0,0,0.8) 2px, transparent 3px),
                 radial-gradient(circle at 70% 50%, rgba(0,0,0,0.8) 2px, transparent 3px);
@@ -421,7 +421,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background: 
+            background:
                 radial-gradient(circle at 25% 40%, rgba(255,0,0,0.6) 4px, transparent 5px),
                 radial-gradient(circle at 45% 60%, rgba(255,0,0,0.6) 4px, transparent 5px),
                 radial-gradient(circle at 65% 40%, rgba(255,0,0,0.6) 4px, transparent 5px),
@@ -434,7 +434,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background: 
+            background:
                 radial-gradient(circle at 40% 50%, rgba(0,0,255,0.3) 30px, transparent 31px),
                 radial-gradient(circle at 60% 50%, rgba(0,0,255,0.3) 40px, transparent 41px);
             animation: float 4s infinite ease-in-out;
@@ -444,7 +444,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background: 
+            background:
                 linear-gradient(45deg, transparent 49%, rgba(255,255,0,0.8) 50%, transparent 51%),
                 linear-gradient(-45deg, transparent 49%, rgba(255,255,0,0.8) 50%, transparent 51%);
             background-size: 20px 20px;
@@ -608,12 +608,7 @@
         
         <div class="figure">
             <div class="figure-title">Figure 1: SODPF Concept Schematic</div>
-            <div class="concept-image">
-                <div class="cnts"></div>
-                <div class="alpha-emitters"></div>
-                <div class="plasma-cloud"></div>
-                <div class="strain-lines"></div>
-            </div>
+            <img src="reactor.JPG" alt="Experimental SODPF Reactor" class="reactor-image">
             <div class="figure-caption">
                 <strong>SODPF Heterostructure System</strong><br>
                 Ti-W Matrix with embedded:<br>
@@ -1699,13 +1694,13 @@
                 options: {
                     ...chartOptions,
                     scales: {
-                        x: { 
-                            ...chartOptions.scales.x, 
+                        x: {
+                            ...chartOptions.scales.x,
                             title: { display: true, text: 'Temperature T (K)' },
                             type: 'logarithmic'
                         },
-                        y: { 
-                            ...chartOptions.scales.y, 
+                        y: {
+                            ...chartOptions.scales.y,
                             title: { display: true, text: 'SNR = 5 eV / k_B T' },
                             type: 'logarithmic'
                         }
@@ -1741,12 +1736,12 @@
                 options: {
                     ...chartOptions,
                     scales: {
-                        x: { 
-                            ...chartOptions.scales.x, 
+                        x: {
+                            ...chartOptions.scales.x,
                             title: { display: true, text: 'Localization Length Ratio ℓ_loc/ξ' }
                         },
-                        y: { 
-                            ...chartOptions.scales.y, 
+                        y: {
+                            ...chartOptions.scales.y,
                             title: { display: true, text: 'Enhancement Factor' },
                             type: 'logarithmic'
                         }
@@ -1765,13 +1760,13 @@
                 options: {
                     ...chartOptions,
                     scales: {
-                        x: { 
-                            ...chartOptions.scales.x, 
+                        x: {
+                            ...chartOptions.scales.x,
                             title: { display: true, text: 'Temperature (K)' },
                             type: 'logarithmic'
                         },
-                        y: { 
-                            ...chartOptions.scales.y, 
+                        y: {
+                            ...chartOptions.scales.y,
                             title: { display: true, text: 'Required Q-factor' },
                             type: 'logarithmic'
                         }
@@ -1797,12 +1792,12 @@
                 options: {
                     ...chartOptions,
                     scales: {
-                        x: { 
-                            ...chartOptions.scales.x, 
+                        x: {
+                            ...chartOptions.scales.x,
                             title: { display: true, text: 'Coulomb Barrier Reduction (%)' }
                         },
-                        y: { 
-                            ...chartOptions.scales.y, 
+                        y: {
+                            ...chartOptions.scales.y,
                             title: { display: true, text: 'Tunneling Probability Enhancement' },
                             type: 'logarithmic'
                         }
@@ -1831,12 +1826,12 @@
                 options: {
                     ...chartOptions,
                     scales: {
-                        x: { 
-                            ...chartOptions.scales.x, 
+                        x: {
+                            ...chartOptions.scales.x,
                             title: { display: true, text: 'log₁₀(Q-factor)' }
                         },
-                        y: { 
-                            ...chartOptions.scales.y, 
+                        y: {
+                            ...chartOptions.scales.y,
                             title: { display: true, text: 'log₁₀(Energy [eV])' }
                         }
                     }
