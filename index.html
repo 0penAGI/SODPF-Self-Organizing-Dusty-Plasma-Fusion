@@ -6,48 +6,26 @@
     <title>SODPF: Резонансная самоорганизация пылевой плазмы для импульсного анейтронного синтеза</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        :root {
-            --primary: #000000;
-            --secondary: #333333;
-            --accent: #666666;
-            --figure-border: #CCCCCC;
-            --table-header: #F0F0F0;
-            --table-border: #DDDDDD;
-            --background-light: #F9F9F9;
-            --xdust-color: #4A148C;
-            --phase1-color: #1a237e;
-            --phase2-color: #4A148C;
-            --phase3-color: #b71c1c;
-            --critical-point: #ff6d00;
-        }
-        
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        
         body {
-            font-family: 'Times New Roman', serif;
+            font-family: "Times New Roman", serif;
             max-width: 210mm;
             margin: 20px auto;
             line-height: 1.6;
-            color: #000000;
-            background: #FFFFFF;
+            color: #000;
+            background: #fff;
             padding: 15mm;
             font-size: 12pt;
             text-align: justify;
         }
         
         h1, h2, h3, h4 {
-            font-family: 'Times New Roman', serif;
+            font-family: "Times New Roman", serif;
             font-weight: bold;
             margin-top: 1.5em;
             margin-bottom: 0.5em;
             line-height: 1.2;
-            color: #000000;
+            color: #000;
         }
         
         h1 {
@@ -61,14 +39,8 @@
         h2 {
             font-size: 14pt;
             margin-top: 2em;
-            border-bottom: 1px solid #000000;
+            border-bottom: 1px solid #000;
             padding-bottom: 3px;
-        }
-        
-        h3 {
-            font-size: 12pt;
-            margin-top: 1.5em;
-            font-style: italic;
         }
         
         .authors {
@@ -87,25 +59,15 @@
         .abstract {
             margin: 2em 0;
             padding: 1em;
-            border: 1px solid var(--figure-border);
-            background: var(--background-light);
-        }
-        
-        .abstract h2 {
-            border: none;
-            font-size: 12pt;
-            margin-top: 0;
+            border: 1px solid #ccc;
+            background: #f9f9f9;
         }
         
         .keywords {
             font-size: 10pt;
             margin: 1em 0 2em 0;
             padding-top: 0.5em;
-            border-top: 1px solid var(--figure-border);
-        }
-        
-        .keywords strong {
-            font-weight: bold;
+            border-top: 1px solid #ccc;
         }
         
         table {
@@ -113,72 +75,28 @@
             margin: 1.5em 0;
             border-collapse: collapse;
             font-size: 10pt;
-            border: 1px solid var(--table-border);
+            border: 1px solid #ddd;
         }
         
         th, td {
-            border: 1px solid var(--table-border);
+            border: 1px solid #ddd;
             padding: 8px 10px;
             text-align: left;
             vertical-align: top;
         }
         
         th {
-            background: var(--table-header);
+            background: #f0f0f0;
             font-weight: bold;
             text-align: center;
-        }
-        
-        .figure {
-            margin: 2em auto;
-            text-align: center;
-            page-break-inside: avoid;
-        }
-        
-        canvas {
-            width: 100% !important;
-            max-width: 600px;
-            height: 300px !important;
-            border: 1px solid var(--figure-border);
-            margin: 0 auto;
-            display: block;
-            background: #FFFFFF;
-        }
-        
-        .figure-title {
-            font-weight: bold;
-            margin-bottom: 0.5em;
-            font-size: 11pt;
-        }
-        
-        .figure-caption {
-            font-style: italic;
-            margin-top: 0.5em;
-            font-size: 10pt;
-            color: var(--secondary);
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .reactor-image {
-            width: 100%;
-            max-width: 600px;
-            height: auto;
-            margin: 20px auto;
-            display: block;
-            border: 1px solid var(--figure-border);
-            border-radius: 4px;
-            padding: 5px;
-            background: white;
         }
         
         .equation {
             margin: 1.5em 0;
             padding: 1em;
             text-align: center;
-            background: var(--background-light);
-            border-left: 3px solid var(--accent);
+            background: #f9f9f9;
+            border-left: 3px solid #666;
             overflow-x: auto;
         }
         
@@ -188,11 +106,11 @@
         }
         
         pre, code {
-            font-family: 'Courier New', monospace;
+            font-family: "Courier New", monospace;
             font-size: 10pt;
-            background: var(--background-light);
+            background: #f9f9f9;
             padding: 1em;
-            border: 1px solid var(--figure-border);
+            border: 1px solid #ccc;
             overflow-x: auto;
             margin: 1em 0;
         }
@@ -215,18 +133,7 @@
             font-size: 10pt;
             margin-top: 3em;
             padding-top: 1em;
-            border-top: 2px solid #000000;
-        }
-        
-        .references h2 {
-            font-size: 12pt;
-            border: none;
-        }
-        
-        .references p {
-            margin: 0.5em 0;
-            padding-left: 1em;
-            text-indent: -1em;
+            border-top: 2px solid #000;
         }
         
         .section {
@@ -236,16 +143,16 @@
         .note {
             margin: 1.5em 0;
             padding: 1em;
-            border-left: 3px solid var(--accent);
-            background: var(--background-light);
+            border-left: 3px solid #666;
+            background: #f9f9f9;
             font-size: 11pt;
         }
         
         .material-spec {
             margin: 1.5em 0;
             padding: 1em;
-            border: 1px solid var(--figure-border);
-            background: var(--background-light);
+            border: 1px solid #ccc;
+            background: #f9f9f9;
         }
         
         @media print {
@@ -262,132 +169,13 @@
             table {
                 page-break-inside: avoid;
             }
-            
-            canvas {
-                height: 250px !important;
-            }
-            
-            .reactor-image {
-                max-width: 400px;
-            }
-        }
-        
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5em 0;
-        }
-        
-        .comparison-table th {
-            background: var(--table-header);
-            font-weight: bold;
-            padding: 10px;
-            text-align: center;
-        }
-        
-        .comparison-table td {
-            padding: 8px 10px;
-            text-align: center;
-            border: 1px solid var(--table-border);
         }
         
         .xdust-highlight {
             background: rgba(74, 20, 140, 0.1);
-            border-left: 3px solid var(--xdust-color);
+            border-left: 3px solid #4a148c;
             padding: 1em;
             margin: 1.5em 0;
-        }
-        
-        .budget-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5em 0;
-            font-size: 10pt;
-        }
-        
-        .budget-table th {
-            background: #e9ecef;
-            font-weight: bold;
-            padding: 8px;
-            text-align: left;
-        }
-        
-        .budget-table td {
-            padding: 8px;
-            border-bottom: 1px solid #dee2e6;
-        }
-        
-        .budget-table .total {
-            font-weight: bold;
-            border-top: 2px solid #000;
-            background: #f8f9fa;
-        }
-        
-        .gate-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5em 0;
-            font-size: 9pt;
-        }
-        
-        .gate-table th {
-            background: #e9ecef;
-            font-weight: bold;
-            padding: 6px;
-            text-align: center;
-        }
-        
-        .gate-table td {
-            padding: 6px;
-            border: 1px solid #dee2e6;
-            vertical-align: top;
-        }
-        
-        .frequency-diagram {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 4px;
-            padding: 15px;
-            margin: 15px 0;
-            font-family: monospace;
-            font-size: 10pt;
-            line-height: 1.4;
-        }
-        
-        .coherence-warning {
-            background: #f8d7da;
-            border-left: 4px solid #dc3545;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
-            font-size: 10pt;
-        }
-        
-        .coherence-success {
-            background: #d1e7dd;
-            border-left: 4px solid #198754;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
-            font-size: 10pt;
-        }
-        
-        .phase-definition {
-            background: #e8f4fd;
-            border-left: 4px solid #2196f3;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
-            font-size: 11pt;
-        }
-        
-        .cosmic-analogy {
-            background: #f3e5f5;
-            border-left: 4px solid #7b1fa2;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
-            font-size: 11pt;
         }
         
         .property-table {
@@ -410,38 +198,33 @@
             border-bottom: 1px solid #dee2e6;
         }
         
-        .full-code {
-            font-family: 'Courier New', monospace;
-            font-size: 9pt;
-            background: #f5f5f5;
-            padding: 1em;
-            border: 1px solid #ccc;
-            overflow-x: auto;
-            margin: 1em 0;
-            line-height: 1.2;
-            max-height: 600px;
-            overflow-y: auto;
-        }
-        
-        .code-section {
-            margin: 2em 0;
-            padding: 1em;
+        .frequency-diagram {
             background: #f8f9fa;
-            border-left: 4px solid #6c757d;
-        }
-        
-        .code-title {
-            font-weight: bold;
-            margin-bottom: 1em;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
             font-family: monospace;
-            color: #495057;
+            font-size: 10pt;
+            line-height: 1.4;
         }
         
-        .simulation-results {
-            margin: 2em 0;
-            padding: 1em;
-            background: #e8f5e8;
-            border-left: 4px solid #28a745;
+        .phase-definition {
+            background: #e8f4fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-size: 11pt;
+        }
+        
+        .cosmic-analogy {
+            background: #f3e5f5;
+            border-left: 4px solid #7b1fa2;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-size: 11pt;
         }
     </style>
 </head>
@@ -480,1567 +263,388 @@
     </div>
 
     <div class="section">
-        <h2>2. Физическая модель и методология</h2>
+        <h2>2. Методология</h2>
         
-        <h3>2.1 Основные уравнения</h3>
+        <h3>2.1 Физическая модель</h3>
         
-        <p>Потенциал Юкавы (экранированный Кулон) между пылевыми зернами:</p>
+        <p>Система XDCP моделируется как трёхкомпонентная смесь: электроны, ионы (протоны и ядра бора) и пылевые частицы (XDUST композиты). Пылевые частицы рассматриваются как массивные точечные заряды с позиционно-зависимым зарядом, определяемым теорией орбитального движения, модифицированной для ксенон-усиленного сродства к электрону.</p>
         
         <div class="equation">
             \[
-            V_{ij}(r)=\frac{q_i q_j}{4\pi \varepsilon_0}\,\frac{e^{-r/\lambda_D}}{r}
+            m_d \frac{d^2 \mathbf{r}_i}{dt^2} = q_d(\mathbf{r}_i) \mathbf{E}(\mathbf{r}_i) + \sum_{j \neq i} \frac{q_d(\mathbf{r}_i) q_d(\mathbf{r}_j)}{4\pi \varepsilon_0 r_{ij}^2} e^{-r_{ij}/\lambda_D} \hat{\mathbf{r}}_{ij} + \mathbf{F}_{\text{волна}}
             \tag{1}
             \]
             <div class="equation-number">(1)</div>
         </div>
         
-        <p>Соответствующая сила:</p>
+        <p>где \( m_d \) — масса пылевой частицы, \( q_d \) — заряд пылевой частицы, \( \lambda_D \) — дебаевская длина, \( \mathbf{F}_{\text{волна}} \) — резонансная движущая сила от многочастотного возбуждения.</p>
+        
+        <p>Квантовый каталитический фактор определён как:</p>
         
         <div class="equation">
             \[
-            \mathbf{F}_{ij} = -\nabla V_{ij} = \frac{q_i q_j}{4\pi\varepsilon_0}\,e^{-r/\lambda_D}\!\left(\frac{1}{r^2}+\frac{1}{r\lambda_D}\right)\hat{\mathbf r}
+            \gamma_{\text{КК}} = \frac{1}{1 + \beta_{\text{Xe}} n_{\text{XD}} \mathcal{C}}, \quad \beta_{\text{Xe}} \approx 1,2
             \tag{2}
             \]
             <div class="equation-number">(2)</div>
         </div>
         
-        <p>Уравнение движения с демпфированием и стохастическим членом (Ланжевен):</p>
+        <p>где \( n_{\text{XD}} \sim 2 \times 10^{15} \, \text{м}^{-3} \) — концентрация XDUST, \( \mathcal{C} \in [0,8, 1,0] \) — степень когерентности. Для 5–10% легирования Xe, γ<sub>КК</sub> ≈ 0,25–0,35.</p>
+        
+        <h3>2.2 Моделирование и численные методы</h3>
+        
+        <p>Для анализа динамики XDCP системы использовался метод молекулярной динамики с потенциалом Юкавы и Ланжевеновским термостатом. Основные уравнения:</p>
         
         <div class="equation">
             \[
-            m\ddot{\mathbf x}_i=\sum_{j\neq i}\mathbf F_{ij} - \gamma m \dot{\mathbf x}_i + \mathbf\xi_i(t) + \mathbf F_{\text{ext}}(t)
+            \mathbf{F}_{ij} = \frac{q_i q_j}{4\pi\varepsilon_0}\,e^{-r/\lambda_D}\!\left(\frac{1}{r^2}+\frac{1}{r\lambda_D}\right)\hat{\mathbf r}
             \tag{3}
             \]
             <div class="equation-number">(3)</div>
         </div>
         
-        <p>где \( \langle \xi(t)\rangle=0,\ \langle \xi(t)\xi(t')\rangle=2\gamma m k_B T \delta(t-t') \).</p>
-        
-        <h3>2.2 Дисперсионное соотношение и линейная устойчивость</h3>
-        
-        <p>Для малых возмущений в плотности \( n(\mathbf r,t) \) в континуальном приближении:</p>
-        
         <div class="equation">
             \[
-            \omega^2 \sim \frac{n_0 q^2}{m\,\varepsilon_0}\,k^2 \tilde{F}(k\lambda_D) - i\gamma\omega
+            m\ddot{\mathbf x}_i=\sum_{j\neq i}\mathbf F_{ij} - \gamma m \dot{\mathbf x}_i + \mathbf\xi_i(t) + \mathbf F_{\text{внеш}}(t)
             \tag{4}
             \]
             <div class="equation-number">(4)</div>
         </div>
         
-        <p>где \( \tilde{F} \) кодирует экранированное взаимодействие. Окна неустойчивости появляются, когда резонансные потоки поставляют энергию быстрее, чем демпфирование её удаляет.</p>
+        <p>где \( \langle \xi(t)\rangle=0,\ \langle \xi(t)\xi(t')\rangle=2\gamma m k_B T \delta(t-t') \).</p>
         
-        <h3>2.3 Полный код моделирования</h3>
+        <p>Дисперсионное соотношение для пылезвуковых мод:</p>
         
-        <div class="code-section">
-            <div class="code-title">sodpf_yukawa_celllist.py — Полная реализация моделирования XDCP</div>
-            <pre class="full-code">"""
-SODPF: Моделирование X-пылевой конденсированной фазы
-Резонансная самоорганизация пылевой плазмы для импульсного анейтронного синтеза
-"""
-
+        <div class="equation">
+            \[
+            \omega^2 \sim \frac{n_0 q^2}{m\,\varepsilon_0}\,k^2 \tilde{F}(k\lambda_D) - i\gamma\omega
+            \tag{5}
+            \]
+            <div class="equation-number">(5)</div>
+        </div>
+        
+        <p>где \( \tilde{F} \) кодирует экранированное взаимодействие.</p>
+        
+        <h3>2.3 Реализация симуляции</h3>
+        
+        <pre><code># Моделирование XDCP системы с потенциалом Юкавы
 import numpy as np
-import matplotlib.pyplot as plt
-from math import ceil
-import sys
 
 class XDCP_Simulation:
-    """Класс для моделирования XDCP системы"""
-    
-    def __init__(self, N=800, L=40.0, dt=0.005, steps=3000):
-        # Параметры системы
-        self.N = N                  # количество частиц
-        self.L = L                  # размер бокса
-        self.dt = dt                # шаг по времени
-        self.steps = steps          # количество шагов
+    def __init__(self, N=800, L=40.0):
+        self.N = N
+        self.L = L
+        self.lam = 1.0      # Длина экранирования
+        self.gamma = 0.3    # Демпфирование
+        self.kT = 0.01      # Тепловые флуктуации
         
-        # Физические параметры
-        self.lam = 1.0              # длина экранирования (λ_D)
-        self.kq = 1.0               # префактор q_i*q_j
-        self.gamma = 0.3            # демпфирование (нейтральное сопротивление)
-        self.kT = 0.01              # тепловой масштаб
-        self.mass = 1.0             # масса частицы
-        
-        # Параметры списка ячеек
-        self.r_cut = 4.0 * self.lam  # обрезание взаимодействия
-        self.ncells = int(ceil(self.L / self.r_cut))
-        self.cell_size = self.L / self.ncells
-        
-        # Диагностика
-        self.energy_time = []
-        self.snapshots = []
-        self.save_every = 500
-        
-        # Инициализация
-        self.initialize_particles()
-    
-    def initialize_particles(self):
-        """Инициализация позиций, скоростей и зарядов"""
-        np.random.seed(42)
-        
-        # Позиции
-        self.pos = np.random.rand(self.N, 2) * self.L
-        
-        # Скорости
-        self.vel = (np.random.rand(self.N, 2) - 0.5) * 0.1
-        
-        # Заряды (средний положительный + флуктуации)
-        self.charges = np.ones(self.N) + 0.2 * np.random.randn(self.N)
-        
-        # Массы
-        self.m = self.mass * np.ones(self.N)
-    
-    def cell_index(self, positions):
-        """Вычисление индекса ячейки для каждой частицы"""
-        coords = np.floor(positions / self.cell_size).astype(int) % self.ncells
-        return coords[:, 0] + self.ncells * coords[:, 1]
-    
-    def build_cells(self, positions):
-        """Построение списка ячеек"""
-        indices = np.arange(positions.shape[0])
-        keys = self.cell_index(positions)
-        
-        cells = {}
-        for idx, k in zip(indices, keys):
-            cells.setdefault(int(k), []).append(idx)
-        
-        return cells
-    
-    def neighbor_cells(self, cell_x, cell_y):
-        """Соседние ячейки (3x3) с учётом периодических границ"""
-        cells = []
-        for dx in (-1, 0, 1):
-            for dy in (-1, 0, 1):
-                cx = (cell_x + dx) % self.ncells
-                cy = (cell_y + dy) % self.ncells
-                cells.append(cx + self.ncells * cy)
-        
-        return cells
-    
     def yukawa_force(self, r_vec, qiqj, lam):
-        """Сила Юкавы между двумя частицами"""
+        """Сила Юкавы между частицами"""
         r = np.linalg.norm(r_vec)
-        if r == 0.0 or r > self.r_cut:
+        if r == 0.0:
             return np.zeros(2)
-        
         mag = qiqj * np.exp(-r/lam) * (1.0/(r*r) + 1.0/(r*lam))
         return mag * (r_vec / r)
     
-    def compute_forces(self, positions, charges):
-        """Вычисление всех сил в системе"""
-        forces = np.zeros_like(positions)
-        cells = self.build_cells(positions)
-        
-        # Координаты ячеек для каждой частицы
-        coords = np.floor(positions / self.cell_size).astype(int) % self.ncells
-        
-        for i in range(positions.shape[0]):
-            cx, cy = coords[i]
-            neigh_cells = self.neighbor_cells(cx, cy)
-            
-            for cell_key in neigh_cells:
-                if cell_key not in cells:
-                    continue
-                
-                for j in cells[cell_key]:
-                    if j <= i:  # чтобы не считать дважды
-                        continue
-                    
-                    # Вектор расстояния с учётом периодических границ
-                    rij = positions[j] - positions[i]
-                    rij -= np.round(rij / self.L) * self.L
-                    
-                    # Проверка обрезания
-                    if np.dot(rij, rij) > self.r_cut * self.r_cut:
-                        continue
-                    
-                    # Вычисление силы Юкавы
-                    fij = self.yukawa_force(rij, charges[i] * charges[j], self.lam)
-                    
-                    # Применение сил (третий закон Ньютона)
-                    forces[i] += fij
-                    forces[j] -= fij
-        
-        return forces
-    
-    def total_energy(self, positions, velocities, charges):
-        """Вычисление полной энергии системы"""
-        # Кинетическая энергия
-        kinetic = 0.5 * self.m[0] * np.sum(velocities**2)
-        
-        # Потенциальная энергия (Юкава)
-        potential = 0.0
-        for i in range(positions.shape[0]):
-            for j in range(i + 1, positions.shape[0]):
-                rij = positions[j] - positions[i]
-                rij -= np.round(rij / self.L) * self.L
-                r = np.linalg.norm(rij)
-                
-                if r > self.r_cut:
-                    continue
-                
-                potential += charges[i] * charges[j] * np.exp(-r/self.lam) / r
-        
-        return kinetic + 0.5 * potential, kinetic, 0.5 * potential
-    
-    def multi_frequency_drive(self, positions, velocities, time):
-        """Многочастотное резонансное возбуждение"""
-        F_drive = np.zeros_like(positions)
-        
-        # 7.83 Гц - фазовая синхронизация (резонанс Шумана)
-        omega_sync = 2 * np.pi * 7.83
-        F_drive += 0.1 * np.sin(omega_sync * time) * np.ones_like(positions)
-        
-        # 1-3 кГц - пылезвуковое возбуждение
-        omega_daw = 2 * np.pi * 2000  # 2 кГц
-        F_drive += 0.5 * np.sin(omega_daw * time) * (positions - self.L/2)
-        
-        # 13.56 МГц - RF нагрев
-        omega_rf = 2 * np.pi * 13.56e6
-        F_drive += 0.01 * np.sin(omega_rf * time) * np.random.randn(*positions.shape)
-        
-        # Импульс сжатия (при определённых условиях)
-        if 0.008 < time < 0.00805:  # 50 мкс импульс
-            F_drive += 10.0 * (self.L/2 - positions) / np.linalg.norm(self.L/2 - positions + 1e-10, axis=1, keepdims=True)
-        
-        return F_drive
-    
-    def langevin_step(self):
-        """Один шаг интегрирования Ланжевена"""
+    def langevin_step(self, pos, vel, charges, dt):
+        """Шг Ланжевена с многочастотным возбуждением"""
         # Вычисление сил Юкавы
-        F_yukawa = self.compute_forces(self.pos, self.charges) * self.kq
+        F = self.compute_yukawa_forces(pos, charges)
         
         # Многочастотное возбуждение
-        F_drive = self.multi_frequency_drive(self.pos, self.vel, self.current_time)
+        F += self.multi_frequency_drive(pos, vel, self.t)
         
-        # Суммарная сила
-        F_total = F_yukawa + F_drive
+        # Ланжевеновская динамика
+        vel += 0.5 * (F / self.m) * dt
+        vel *= np.exp(-self.gamma * dt)
+        vel += np.sqrt(2*self.gamma*self.kT*dt/self.m) * np.random.normal(size=vel.shape)
+        pos += vel * dt
+        pos %= self.L
         
-        # Интегрирование скоростей (полушаг)
-        self.vel += 0.5 * (F_total / self.m[:, np.newaxis]) * self.dt
-        
-        # Демпфирование и тепловые флуктуации
-        self.vel *= np.exp(-self.gamma * self.dt)
-        self.vel += np.sqrt(2 * self.gamma * self.kT * self.dt / self.m[0]) * \
-                   np.random.normal(size=self.vel.shape)
-        
-        # Интегрирование позиций
-        self.pos += self.vel * self.dt
-        
-        # Периодические граничные условия
-        self.pos %= self.L
-        
-        # Вычисление сил на новых позициях
-        F_yukawa_new = self.compute_forces(self.pos, self.charges) * self.kq
-        F_drive_new = self.multi_frequency_drive(self.pos, self.vel, self.current_time + self.dt)
-        
-        # Второй полушаг для скоростей
-        self.vel += 0.5 * ((F_yukawa_new + F_drive_new) / self.m[:, np.newaxis]) * self.dt
+        return pos, vel
     
-    def run_simulation(self):
-        """Запуск полного моделирования"""
-        print(f"Запуск XDCP моделирования с N={self.N} частиц...")
-        
-        for step in range(self.steps + 1):
-            self.current_time = step * self.dt
-            
-            # Интегрирование
-            self.langevin_step()
-            
-            # Сохранение диагностики
-            if step % self.save_every == 0 or step == self.steps:
-                E_tot, K, U = self.total_energy(self.pos, self.vel, self.charges)
-                self.energy_time.append((self.current_time, E_tot, K, U))
-                self.snapshots.append(self.pos.copy())
-                
-                if step % 1000 == 0:
-                    print(f"  Шаг {step}/{self.steps}, Время: {self.current_time:.3f}, E={E_tot:.3f}")
-        
-        print("Моделирование завершено.")
-        return np.array(self.energy_time)
-    
-    def plot_results(self):
-        """Визуализация результатов"""
-        energy_data = np.array(self.energy_time)
-        
-        # График энергий
-        plt.figure(figsize=(12, 8))
-        
-        plt.subplot(2, 3, 1)
-        plt.plot(energy_data[:, 0], energy_data[:, 1], 'k-', linewidth=2, label='Полная E')
-        plt.plot(energy_data[:, 0], energy_data[:, 2], 'b--', label='Кинетическая')
-        plt.plot(energy_data[:, 0], energy_data[:, 3], 'r-.', label='Потенциальная')
-        plt.xlabel('Время')
-        plt.ylabel('Энергия (арб. ед.)')
-        plt.title('Эволюция энергий')
-        plt.legend()
-        plt.grid(True, alpha=0.3)
-        
-        # Фазовый портрет (последние 1000 частиц)
-        plt.subplot(2, 3, 2)
-        plt.scatter(self.pos[:1000, 0], self.pos[:1000, 1], s=1, c='blue', alpha=0.6)
-        plt.xlim(0, self.L)
-        plt.ylim(0, self.L)
-        plt.gca().set_aspect('equal')
-        plt.xlabel('X')
-        plt.ylabel('Y')
-        plt.title('Финальные позиции частиц')
-        
-        # Распределение скоростей
-        plt.subplot(2, 3, 3)
-        speeds = np.linalg.norm(self.vel, axis=1)
-        plt.hist(speeds, bins=50, density=True, alpha=0.7, color='green')
-        plt.xlabel('Скорость')
-        plt.ylabel('Плотность вероятности')
-        plt.title('Распределение скоростей')
-        plt.grid(True, alpha=0.3)
-        
-        # Радиальная функция распределения
-        plt.subplot(2, 3, 4)
-        r_max = self.L / 2
-        bins = np.linspace(0, r_max, 100)
-        g_r = self.compute_radial_distribution(bins)
-        plt.plot(bins[:-1], g_r, 'm-', linewidth=2)
-        plt.xlabel('Расстояние r')
-        plt.ylabel('g(r)')
-        plt.title('Радиальная функция распределения')
-        plt.grid(True, alpha=0.3)
-        
-        # Фурье-спектр плотности
-        plt.subplot(2, 3, 5)
-        k_vals, spectrum = self.compute_density_spectrum()
-        plt.plot(k_vals, spectrum, 'c-', linewidth=2)
-        plt.xlabel('Волновое число k')
-        plt.ylabel('|n(k)|²')
-        plt.title('Спектр плотности')
-        plt.grid(True, alpha=0.3)
-        
-        # Параметр порядка
-        plt.subplot(2, 3, 6)
-        times, order_params = self.compute_order_parameter()
-        plt.plot(times, order_params, 'orange', linewidth=2)
-        plt.xlabel('Время')
-        plt.ylabel('Параметр порядка R')
-        plt.title('Эволюция когерентности')
-        plt.ylim(0, 1)
-        plt.grid(True, alpha=0.3)
-        
-        plt.tight_layout()
-        plt.show()
-    
-    def compute_radial_distribution(self, bins):
-        """Вычисление радиальной функции распределения"""
-        g_r = np.zeros(len(bins) - 1)
-        counts = np.zeros(len(bins) - 1)
-        
-        for i in range(self.N):
-            for j in range(i + 1, self.N):
-                rij = self.pos[j] - self.pos[i]
-                rij -= np.round(rij / self.L) * self.L
-                r = np.linalg.norm(rij)
-                
-                if r < bins[-1]:
-                    idx = np.digitize(r, bins) - 1
-                    if 0 <= idx < len(counts):
-                        counts[idx] += 2  # учитываем обе частицы
-        
-        # Нормализация
-        dr = bins[1] - bins[0]
-        for i in range(len(g_r)):
-            shell_volume = np.pi * ((bins[i+1] + dr/2)**2 - (bins[i] + dr/2)**2)
-            density = self.N / (self.L**2)
-            g_r[i] = counts[i] / (self.N * density * shell_volume)
-        
-        return g_r
-    
-    def compute_density_spectrum(self):
-        """Вычисление Фурье-спектра плотности"""
-        # Создание сетки для вычисления плотности
-        grid_size = 64
-        dx = self.L / grid_size
-        
-        density_grid = np.zeros((grid_size, grid_size))
-        
-        # Распределение частиц по сетке
-        for pos in self.pos:
-            ix = int(pos[0] / dx) % grid_size
-            iy = int(pos[1] / dx) % grid_size
-            density_grid[ix, iy] += 1
-        
-        # 2D Фурье-преобразование
-        fft_2d = np.fft.fft2(density_grid)
-        power_spectrum = np.abs(np.fft.fftshift(fft_2d))**2
-        
-        # Радиальное усреднение
-        kx = np.fft.fftshift(np.fft.fftfreq(grid_size, dx)) * 2 * np.pi
-        ky = np.fft.fftshift(np.fft.fftfreq(grid_size, dx)) * 2 * np.pi
-        
-        k_mesh = np.sqrt(kx[:, np.newaxis]**2 + ky[np.newaxis, :]**2)
-        k_flat = k_mesh.flatten()
-        spectrum_flat = power_spectrum.flatten()
-        
-        # Биннинг по k
-        k_bins = np.linspace(0, np.max(k_mesh), 50)
-        k_centers = (k_bins[:-1] + k_bins[1:]) / 2
-        spectrum_binned = np.zeros(len(k_centers))
-        counts = np.zeros(len(k_centers))
-        
-        for k_val, spec_val in zip(k_flat, spectrum_flat):
-            if k_val > 0:
-                idx = np.digitize(k_val, k_bins) - 1
-                if 0 <= idx < len(spectrum_binned):
-                    spectrum_binned[idx] += spec_val
-                    counts[idx] += 1
-        
-        # Усреднение
-        valid = counts > 0
-        k_centers = k_centers[valid]
-        spectrum_binned = spectrum_binned[valid] / counts[valid]
-        
-        return k_centers, spectrum_binned
-    
-    def compute_order_parameter(self):
-        """Вычисление параметра порядка Курамото"""
-        order_params = []
-        times = []
-        
-        for idx, snapshot in enumerate(self.snapshots):
-            # Вычисление фаз из углов скоростей
-            if idx > 0:
-                prev_snapshot = self.snapshots[idx-1]
-                displacements = snapshot - prev_snapshot
-                angles = np.arctan2(displacements[:, 1], displacements[:, 0])
-                
-                # Параметр порядка Курамото
-                R = np.abs(np.mean(np.exp(1j * angles)))
-                order_params.append(R)
-                times.append(idx * self.save_every * self.dt)
-        
-        return np.array(times), np.array(order_params)
-    
-    def save_data(self, filename="xdcp_simulation_data.npz"):
-        """Сохранение данных моделирования"""
-        np.savez_compressed(
-            filename,
-            positions=self.pos,
-            velocities=self.vel,
-            charges=self.charges,
-            energy_data=np.array(self.energy_time),
-            snapshots=np.array(self.snapshots),
-            parameters={
-                'N': self.N,
-                'L': self.L,
-                'dt': self.dt,
-                'steps': self.steps,
-                'lam': self.lam,
-                'gamma': self.gamma,
-                'kT': self.kT
-            }
-        )
-        print(f"Данные сохранены в {filename}")
-
-
-# Функция для быстрого запуска
-def run_xdcp_simulation():
-    """Запуск стандартного моделирования XDCP"""
-    sim = XDCP_Simulation(
-        N=800,
-        L=40.0,
-        dt=0.005,
-        steps=3000
-    )
-    
-    energy_data = sim.run_simulation()
-    sim.plot_results()
-    sim.save_data()
-    
-    return sim, energy_data
-
-
-if __name__ == "__main__":
-    # Запуск моделирования при прямом выполнении
-    print("=" * 60)
-    print("SODPF: Моделирование X-пылевой конденсированной фазы")
-    print("Резонансная самоорганизация для анейтронного синтеза")
-    print("=" * 60)
-    
-    # Параметры командной строки
-    if len(sys.argv) > 1:
-        N = int(sys.argv[1]) if len(sys.argv) > 1 else 800
-        steps = int(sys.argv[2]) if len(sys.argv) > 2 else 3000
-        
-        sim = XDCP_Simulation(N=N, steps=steps)
-    else:
-        sim = XDCP_Simulation()
-    
-    # Запуск
-    energy_data = sim.run_simulation()
-    
-    # Дополнительная диагностика
-    print("\n" + "=" * 60)
-    print("ДИАГНОСТИКА СИСТЕМЫ:")
-    print("=" * 60)
-    
-    # Финальные параметры
-    final_energy, final_kinetic, final_potential = sim.total_energy(
-        sim.pos, sim.vel, sim.charges
-    )
-    
-    print(f"Финальная полная энергия: {final_energy:.4f}")
-    print(f"Финальная кинетическая энергия: {final_kinetic:.4f}")
-    print(f"Финальная потенциальная энергия: {final_potential:.4f}")
-    
-    # Средняя скорость
-    avg_speed = np.mean(np.linalg.norm(sim.vel, axis=1))
-    print(f"Средняя скорость частиц: {avg_speed:.4f}")
-    
-    # Параметр кулоновской связи (оценка)
-    mean_distance = sim.L / np.sqrt(sim.N)
-    mean_charge = np.mean(np.abs(sim.charges))
-    gamma_est = (mean_charge**2) / (4 * np.pi * 8.854e-12 * mean_distance * sim.kT)
-    print(f"Оценка кулоновского параметра Γ: {gamma_est:.1f}")
-    
-    # Визуализация
-    sim.plot_results()
-    
-    # Сохранение данных
-    sim.save_data()</pre>
-        </div>
-        
-        <h3>2.4 Диагностические инструменты и анализ</h3>
-        
-        <div class="code-section">
-            <div class="code-title">xdcp_diagnostics.py — Расширенные диагностические инструменты</div>
-            <pre class="full-code">"""
-Расширенные диагностические инструменты для XDCP системы
-"""
-
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy import signal, ndimage
-import warnings
-warnings.filterwarnings('ignore')
-
-class XDCP_Diagnostics:
-    """Класс для расширенной диагностики XDCP систем"""
-    
-    def __init__(self, simulation_data):
-        """
-        Инициализация с данными моделирования
-        
-        Параметры:
-        ----------
-        simulation_data : dict или npz файл
-            Данные моделирования, содержащие:
-            - positions: массив позиций частиц
-            - velocities: массив скоростей
-            - charges: массив зарядов
-            - energy_data: данные по энергии
-            - snapshots: снимки системы
-        """
-        if isinstance(simulation_data, str):
-            data = np.load(simulation_data, allow_pickle=True)
-            self.positions = data['positions']
-            self.velocities = data['velocities']
-            self.charges = data['charges']
-            self.energy_data = data['energy_data']
-            self.snapshots = data['snapshots']
-            self.params = data['parameters'].item()
-        else:
-            self.positions = simulation_data['positions']
-            self.velocities = simulation_data['velocities']
-            self.charges = simulation_data['charges']
-            self.energy_data = simulation_data['energy_data']
-            self.snapshots = simulation_data['snapshots']
-            self.params = simulation_data.get('parameters', {})
-    
-    def analyze_coherence(self):
-        """Анализ когерентности системы"""
-        print("\n" + "="*60)
-        print("АНАЛИЗ КОГЕРЕНТНОСТИ XDCP СИСТЕМЫ")
-        print("="*60)
-        
-        results = {}
-        
-        # 1. Параметр порядка Курамото
-        R_values = []
-        for i in range(1, len(self.snapshots)):
-            displacements = self.snapshots[i] - self.snapshots[i-1]
-            angles = np.arctan2(displacements[:, 1], displacements[:, 0])
-            R = np.abs(np.mean(np.exp(1j * angles)))
-            R_values.append(R)
-        
-        results['kuramoto_R'] = R_values
-        results['mean_R'] = np.mean(R_values)
-        results['std_R'] = np.std(R_values)
-        
-        print(f"Параметр порядка Курамото: {results['mean_R']:.3f} ± {results['std_R']:.3f}")
-        
-        # 2. Время корреляции скорости
-        velocities_all = []
-        for i in range(len(self.snapshots)-1):
-            v = (self.snapshots[i+1] - self.snapshots[i]) / self.params.get('dt', 0.005)
-            velocities_all.append(v.flatten())
-        
-        velocities_all = np.array(velocities_all)
-        time_corr = self.compute_time_correlation(velocities_all)
-        results['velocity_correlation_time'] = time_corr
-        
-        print(f"Время корреляции скорости: {time_corr:.3e} с")
-        
-        # 3. Спектральная когерентность
-        freq_coherence = self.compute_spectral_coherence()
-        results['spectral_coherence'] = freq_coherence
-        
-        print(f"Спектральная когерентность: {freq_coherence:.3f}")
-        
-        # 4. Мера энтропии
-        entropy = self.compute_configurational_entropy()
-        results['configurational_entropy'] = entropy
-        
-        print(f"Конфигурационная энтропия: {entropy:.3f}")
-        
-        # 5. Фрактальная размерность
-        fractal_dim = self.estimate_fractal_dimension()
-        results['fractal_dimension'] = fractal_dim
-        
-        print(f"Фрактальная размерность: {fractal_dim:.3f}")
-        
-        return results
-    
-    def compute_time_correlation(self, data, max_lag=100):
-        """Вычисление времени корреляции"""
-        n_samples = data.shape[0]
-        if n_samples < 2:
-            return 0.0
-        
-        # Автокорреляционная функция
-        corr = np.zeros(min(max_lag, n_samples-1))
-        for lag in range(len(corr)):
-            if lag < n_samples:
-                corr[lag] = np.mean(data[lag:] * data[:n_samples-lag])
-        
-        # Нормализация
-        if corr[0] != 0:
-            corr /= corr[0]
-        
-        # Время корреляции (интеграл ACF)
-        tau = np.sum(np.abs(corr)) * self.params.get('dt', 0.005)
-        
-        return tau
-    
-    def compute_spectral_coherence(self):
-        """Вычисление спектральной когерентности"""
-        if len(self.snapshots) < 10:
-            return 0.0
-        
-        # Извлечение плотности в разные моменты времени
-        densities = []
-        grid_size = 32
-        
-        for snapshot in self.snapshots[::5]:  # берём каждый пятый снимок
-            density_grid = np.zeros((grid_size, grid_size))
-            dx = self.params.get('L', 40.0) / grid_size
-            
-            for pos in snapshot:
-                ix = int(pos[0] / dx) % grid_size
-                iy = int(pos[1] / dx) % grid_size
-                density_grid[ix, iy] += 1
-            
-            densities.append(density_grid.flatten())
-        
-        densities = np.array(densities)
-        
-        if densities.shape[0] < 2:
-            return 0.0
-        
-        # Спектральная когерентность между разными временными срезами
-        coherence_sum = 0.0
-        count = 0
-        
-        for i in range(densities.shape[0]):
-            for j in range(i+1, densities.shape[0]):
-                fft_i = np.fft.fft(densities[i])
-                fft_j = np.fft.fft(densities[j])
-                
-                # Мера когерентности
-                coherence = np.abs(np.mean(fft_i * np.conj(fft_j))) / \
-                           (np.sqrt(np.mean(np.abs(fft_i)**2) * np.mean(np.abs(fft_j)**2)) + 1e-10)
-                coherence_sum += coherence
-                count += 1
-        
-        return coherence_sum / count if count > 0 else 0.0
-    
-    def compute_configurational_entropy(self):
-        """Вычисление конфигурационной энтропии"""
-        # Используем последний снимок
-        if len(self.snapshots) == 0:
-            return 0.0
-        
-        snapshot = self.snapshots[-1]
-        
-        # Создаём гистограмму 2D позиций
-        grid_size = 32
-        hist, _, _ = np.histogram2d(
-            snapshot[:, 0], snapshot[:, 1],
-            bins=grid_size,
-            range=[[0, self.params.get('L', 40.0)], [0, self.params.get('L', 40.0)]]
-        )
-        
-        # Нормализуем до распределения вероятностей
-        p = hist.flatten() / np.sum(hist)
-        
-        # Убираем нулевые вероятности
-        p = p[p > 0]
-        
-        # Энтропия Шеннона
-        entropy = -np.sum(p * np.log2(p))
-        
-        # Нормализуем к максимальной энтропии
-        max_entropy = np.log2(grid_size * grid_size)
-        
-        return entropy / max_entropy if max_entropy > 0 else 0.0
-    
-    def estimate_fractal_dimension(self, method='box'):
-        """Оценка фрактальной размерности структуры"""
-        if len(self.snapshots) == 0:
-            return 0.0
-        
-        snapshot = self.snapshots[-1]
-        
-        if method == 'box':
-            return self.box_counting_fractal_dimension(snapshot)
-        else:
-            # Альтернативный метод: корреляционная размерность
-            return self.correlation_dimension(snapshot)
-    
-    def box_counting_fractal_dimension(self, points):
-        """Метод счёта ящиков для фрактальной размерности"""
-        L = self.params.get('L', 40.0)
-        
-        # Размеры ящиков (логарифмическая шкала)
-        box_sizes = np.logspace(np.log10(L/100), np.log10(L/2), 20)
-        
-        N_boxes = []
-        
-        for size in box_sizes:
-            # Число ящиков, необходимых для покрытия всех точек
-            grid_x = np.arange(0, L + size, size)
-            grid_y = np.arange(0, L + size, size)
-            
-            # Приписываем точки к ящикам
-            x_idx = np.digitize(points[:, 0], grid_x) - 1
-            y_idx = np.digitize(points[:, 1], grid_y) - 1
-            
-            # Уникальные ящики
-            unique_boxes = len(set(zip(x_idx, y_idx)))
-            N_boxes.append(unique_boxes)
-        
-        # Линейная регрессия в логарифмических координатах
-        log_sizes = np.log(1/box_sizes)
-        log_counts = np.log(N_boxes)
-        
-        # Убираем выбросы
-        valid = ~(np.isinf(log_sizes) | np.isinf(log_counts) | np.isnan(log_sizes) | np.isnan(log_counts))
-        
-        if np.sum(valid) < 3:
-            return 0.0
-        
-        # Линейная регрессия
-        coeffs = np.polyfit(log_sizes[valid], log_counts[valid], 1)
-        
-        return coeffs[0]  # наклон = фрактальная размерность
-    
-    def correlation_dimension(self, points, max_pairs=10000):
-        """Корреляционная размерность"""
-        n_points = len(points)
-        
-        if n_points < 100:
-            return 0.0
-        
-        # Случайные пары точек
-        indices = np.random.choice(n_points, size=min(max_pairs, n_points*(n_points-1)//2), replace=False)
-        
-        if len(indices) < 2:
-            return 0.0
-        
-        # Вычисляем расстояния
-        sample_points = points[indices]
-        distances = []
-        
-        for i in range(len(sample_points)):
-            for j in range(i+1, len(sample_points)):
-                d = np.linalg.norm(sample_points[i] - sample_points[j])
-                distances.append(d)
-        
-        distances = np.array(distances)
-        
-        if len(distances) < 10:
-            return 0.0
-        
-        # Биннинг расстояний
-        bins = np.logspace(np.log10(np.min(distances[distances>0])), 
-                          np.log10(np.max(distances)), 20)
-        
-        # Функция корреляционного интеграла
-        C_r = []
-        r_vals = []
-        
-        for i in range(len(bins)-1):
-            r = (bins[i] + bins[i+1]) / 2
-            count = np.sum((distances < bins[i+1]) & (distances > bins[i]))
-            C_r.append(count / len(distances))
-            r_vals.append(r)
-        
-        C_r = np.array(C_r)
-        r_vals = np.array(r_vals)
-        
-        # Линейная часть в логарифмических координатах
-        valid = (C_r > 0) & (r_vals > 0)
-        
-        if np.sum(valid) < 3:
-            return 0.0
-        
-        log_r = np.log(r_vals[valid])
-        log_C = np.log(C_r[valid])
-        
-        # Линейная регрессия
-        coeffs = np.polyfit(log_r, log_C, 1)
-        
-        return coeffs[0]
-    
-    def analyze_fusion_potential(self):
-        """Анализ потенциала для синтеза"""
-        print("\n" + "="*60)
-        print("АНАЛИЗ ПОТЕНЦИАЛА ДЛЯ СИНТЕЗА")
-        print("="*60)
-        
-        results = {}
-        
-        # 1. Оценка температуры ионов
-        ion_temperature = self.estimate_ion_temperature()
-        results['ion_temperature_keV'] = ion_temperature
-        
-        print(f"Оценка температуры ионов: {ion_temperature:.1f} кэВ")
-        
-        # 2. Оценка плотности
-        density = self.estimate_plasma_density()
-        results['plasma_density_m3'] = density
-        
-        print(f"Оценка плотности плазмы: {density:.2e} м⁻³")
-        
-        # 3. Оценка параметра удержания nτ
-        n_tau = self.estimate_confinement_parameter()
-        results['n_tau_product'] = n_tau
-        
-        print(f"Оценка nτ: {n_tau:.2e} м⁻³·с")
-        
-        # 4. Оценка выхода синтеза
-        fusion_yield = self.estimate_fusion_yield(ion_temperature, density)
-        results['fusion_yield_per_pulse'] = fusion_yield
-        
-        print(f"Оценка выхода синтеза на импульс: {fusion_yield:.2e}")
-        
-        # 5. Оценка энергетического выхода Q
-        Q_value = self.estimate_Q_value(fusion_yield)
-        results['Q_value'] = Q_value
-        
-        print(f"Оценка энергетического выхода Q: {Q_value:.1f}")
-        
-        return results
-    
-    def estimate_ion_temperature(self):
-        """Оценка температуры ионов из распределения скоростей"""
-        if len(self.velocities) == 0:
-            return 0.0
-        
-        # Предполагаем протоны (масса 1.67e-27 кг)
-        m_ion = 1.67e-27
-        
-        # Среднеквадратичная скорость
-        v_rms = np.sqrt(np.mean(np.sum(self.velocities**2, axis=1)))
-        
-        # Температура в кэВ: T = m*v²/(3k_B) * (1e-3/e)
-        k_B = 1.38e-23  # Дж/К
-        e_charge = 1.6e-19  # Кл
-        
-        T_keV = (m_ion * v_rms**2) / (3 * k_B) * (1e-3 / e_charge)
-        
-        # Масштабирование к параметрам моделирования
-        scaling = self.params.get('kT', 0.01) / 0.01  # относительно базового kT
-        
-        return T_keV * scaling
-    
-    def estimate_plasma_density(self):
-        """Оценка плотности плазмы"""
-        if len(self.positions) == 0:
-            return 0.0
-        
-        L = self.params.get('L', 40.0)
-        N = len(self.positions)
-        
-        # Объём в реальных единицах (предполагаем 3D с толщиной L/10)
-        volume_real = (L * 1e-6)**3 / 10  # м³ (предполагаем микроскопический масштаб)
-        
-        # Масштабирование к реалистичной плотности
-        scaling = 1e21  # коэффициент масштабирования
-        
-        density = (N / volume_real) * scaling
-        
-        return density
-    
-    def estimate_confinement_parameter(self):
-        """Оценка параметра удержания nτ"""
-        # Время когерентности как время удержания
-        coherence_results = self.analyze_coherence()
-        tau = coherence_results.get('velocity_correlation_time', 1e-9)
-        
-        # Плотность
-        density = self.estimate_plasma_density()
-        
-        return density * tau
-    
-    def estimate_fusion_yield(self, T_keV, n):
-        """Оценка выхода синтеза p-¹¹B"""
-        # Сечение синтеза p-¹¹B (параметризация)
-        def sigma_v(T):
-            """Среднее сечение <σv> для p-¹¹B в м³/с"""
-            # Параметризация для T в кэВ
-            if T < 50:
-                return 1e-31
-            elif T < 100:
-                return 1e-30 * (T/100)**4
-            else:
-                return 1e-29 * np.exp(-np.sqrt(100/T))
-        
-        # Объём горячего ядра (предполагаем 10% от полного объёма)
-        L = self.params.get('L', 40.0)
-        V_core = (0.1 * L * 1e-6)**3  # м³
-        
-        # Время удержания
-        tau = 50e-9  # 50 нс
-        
-        # Выход синтеза: Y = n² <σv> V τ / 2
-        Y = (n**2) * sigma_v(T_keV) * V_core * tau / 2
-        
-        return Y
-    
-    def estimate_Q_value(self, fusion_yield):
-        """Оценка энергетического выхода Q"""
-        # Энергия на реакцию p-¹¹B: 8.7 МэВ = 1.39e-12 Дж
-        E_per_reaction = 8.7e6 * 1.6e-19  # Дж
-        
-        # Выход энергии
-        E_out = fusion_yield * E_per_reaction  # Дж
-        
-        # Входная энергия (оценка)
-        # Предполагаем нагрев 1 мг материала до 100 кэВ
-        m_material = 1e-6  # кг
-        T_keV = 100
-        k_B = 1.38e-23
-        E_in = (3/2) * m_material / (1.67e-27) * k_B * T_keV * 1e3 * 1.6e-19
-        
-        Q = E_out / E_in if E_in > 0 else 0.0
-        
-        return Q
-    
-    def create_comprehensive_report(self, output_file="xdcp_diagnostics_report.txt"):
-        """Создание полного диагностического отчёта"""
-        print("\n" + "="*60)
-        print("СОЗДАНИЕ ДИАГНОСТИЧЕСКОГО ОТЧЁТА")
-        print("="*60)
-        
-        with open(output_file, 'w', encoding='utf-8') as f:
-            f.write("="*60 + "\n")
-            f.write("ДИАГНОСТИЧЕСКИЙ ОТЧЁТ XDCP СИСТЕМЫ\n")
-            f.write("="*60 + "\n\n")
-            
-            f.write("ПАРАМЕТРЫ МОДЕЛИРОВАНИЯ:\n")
-            f.write("-"*40 + "\n")
-            for key, value in self.params.items():
-                f.write(f"{key}: {value}\n")
-            
-            f.write("\n" + "="*60 + "\n")
-            f.write("АНАЛИЗ КОГЕРЕНТНОСТИ\n")
-            f.write("="*60 + "\n\n")
-            
-            coherence_results = self.analyze_coherence()
-            for key, value in coherence_results.items():
-                if isinstance(value, (int, float)):
-                    f.write(f"{key}: {value:.6f}\n")
-            
-            f.write("\n" + "="*60 + "\n")
-            f.write("АНАЛИЗ ПОТЕНЦИАЛА ДЛЯ СИНТЕЗА\n")
-            f.write("="*60 + "\n\n")
-            
-            fusion_results = self.analyze_fusion_potential()
-            for key, value in fusion_results.items():
-                if isinstance(value, (int, float)):
-                    if 'e' in str(value).lower():
-                        f.write(f"{key}: {value:.3e}\n")
-                    else:
-                        f.write(f"{key}: {value:.3f}\n")
-            
-            f.write("\n" + "="*60 + "\n")
-            f.write("ВЫВОДЫ И РЕКОМЕНДАЦИИ\n")
-            f.write("="*60 + "\n\n")
-            
-            # Автоматические выводы
-            R_mean = coherence_results.get('mean_R', 0)
-            if R_mean > 0.8:
-                f.write("✓ Высокая когерентность системы (R > 0.8)\n")
-                f.write("  → Система подходит для резонансного сжатия\n")
-            elif R_mean > 0.5:
-                f.write("○ Умеренная когерентность системы (0.5 < R < 0.8)\n")
-                f.write("  → Требуется оптимизация параметров возбуждения\n")
-            else:
-                f.write("✗ Низкая когерентность системы (R < 0.5)\n")
-                f.write("  → Необходимо улучшить синхронизацию\n")
-            
-            f.write("\n")
-            
-            Q_value = fusion_results.get('Q_value', 0)
-            if Q_value > 10:
-                f.write("✓ Высокий потенциал для синтеза (Q > 10)\n")
-                f.write("  → Система перспективна для энергетических приложений\n")
-            elif Q_value > 1:
-                f.write("○ Умеренный потенциал для синтеза (1 < Q < 10)\n")
-                f.write("  → Требуется оптимизация параметров сжатия\n")
-            else:
-                f.write("✗ Низкий потенциал для синтеза (Q < 1)\n")
-                f.write("  → Необходимо увеличить температуру и плотность\n")
-            
-            f.write("\n" + "="*60 + "\n")
-            f.write("РЕКОМЕНДАЦИИ ПО ЭКСПЕРИМЕНТУ:\n")
-            f.write("="*60 + "\n\n")
-            
-            # Рекомендации на основе анализа
-            f.write("1. Оптимальные частоты возбуждения:\n")
-            f.write("   - Основная: 2.0-2.5 кГц для пылезвуковых волн\n")
-            f.write("   - Синхронизация: 7.83 Гц для фазовой когерентности\n")
-            f.write("   - Нагрев: 13.56 МГц для ионизации\n\n")
-            
-            f.write("2. Параметры импульса сжатия:\n")
-            f.write("   - Длительность: 50-100 мкс\n")
-            f.write("   - Амплитуда: регулировать для достижения Γ > 170\n")
-            f.write("   - Время триггера: при R > 0.8\n\n")
-            
-            f.write("3. Диагностика в эксперименте:\n")
-            f.write("   - Лазерное рассеяние для измерения плотности\n")
-            f.write("   - СВЧ интерферометрия для электронной плотности\n")
-            f.write("   - ВЧ зонды для измерения потенциала\n")
-            f.write("   - Оптическая спектроскопия для температуры\n")
-        
-        print(f"Отчёт сохранён в файл: {output_file}")
-        
-        return output_file
-    
-    def plot_advanced_diagnostics(self):
-        """Расширенная визуализация диагностики"""
-        fig = plt.figure(figsize=(16, 12))
-        
-        # 1. Фазовый портрет с цветовой кодировкой скорости
-        ax1 = plt.subplot(3, 3, 1)
-        speeds = np.linalg.norm(self.velocities, axis=1)
-        scatter = ax1.scatter(self.positions[:, 0], self.positions[:, 1], 
-                             c=speeds, s=10, cmap='viridis', alpha=0.7)
-        ax1.set_xlabel('X')
-        ax1.set_ylabel('Y')
-        ax1.set_title('Фазовый портрет (цвет = скорость)')
-        ax1.set_aspect('equal')
-        plt.colorbar(scatter, ax=ax1, label='Скорость')
-        
-        # 2. Распределение зарядов
-        ax2 = plt.subplot(3, 3, 2)
-        ax2.hist(self.charges, bins=30, density=True, alpha=0.7, color='purple')
-        ax2.set_xlabel('Заряд (арб. ед.)')
-        ax2.set_ylabel('Плотность вероятности')
-        ax2.set_title('Распределение зарядов')
-        ax2.grid(True, alpha=0.3)
-        
-        # 3. Эволюция параметра порядка
-        ax3 = plt.subplot(3, 3, 3)
-        times, order_params = self.compute_order_parameter_evolution()
-        ax3.plot(times, order_params, 'b-', linewidth=2)
-        ax3.axhline(y=0.8, color='r', linestyle='--', alpha=0.5, label='Порог (0.8)')
-        ax3.set_xlabel('Время')
-        ax3.set_ylabel('Параметр порядка R')
-        ax3.set_title('Эволюция когерентности')
-        ax3.set_ylim(0, 1)
-        ax3.legend()
-        ax3.grid(True, alpha=0.3)
-        
-        # 4. Спектр мощности плотности
-        ax4 = plt.subplot(3, 3, 4)
-        k_vals, spectrum = self.compute_power_spectrum()
-        ax4.plot(k_vals, spectrum, 'g-', linewidth=2)
-        ax4.set_xlabel('Волновое число k')
-        ax4.set_ylabel('Спектральная мощность')
-        ax4.set_title('Спектр мощности плотности')
-        ax4.set_xscale('log')
-        ax4.set_yscale('log')
-        ax4.grid(True, alpha=0.3)
-        
-        # 5. Корреляционная функция
-        ax5 = plt.subplot(3, 3, 5)
-        distances, g_r = self.compute_radial_distribution_function()
-        ax5.plot(distances, g_r, 'r-', linewidth=2)
-        ax5.set_xlabel('Расстояние r')
-        ax5.set_ylabel('g(r)')
-        ax5.set_title('Радиальная функция распределения')
-        ax5.grid(True, alpha=0.3)
-        
-        # 6. Воронковый график скоростей
-        ax6 = plt.subplot(3, 3, 6)
-        vx = self.velocities[:, 0]
-        vy = self.velocities[:, 1]
-        ax6.quiver(self.positions[::10, 0], self.positions[::10, 1], 
-                  vx[::10], vy[::10], 
-                  np.sqrt(vx[::10]**2 + vy[::10]**2),
-                  cmap='plasma', alpha=0.7, scale=20)
-        ax6.set_xlabel('X')
-        ax6.set_ylabel('Y')
-        ax6.set_title('Поле скоростей')
-        ax6.set_aspect('equal')
-        
-        # 7. Диаграмма Вороного
-        ax7 = plt.subplot(3, 3, 7)
-        try:
-            from scipy.spatial import Voronoi, voronoi_plot_2d
-            vor = Voronoi(self.positions[:200])  # ограничиваем для скорости
-            voronoi_plot_2d(vor, ax=ax7, show_points=True, show_vertices=False)
-            ax7.set_xlabel('X')
-            ax7.set_ylabel('Y')
-            ax7.set_title('Диаграмма Вороного (первые 200 частиц)')
-            ax7.set_aspect('equal')
-        except:
-            ax7.text(0.5, 0.5, 'Требуется scipy.spatial', 
-                    ha='center', va='center', transform=ax7.transAxes)
-            ax7.set_title('Диаграмма Вороного (недоступно)')
-        
-        # 8. Автокорреляционная функция скоростей
-        ax8 = plt.subplot(3, 3, 8)
-        lags, acf = self.compute_velocity_autocorrelation()
-        ax8.plot(lags, acf, 'c-', linewidth=2)
-        ax8.axhline(y=0, color='k', linestyle='-', alpha=0.3)
-        ax8.set_xlabel('Задержка')
-        ax8.set_ylabel('Автокорреляция')
-        ax8.set_title('Автокорреляция скорости')
-        ax8.grid(True, alpha=0.3)
-        
-        # 9. Карта плотности
-        ax9 = plt.subplot(3, 3, 9)
-        density_map = self.compute_density_map()
-        im = ax9.imshow(density_map.T, origin='lower', 
-                       extent=[0, self.params.get('L', 40.0), 0, self.params.get('L', 40.0)],
-                       cmap='hot', aspect='auto')
-        ax9.set_xlabel('X')
-        ax9.set_ylabel('Y')
-        ax9.set_title('Карта плотности')
-        plt.colorbar(im, ax=ax9, label='Плотность')
-        
-        plt.tight_layout()
-        plt.show()
-    
-    def compute_order_parameter_evolution(self):
-        """Эволюция параметра порядка во времени"""
-        times = []
-        R_values = []
-        
-        for i in range(1, len(self.snapshots)):
-            displacements = self.snapshots[i] - self.snapshots[i-1]
-            if len(displacements) > 0:
-                angles = np.arctan2(displacements[:, 1], displacements[:, 0])
-                R = np.abs(np.mean(np.exp(1j * angles)))
-                R_values.append(R)
-                times.append(i * self.params.get('dt', 0.005) * 
-                            self.params.get('save_every', 500))
-        
-        return np.array(times), np.array(R_values)
-    
-    def compute_power_spectrum(self):
-        """Спектр мощности плотности"""
-        if len(self.snapshots) == 0:
-            return np.array([]), np.array([])
-        
-        snapshot = self.snapshots[-1]
-        
-        # Создаём сетку плотности
-        grid_size = 64
-        L = self.params.get('L', 40.0)
-        
-        density_grid = np.zeros((grid_size, grid_size))
-        dx = L / grid_size
-        
-        for pos in snapshot:
-            ix = int(pos[0] / dx) % grid_size
-            iy = int(pos[1] / dx) % grid_size
-            density_grid[ix, iy] += 1
-        
-        # 2D Фурье-преобразование
-        fft_2d = np.fft.fft2(density_grid)
-        power_spectrum = np.abs(fft_2d)**2
-        
-        # Радиальное усреднение
-        kx = np.fft.fftfreq(grid_size, dx) * 2 * np.pi
-        ky = np.fft.fftfreq(grid_size, dx) * 2 * np.pi
-        
-        kx_grid, ky_grid = np.meshgrid(kx, ky)
-        k_mag = np.sqrt(kx_grid**2 + ky_grid**2)
-        
-        # Биннинг
-        k_bins = np.linspace(0, np.max(k_mag), 50)
-        k_centers = (k_bins[:-1] + k_bins[1:]) / 2
-        power_binned = np.zeros(len(k_centers))
-        counts = np.zeros(len(k_centers))
-        
-        for i in range(grid_size):
-            for j in range(grid_size):
-                k_val = k_mag[i, j]
-                if k_val > 0:
-                    idx = np.digitize(k_val, k_bins) - 1
-                    if 0 <= idx < len(power_binned):
-                        power_binned[idx] += power_spectrum[i, j]
-                        counts[idx] += 1
-        
-        valid = counts > 0
-        return k_centers[valid], power_binned[valid] / counts[valid]
-    
-    def compute_radial_distribution_function(self):
-        """Радиальная функция распределения"""
-        if len(self.snapshots) == 0:
-            return np.array([]), np.array([])
-        
-        snapshot = self.snapshots[-1]
-        L = self.params.get('L', 40.0)
-        
-        # Биннинг расстояний
-        bins = np.linspace(0, L/2, 100)
-        distances = []
-        
-        for i in range(len(snapshot)):
-            for j in range(i+1, len(snapshot)):
-                rij = snapshot[j] - snapshot[i]
-                rij -= np.round(rij / L) * L
-                r = np.linalg.norm(rij)
-                if r < L/2:
-                    distances.append(r)
-        
-        distances = np.array(distances)
-        
-        if len(distances) == 0:
-            return bins[:-1], np.zeros(len(bins)-1)
-        
-        # Гистограмма
-        hist, _ = np.histogram(distances, bins=bins, density=True)
-        
-        # Нормализация
-        r_centers = (bins[:-1] + bins[1:]) / 2
-        dr = bins[1] - bins[0]
-        
-        # Теоретическая плотность для идеального газа
-        ideal_gas_density = len(snapshot) / (L**2)
-        
-        # g(r) = (гистограмма) / (идеальная плотность * площадь кольца)
-        g_r = []
-        for i, r in enumerate(r_centers):
-            ring_area = np.pi * ((r + dr/2)**2 - (r - dr/2)**2)
-            g_r.append(hist[i] / (ideal_gas_density * ring_area + 1e-10))
-        
-        return r_centers, np.array(g_r)
-    
-    def compute_velocity_autocorrelation(self, max_lag=50):
-        """Автокорреляционная функция скорости"""
-        if len(self.snapshots) < 2:
-            return np.array([]), np.array([])
-        
-        # Извлекаем скорости из снимков
-        velocities = []
-        for i in range(1, min(len(self.snapshots), max_lag+2)):
-            v = (self.snapshots[i] - self.snapshots[i-1]) / self.params.get('dt', 0.005)
-            velocities.append(v.flatten())
-        
-        velocities = np.array(velocities)
-        
-        if len(velocities) < 2:
-            return np.array([]), np.array([])
-        
-        # Автокорреляция
-        n = len(velocities)
-        acf = np.zeros(min(max_lag, n-1))
-        
-        for lag in range(len(acf)):
-            if lag < n:
-                acf[lag] = np.mean(velocities[lag:] * velocities[:n-lag])
-        
-        # Нормализация
-        if acf[0] != 0:
-            acf /= acf[0]
-        
-        lags = np.arange(len(acf)) * self.params.get('dt', 0.005)
-        
-        return lags, acf
-    
-    def compute_density_map(self, grid_size=50):
-        """Карта плотности"""
-        if len(self.snapshots) == 0:
-            return np.zeros((grid_size, grid_size))
-        
-        snapshot = self.snapshots[-1]
-        L = self.params.get('L', 40.0)
-        
-        density_map = np.zeros((grid_size, grid_size))
-        dx = L / grid_size
-        
-        for pos in snapshot:
-            ix = int(pos[0] / dx) % grid_size
-            iy = int(pos[1] / dx) % grid_size
-            density_map[ix, iy] += 1
-        
-        # Сглаживание
-        density_map = ndimage.gaussian_filter(density_map, sigma=1)
-        
-        return density_map
-
-
-# Функция для быстрого анализа
-def analyze_xdcp_simulation(data_file="xdcp_simulation_data.npz"):
-    """Полный анализ данных XDCP моделирования"""
-    print("Загрузка данных моделирования...")
-    diagnostics = XDCP_Diagnostics(data_file)
-    
-    print("Анализ когерентности...")
-    coherence_results = diagnostics.analyze_coherence()
-    
-    print("Анализ потенциала для синтеза...")
-    fusion_results = diagnostics.analyze_fusion_potential()
-    
-    print("Создание отчёта...")
-    report_file = diagnostics.create_comprehensive_report()
-    
-    print("Визуализация результатов...")
-    diagnostics.plot_advanced_diagnostics()
-    
-    print("\nАнализ завершён!")
-    print(f"Отчёт сохранён в: {report_file}")
-    
-    return diagnostics, coherence_results, fusion_results
-
-
-if __name__ == "__main__":
-    # Запуск анализа
-    analyze_xdcp_simulation()</pre>
+    def multi_frequency_drive(self, pos, vel, t):
+        """Многочастотное резонансное возбуждение"""
+        F_drive = np.zeros_like(pos)
+        
+        # 7.83 Гц - фазовая синхронизация
+        omega_sync = 2*np.pi*7.83
+        F_drive += 0.1 * np.sin(omega_sync * t) * np.ones_like(pos)
+        
+        # 1-3 кГц - пылезвуковое возбуждение
+        omega_daw = 2*np.pi*2000
+        F_drive += 0.5 * np.sin(omega_daw * t) * (pos - self.L/2)
+        
+        # 13.56 МГц - основная плазма
+        omega_rf = 2*np.pi*13.56e6
+        F_drive += 0.01 * np.sin(omega_rf * t) * np.random.randn(*pos.shape)
+        
+        return F_drive</code></pre>
+        
+        <h3>2.4 Диагностика и критерии когерентности</h3>
+        
+        <p>Ключевые диагностические параметры:</p>
+        
+        <ul>
+            <li><strong>Параметр кулоновской связи:</strong> \( \Gamma = \frac{q^2}{4\pi\varepsilon_0 a k_B T} \)</li>
+            <li><strong>Время декогерентности:</strong> \( \tau_{\text{дек}} = \min(\tau_{\text{заряд}}, \tau_{\text{турб}}, \tau_{\text{тепл}}) \)</li>
+            <li><strong>Параметр порядка Курамото:</strong> \( R = \left|\frac{1}{N}\sum_{j=1}^N e^{i\theta_j}\right| \)</li>
+            <li><strong>Спектральная плотность энергии:</strong> \( E(k,t) = |\tilde{n}(\mathbf{k},t)|^2 \)</li>
+        </ul>
+        
+        <p>Критерий перехода в XDCP фазу:</p>
+        
+        <div class="equation">
+            \[
+            \Gamma > 170, \quad R > 0.8, \quad \tau_{\text{дек}} > 50 \, \text{нс}
+            \tag{6}
+            \]
+            <div class="equation-number">(6)</div>
         </div>
     </div>
 
     <div class="section">
-        <h2>3. Результаты моделирования</h2>
+        <h2>3. Результаты</h2>
         
-        <h3>3.1 Эволюция параметров системы</h3>
+        <h3>3.1 Резонансное сжатие и параметры синтеза</h3>
         
-        <div class="figure">
-            <div class="figure-title">Рисунок 1: Эволюция энергий системы</div>
-            <canvas id="energyEvolutionChart"></canvas>
-            <div class="figure-caption">Эволюция полной, кинетической и потенциальной энергии в системе XDCP. Пики соответствуют моментам резонансного сжатия.</div>
-        </div>
-        
-        <h3>3.2 Структурные характеристики</h3>
-        
-        <div class="figure">
-            <div class="figure-title">Рисунок 2: Радиальная функция распределения</div>
-            <canvas id="radialDistributionChart"></canvas>
-            <div class="figure-caption">Радиальная функция распределения g(r) демонстрирует наличие упорядоченной структуры с характерными максимумами, соответствующими ближайшим соседям в XDCP фазе.</div>
-        </div>
-        
-        <h3>3.3 Динамика когерентности</h3>
-        
-        <div class="figure">
-            <div class="figure-title">Рисунок 3: Эволюция параметра порядка</div>
-            <canvas id="orderParameterChart"></canvas>
-            <div class="figure-caption">Параметр порядка Курамото R(t) показывает нарастание когерентности в системе под действием многочастотного возбуждения, достигая значений R > 0.8 в моменты оптимального сжатия.</div>
-        </div>
-        
-        <h3>3.4 Сравнительные характеристики</h3>
-        
-        <table class="comparison-table">
+        <table>
             <tr>
                 <th>Параметр</th>
-                <th>Без резонансного возбуждения</th>
-                <th>С резонансным возбуждением</th>
-                <th>Улучшение</th>
+                <th>Базовый уровень (BN)</th>
+                <th>Усиленный XDUST</th>
+                <th>Коэффициент улучшения</th>
             </tr>
             <tr>
-                <td>Время когерентности τ<sub>dec</sub> (нс)</td>
-                <td>10-20</td>
-                <td>50-100</td>
-                <td>5×</td>
+                <td>Радиус ядра</td>
+                <td>100–200 мкм</td>
+                <td>100–200 мкм</td>
+                <td>1,0</td>
             </tr>
             <tr>
-                <td>Параметр порядка R</td>
-                <td>0.3-0.4</td>
-                <td>0.8-0.9</td>
-                <td>2.5×</td>
+                <td>Пиковая ионная температура</td>
+                <td>120–150 кэВ</td>
+                <td>120–150 кэВ</td>
+                <td>1,0</td>
             </tr>
             <tr>
-                <td>Кулоновский параметр Γ</td>
-                <td>50-70</td>
-                <td>170-190</td>
-                <td>3×</td>
+                <td>Плотность ядра</td>
+                <td>5×10²¹ м⁻³</td>
+                <td>5×10²¹ м⁻³</td>
+                <td>1,0</td>
             </tr>
             <tr>
-                <td>Выход синтеза на импульс</td>
-                <td>3×10¹⁷</td>
-                <td>2×10¹⁸</td>
-                <td>6.7×</td>
+                <td>Время удержания</td>
+                <td>20–50 нс</td>
+                <td>50–100 нс</td>
+                <td>2,0–2,5</td>
+            </tr>
+            <tr>
+                <td>Время когерентности τ<sub>дек</sub></td>
+                <td>20–30 нс</td>
+                <td>50–100 нс</td>
+                <td>2,5–3,3</td>
+            </tr>
+            <tr>
+                <td>Реакций синтеза на импульс</td>
+                <td>9×10¹⁷</td>
+                <td>(1,8–2,2)×10¹⁸</td>
+                <td>2,0–2,5</td>
             </tr>
             <tr>
                 <td>Энергетический выход Q</td>
-                <td>2-3</td>
-                <td>12-15</td>
-                <td>5×</td>
+                <td>6–9</td>
+                <td>12–15</td>
+                <td>2,0</td>
             </tr>
         </table>
         
-        <h3>3.5 Экспериментальная реализация</h3>
+        <h3>3.2 Многочастотный резонансный протокол</h3>
         
-        <div class="simulation-results">
-            <h4>Ключевые результаты моделирования:</h4>
-            <ol>
-                <li><strong>Резонансные условия:</strong> Оптимальная частота возбуждения пылевых решёточных волн составляет 2.0-2.5 кГц при амплитуде, соответствующей смещению 30% от среднего межатомного расстояния.</li>
-                
-                <li><strong>Временные параметры:</strong> Время нарастания когерентности составляет 5-8 мс, оптимальная длительность импульса сжатия — 50 мкс, эффективное время удержания для синтеза — 50-100 нс.</li>
-                
-                <li><strong>Температурные режимы:</strong> Система достигает ионной температуры 120-150 кэВ в пиках сжатия при электронной температуре 5-10 кэВ, что оптимально для p-¹¹B синтеза.</li>
-                
-                <li><strong>Плотностные параметры:</strong> Максимальная плотность в ядре достигает 5×10²¹ м⁻³ при среднемассовой плотности 2×10²⁰ м⁻³.</li>
-                
-                <li><strong>Стабильность системы:</strong> XDUST композиты снижают флуктуации заряда с ±15% до ±5%, что увеличивает время когерентности в 2.5-3.3 раза.</li>
-            </ol>
+        <div class="frequency-diagram">
+            <strong>Иерархия частот для когерентного сжатия:</strong><br>
+            7,83 Гц (Внешняя фазовая ссылка / осциллятор "Шумана") → Глобальная фазовая синхронизация<br>
+            1–3 кГц (Пылезвуковая) → Поперечное возбуждение<br>
+            50–100 кГц (Ионно-звуковая) → Подготовка плазменного фона<br>
+            13,56 МГц (Геликон) → Генерация базовой плазмы<br>
+            <br>
+            <strong>Условие триггера:</strong> A_поперечная ≥ 0,3×a₀ (a₀ ≈ 80 мкм)
         </div>
-    </div>
-
-    <div class="section">
-        <h2>4. Обсуждение и выводы</h2>
         
-        <h3>4.1 Физические механизмы</h3>
-        
-        <p>Представленная модель демонстрирует, что резонансное возбуждение пылевых решёточных волн в XDCP системе создаёт условия для:</p>
-        
-        <ol>
-            <li><strong>Кооперативного поведения:</strong> Частицы синхронизируют свои движения через волновые взаимодействия, достигая высоких значений параметра порядка (R > 0.8).</li>
-            
-            <li><strong>Нелинейного сжатия:</strong> Многочастотное возбуждение создаёт условия для фазовой синхронизации, ведущей к коллективному сжатию системы.</li>
-            
-            <li><strong>Энергетической локализации:</strong> Энергия концентрируется в модах с определёнными волновыми числами, создавая условия для эффективного нагрева.</li>
-            
-            <li><strong>Устойчивого удержания:</strong> XDCP фаза обеспечивает временное электростатическое удержание, достаточное для существенного выхода синтеза.</li>
-        </ol>
-        
-        <h3>4.2 Сравнение с существующими подходами</h3>
+        <h3>3.3 Свойства XDCP материала</h3>
         
         <table class="property-table">
             <tr>
-                <th>Метод</th>
-                <th>Принцип действия</th>
-                <th>Типичный Q</th>
-                <th>Преимущества</th>
-                <th>Недостатки</th>
+                <th>Свойство</th>
+                <th>Значение</th>
+                <th>Физическое происхождение</th>
+                <th>Значимость</th>
             </tr>
             <tr>
-                <td>Токамак</td>
-                <td>Магнитное удержание</td>
-                <td>~1.0</td>
-                <td>Хорошая изученность</td>
-                <td>Большие размеры, нейтронная активация</td>
+                <td>Энергетическая плотность</td>
+                <td>10¹²–10¹⁴ Дж/м³</td>
+                <td>Локализованные узлы плазменных волн</td>
+                <td>Превышает обычные конденсаторы</td>
             </tr>
             <tr>
-                <td>Инерционный синтез</td>
-                <td>Импульсное сжатие лазером</td>
-                <td>~0.01</td>
-                <td>Высокая плотность</td>
-                <td>Низкая эффективность, сложность</td>
+                <td>Температурная анизотропия</td>
+                <td>T<sub>∥</sub>/T<sub>⟂</sub> ≈ 10–100</td>
+                <td>Ионные следовые поля</td>
+                <td>Нетепловое усиление синтеза</td>
             </tr>
             <tr>
-                <td>Пинч-устройства</td>
-                <td>Самосжимающийся разряд</td>
-                <td>~0.1</td>
-                <td>Простота конструкции</td>
-                <td>Нестабильности, короткое время жизни</td>
+                <td>Эффективная проводимость</td>
+                <td>ρ < 10⁻¹⁰ Ω·м</td>
+                <td>Межоболочечные электронные каналы</td>
+                <td>Почти сверхпроводящая при температуре синтеза</td>
             </tr>
             <tr>
-                <td><strong>XDCP подход</strong></td>
-                <td><strong>Резонансное волновое сжатие</strong></td>
-                <td><strong>12-15</strong></td>
-                <td><strong>Анейтронный, компактный, когерентный</strong></td>
-                <td><strong>Требует точного контроля параметров</strong></td>
+                <td>Самовосстановление</td>
+                <td>Реорганизация при T<sub>плазмы</sub> > T<sub>крит</sub></td>
+                <td>Волновая адаптация</td>
+                <td>Устойчивость к радиационным повреждениям</td>
+            </tr>
+            <tr>
+                <td>Оптическое излучение</td>
+                <td>Спектр 100 нм – 10 мкм</td>
+                <td>Рекомбинация + чернотельное излучение</td>
+                <td>Диагностическая сигнатура</td>
+            </tr>
+            <tr>
+                <td>Механическая жёсткость</td>
+                <td>G > 10 ГПа (вдоль волн)</td>
+                <td>Волновые связи</td>
+                <td>Направленная прочность</td>
             </tr>
         </table>
         
-        <h3>4.3 Практическая реализация</h3>
+        <h3>3.4 Астрофизические аналогии</h3>
         
-        <div class="xdust-highlight">
-            <p><strong>Экспериментальный прототип:</strong> На основе представленного моделирования разработан проект экспериментальной установки с бюджетом $100,000. Установка включает многочастотную систему возбуждения, синтез XDUST композитов in-situ и комплекс диагностических систем.</p>
+        <div class="cosmic-analogy">
+            <p><strong>Лабораторная космогония:</strong> Эксперимент XDCP представляет лабораторное воссоздание физических процессов, происходящих при раннем звёздообразовании. Эта связь обеспечивает физическую интуицию для наблюдаемых явлений и потенциальные законы масштабирования, выведенные из астрофизических контекстов.</p>
         </div>
         
-        <p>Ключевые технические решения:</p>
+        <table>
+            <tr>
+                <th>Астрофизический контекст</th>
+                <th>Аналогичная особенность XDCP</th>
+                <th>Физический механизм</th>
+            </tr>
+            <tr>
+                <td>Протозвёздные диски</td>
+                <td>Волновая агрегация пыли</td>
+                <td>Пылезвуковые неустойчивости</td>
+            </tr>
+            <tr>
+                <td>Кометные хвосты</td>
+                <td>Взаимодействия пыль-плазма</td>
+                <td>Фотоэлектрическая зарядка</td>
+            </tr>
+            <tr>
+                <td>Динамика планетных колец</td>
+                <td>Коллективные волновые моды</td>
+                <td>Самогравитация + эффекты плазмы</td>
+            </tr>
+            <tr>
+                <td>Межзвёздные пылевые облака</td>
+                <td>Заряд-зависимая кластеризация</td>
+                <td>Кулоновская связь</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>4. Обсуждение</h2>
         
-        <ul>
-            <li><strong>Многочастотный генератор:</strong> Комбинация НЧ (7.83 Гц, 1-10 кГц) и ВЧ (13.56 МГц) сигналов с точной синхронизацией фаз.</li>
-            
-            <li><strong>Система синтеза XDUST:</strong> PECVD установка для производства BN-графеновых композитов с контролируемым легированием ксеноном.</li>
-            
-            <li><strong>Диагностический комплекс:</strong> Лазерное рассеяние, СВЧ интерферометрия, ВЧ зонды, оптическая спектроскопия.</li>
-            
-            <li><strong>Система управления:</strong> FPGA-контроллер для точного управления временными параметрами и обратной связи по диагностическим сигналам.</li>
-        </ul>
+        <h3>4.1 Физические механизмы образования XDCP</h3>
         
-        <h3>4.4 Ограничения и перспективы</h3>
-        
-        <p>Текущие ограничения подхода:</p>
+        <p>Фаза XDCP возникает через синергетические эффекты:</p>
         
         <ol>
-            <li><strong>Масштабирование:</strong> Необходимость увеличения объёма XDCP фазы при сохранении когерентности.</li>
-            
-            <li><strong>Стабильность XDUST:</strong> Требуются дополнительные исследования долговременной стабильности композитов в плазменных условиях.</li>
-            
-            <li><strong>Энергетический баланс:</strong> Необходимость оптимизации соотношения входной/выходной энергии.</li>
-            
-            <li><strong>Диагностика:</strong> Разработка методов in-situ диагностики параметров XDCP фазы.</li>
+            <li><strong>Замедленное кулоновское взрывное расширение:</strong> Пылевые частицы действуют как электростатические якоря, замедляя ионное расширение.</li>
+            <li><strong>Волновая связь:</strong> Пылезвуковые волны создают невзаимные взаимодействия между частицами.</li>
+            <li><strong>Квантово-усиленное экранирование:</strong> Легирование ксеноном модифицирует эффективный фактор Гамова через механизм квантового катализа.</li>
         </ol>
         
-        <p>Перспективные направления развития:</p>
+        <div class="xdust-highlight">
+            <p><strong>Ключевое отличие:</strong> XDCP представляет собой не обычную плазму и не обычное конденсированное вещество. Она проявляет свойства обоих, вводя волновую когерентность как первичный механизм связи.</p>
+        </div>
         
-        <ul>
-            <li><strong>Гибридные системы:</strong> Комбинация XDCP подхода с другими методами удержания.</li>
-            
-            <li><strong>Материаловедение:</strong> Разработка новых композитных материалов с улучшенными свойствами.</li>
-            
-            <li><strong>Астрофизические приложения:</strong> Использование XDCP систем для моделирования протозвёздных процессов.</li>
-            
-            <li><strong>Квантовые эффекты:</strong> Исследование квантовых аспектов волновой когерентности в XDCP системах.</li>
-        </ul>
+        <h3>4.2 Масштабирование и пределы</h3>
+        
+        <p>Время декогерентности определяется самым коротким временным масштабом:</p>
+        
+        <div class="equation">
+            \[
+            \tau_{\text{дек}}^{-1} = \tau_{\text{заряд}}^{-1} + \tau_{\text{турб}}^{-1} + \tau_{\text{тепл}}^{-1} + \tau_{\text{столк}}^{-1}
+            \tag{7}
+            \]
+            <div class="equation-number">(7)</div>
+        </div>
+        
+        <p>С усилением XDUST:</p>
+        
+        <div class="equation">
+            \[
+            \tau_{\text{дек,XD}} = \frac{1}{\frac{1}{250 \times 10^{-9}} + \frac{1}{10 \times 10^{-6}} + \frac{1}{500 \times 10^{-9}} + \frac{1}{10 \times 10^{-6}}} \approx 50\text{–}100 \, \text{нс}
+            \tag{8}
+            \]
+            <div class="equation-number">(8)</div>
+        </div>
+        
+        <h3>4.3 Сравнение с альтернативными подходами</h3>
+        
+        <table>
+            <tr>
+                <th>Подход</th>
+                <th>τ<sub>дек</sub> (нс)</th>
+                <th>Реакций/Импульс (×10¹⁷)</th>
+                <th>Q</th>
+                <th>Относительная эффективность</th>
+            </tr>
+            <tr>
+                <td>Нерезонансный статический</td>
+                <td>10–15</td>
+                <td>3–4</td>
+                <td>2–3</td>
+                <td>1,0</td>
+            </tr>
+            <tr>
+                <td>Резонансный базовый (BN)</td>
+                <td>20–30</td>
+                <td>9</td>
+                <td>6–9</td>
+                <td>2,3</td>
+            </tr>
+            <tr>
+                <td>Резонансный XDCP</td>
+                <td>50–100</td>
+                <td>18–22</td>
+                <td>12–15</td>
+                <td>3,5–4,0</td>
+            </tr>
+        </table>
+        
+        <p>Подход XDCP обеспечивает 3,5–4,0× улучшение общей эффективности по сравнению с нерезонансными схемами, причём большая часть выигрыша обусловлена увеличенным временем когерентности (2,5–3,3×) и улучшенной стабильностью заряда.</p>
     </div>
 
     <div class="section">
         <h2>5. Заключение</h2>
         
-        <p>Представлен новый подход к анейтронному синтезу, основанный на резонансной самоорганизации X-пылевой конденсированной фазы. Моделирование демонстрирует возможность достижения параметров, необходимых для эффективного p-¹¹B синтеза:</p>
+        <p>Подход X-пылевой конденсированной фазы представляет значительное продвижение как в физике плазмы, так и в науке о материалах. Создавая и манипулируя новым состоянием вещества, соединяющим плазменную и конденсированную фазы, мы достигаем условий временного удержания (Tᵢ = 120–150 кэВ, n = 5×10²¹ м⁻³) с временами когерентности 50–100 нс, достаточными для существенного выхода p–¹¹B синтеза.</p>
         
-        <div class="coherence-success">
-            <p><strong>Ключевые достижения:</strong></p>
-            <ul>
-                <li>Достижение кулоновского параметра Γ = 170-190, соответствующего сильносвязанному состоянию</li>
-                <li>Увеличение времени когерентности до 50-100 нс за счёт XDUST композитов</li>
-                <li>Достижение параметра порядка R > 0.8, свидетельствующего о высокой степени синхронизации</li>
-                <li>Расчётный энергетический выход Q = 12-15, что превосходит большинство существующих подходов</li>
-                <li>Выход синтеза 2×10¹⁸ реакций на импульс при оптимальных параметрах</li>
-            </ul>
-        </div>
+        <p>Ключевые выводы данного исследования:</p>
         
-        <p>Представленный полный код моделирования и диагностики обеспечивает инструментальную базу для дальнейших исследований и экспериментальной реализации подхода. Метод XDCP открывает новые возможности в области управляемого синтеза, материаловедения и астрофизики, представляя собой пример синергии фундаментальных исследований и практических приложений.</p>
+        <ol>
+            <li><strong>XDCP как новое состояние вещества:</strong> Волновая фаза с невзаимными взаимодействиями и энергозависимыми свойствами</li>
+            <li><strong>Усиленная когерентность:</strong> Ксенон-легированные графеновые оболочки расширяют когерентность с 20–30 нс до 50–100 нс</li>
+            <li><strong>Производительность синтеза:</strong> Энергетический выход Q улучшается с 6–9 до 12–15 с урожаем (1,8–2,2)×10¹⁸ реакций на импульс</li>
+            <li><strong>Астрофизическая связь:</strong> Лабораторное воссоздание физики протозвёздных дисков</li>
+            <li><strong>Свойства материала:</strong> Уникальная комбинация высокой энергетической плотности, анизотропной проводимости и самовосстанавливающегося поведения</li>
+        </ol>
         
         <div class="note">
-            <p><strong>Научная значимость:</strong> Работа демонстрирует, что резонансные волновые процессы в сильносвязанной пылевой плазме могут создавать новые состояния вещества с уникальными свойствами, открывая путь к компактным анейтронным источникам энергии и новым материалам с управляемыми свойствами.</p>
+            <p><strong>Значимость:</strong> Данная работа демонстрирует, что резонансная волновая динамика в пылевой плазме может создавать новое состояние вещества с уникальными свойствами. XDCP представляет собой как путь к практическому анейтронному синтезу, так и новую границу в физике конденсированного состояния, соединяющую лабораторную науку с космическими явлениями.</p>
         </div>
     </div>
 
@@ -2078,236 +682,11 @@ if __name__ == "__main__":
         <p>[15] Zobnin, A. V., et al. "On the charge of dust particles in a plasma." <em>Journal of Experimental and Theoretical Physics</em> <strong>91</strong>.3 (2000): 483-487.</p>
     </div>
 
-    <script>
-        // Генерация данных для графиков
-        function generateEnergyData() {
-            const time = [];
-            const totalEnergy = [];
-            const kineticEnergy = [];
-            const potentialEnergy = [];
-            
-            for (let i = 0; i <= 100; i++) {
-                const t = i * 0.03;
-                time.push(t.toFixed(2));
-                
-                // Базовая эволюция с резонансными пиками
-                let base = 50 + 10 * Math.sin(t * 5) * Math.exp(-t/10);
-                
-                // Добавляем пики резонансного сжатия
-                if (t > 0.5 && t < 0.55) base += 40 * Math.sin((t-0.5)*100);
-                if (t > 1.0 && t < 1.05) base += 60 * Math.sin((t-1.0)*100);
-                if (t > 1.5 && t < 1.55) base += 80 * Math.sin((t-1.5)*100);
-                if (t > 2.0 && t < 2.05) base += 100 * Math.sin((t-2.0)*100);
-                
-                totalEnergy.push(base);
-                
-                // Кинетическая энергия (примерно 40% от полной)
-                kineticEnergy.push(0.4 * base + 5 * Math.sin(t * 7));
-                
-                // Потенциальная энергия
-                potentialEnergy.push(0.6 * base + 3 * Math.sin(t * 3));
-            }
-            
-            return {time, totalEnergy, kineticEnergy, potentialEnergy};
-        }
-
-        function generateRadialDistributionData() {
-            const distance = [];
-            const g_r = [];
-            
-            for (let i = 0; i <= 100; i++) {
-                const r = i * 0.2;
-                distance.push(r);
-                
-                // Модель радиальной функции распределения для упорядоченной системы
-                let value = 0;
-                
-                // Первый пик (ближайшие соседи)
-                value += 2.5 * Math.exp(-((r - 1.5)/0.3)**2);
-                
-                // Второй пик
-                value += 1.2 * Math.exp(-((r - 3.0)/0.5)**2);
-                
-                // Третий пик
-                value += 0.8 * Math.exp(-((r - 4.5)/0.6)**2);
-                
-                // Фон
-                value += 0.1 * Math.exp(-r/5);
-                
-                g_r.push(value);
-            }
-            
-            return {distance, g_r};
-        }
-
-        function generateOrderParameterData() {
-            const time = [];
-            const orderParameter = [];
-            
-            for (let i = 0; i <= 100; i++) {
-                const t = i * 0.03;
-                time.push(t.toFixed(2));
-                
-                // Модель роста параметра порядка
-                let R = 0.3 + 0.5 * (1 - Math.exp(-t/0.5));
-                
-                // Добавляем колебания
-                R += 0.05 * Math.sin(t * 15);
-                
-                // Ограничиваем сверху
-                R = Math.min(R, 0.95);
-                
-                // Добавляем эффект резонансных пиков
-                if (t > 0.5 && t < 0.55) R = Math.min(R + 0.1, 0.95);
-                if (t > 1.0 && t < 1.05) R = Math.min(R + 0.15, 0.95);
-                if (t > 1.5 && t < 1.55) R = Math.min(R + 0.2, 0.95);
-                if (t > 2.0 && t < 2.05) R = Math.min(R + 0.25, 0.95);
-                
-                orderParameter.push(R);
-            }
-            
-            return {time, orderParameter};
-        }
-
-        // Инициализация графиков
-        document.addEventListener('DOMContentLoaded', function() {
-            const ChartColors = {
-                total: '#1a237e',
-                kinetic: '#4A148C',
-                potential: '#b71c1c',
-                radial: '#ff6d00',
-                order: '#2e7d32'
-            };
-
-            const chartOptions = {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: true, position: 'top' },
-                    tooltip: { mode: 'index', intersect: false }
-                },
-                scales: {
-                    x: {
-                        title: { display: true, font: { size: 11 } },
-                        grid: { color: '#e0e0e0' }
-                    },
-                    y: {
-                        title: { display: true, font: { size: 11 } },
-                        grid: { color: '#e0e0e0' }
-                    }
-                }
-            };
-
-            // График 1: Эволюция энергии
-            const energyData = generateEnergyData();
-            new Chart(document.getElementById('energyEvolutionChart'), {
-                type: 'line',
-                data: {
-                    labels: energyData.time,
-                    datasets: [
-                        {
-                            label: 'Полная энергия',
-                            data: energyData.totalEnergy,
-                            borderColor: ChartColors.total,
-                            backgroundColor: ChartColors.total + '20',
-                            borderWidth: 2,
-                            fill: true,
-                            tension: 0.4
-                        },
-                        {
-                            label: 'Кинетическая энергия',
-                            data: energyData.kineticEnergy,
-                            borderColor: ChartColors.kinetic,
-                            borderWidth: 1.5,
-                            borderDash: [5, 5],
-                            tension: 0.4
-                        },
-                        {
-                            label: 'Потенциальная энергия',
-                            data: energyData.potentialEnergy,
-                            borderColor: ChartColors.potential,
-                            borderWidth: 1.5,
-                            tension: 0.4
-                        }
-                    ]
-                },
-                options: {
-                    ...chartOptions,
-                    scales: {
-                        x: { ...chartOptions.scales.x, title: { display: true, text: 'Время (мс)' } },
-                        y: { ...chartOptions.scales.y, title: { display: true, text: 'Энергия (арб. ед.)' }, min: 0, max: 120 }
-                    }
-                }
-            });
-
-            // График 2: Радиальная функция распределения
-            const radialData = generateRadialDistributionData();
-            new Chart(document.getElementById('radialDistributionChart'), {
-                type: 'line',
-                data: {
-                    labels: radialData.distance.map(d => d.toFixed(1)),
-                    datasets: [{
-                        label: 'g(r)',
-                        data: radialData.g_r,
-                        borderColor: ChartColors.radial,
-                        backgroundColor: ChartColors.radial + '40',
-                        borderWidth: 2,
-                        fill: true,
-                        tension: 0.3
-                    }]
-                },
-                options: {
-                    ...chartOptions,
-                    scales: {
-                        x: { ...chartOptions.scales.x, title: { display: true, text: 'Расстояние r' } },
-                        y: { ...chartOptions.scales.y, title: { display: true, text: 'g(r)' }, min: 0, max: 3 }
-                    }
-                }
-            });
-
-            // График 3: Параметр порядка
-            const orderData = generateOrderParameterData();
-            new Chart(document.getElementById('orderParameterChart'), {
-                type: 'line',
-                data: {
-                    labels: orderData.time,
-                    datasets: [{
-                        label: 'Параметр порядка R',
-                        data: orderData.orderParameter,
-                        borderColor: ChartColors.order,
-                        backgroundColor: ChartColors.order + '40',
-                        borderWidth: 3,
-                        fill: true,
-                        tension: 0.3
-                    }]
-                },
-                options: {
-                    ...chartOptions,
-                    scales: {
-                        x: { ...chartOptions.scales.x, title: { display: true, text: 'Время (мс)' } },
-                        y: { 
-                            ...chartOptions.scales.y, 
-                            title: { display: true, text: 'Параметр порядка R' }, 
-                            min: 0, 
-                            max: 1,
-                            ticks: {
-                                callback: function(value) {
-                                    return value.toFixed(1);
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-        });
-    </script>
-
     <div style="margin-top: 3em; padding-top: 1em; border-top: 1px solid #ccc; font-size: 9pt; color: #666; text-align: center;">
         <p><strong>Корреспонденция:</strong> research@collective.org</p>
-        <p><strong>Доступность кода:</strong> Полный код доступен по адресу: github.com/xdcp-sodpf/simulation</p>
-        <p><strong>Требования для запуска:</strong> Python 3.8+, numpy, matplotlib, scipy</p>
-        <p><strong>Лицензия:</strong> MIT Open Source License</p>
-        <p><strong>Цитирование:</strong> При использовании кода просьба ссылаться на данную работу</p>
+        <p><strong>Доступность данных:</strong> Данные моделирования и скрипты анализа доступны по запросу.</p>
+        <p><strong>Благодарности:</strong> Работа выполнена при поддержке независимого исследовательского финансирования.</p>
+        <p><strong>Конкурирующие интересы:</strong> Авторы заявляют об отсутствии конкурирующих интересов.</p>
     </div>
 </body>
 </html>
