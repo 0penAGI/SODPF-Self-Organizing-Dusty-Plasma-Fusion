@@ -411,7 +411,7 @@
         
         <ol>
             <li>The thermal noise ceiling for coherent energy accumulation of 5 eV per localized mode is ≤3000 K.</li>
-            <li>Localized resonant buildup of 5 eV in a CNT mechanical mode is theoretically possible if the resonator Q-factor satisfies: 
+            <li>Localized resonant buildup of 5 eV in a CNT mechanical mode is theoretically possible if the resonator Q-factor satisfies:
                 \( Q_{\min} \approx \frac{U}{P_{\alpha}/\omega} \) where \( P_{\alpha} \sim 10^{-18}\,\mathrm{W/atom} \).</li>
             <li>For atomic-scale volumes, the number of accessible thermal modes is <1 up to THz frequencies, enabling noise-limited confinement of energy.</li>
             <li>Fusion-like interactions become in principle reachable if nonlinear phonon–plasmon coupling produces sub-angstrom localization of mechanical strain.</li>
@@ -761,20 +761,7 @@
         <div class="figure">
             <div class="figure-title">Figure 5: Experimental Setup Schematic</div>
             <div class="reactor-image">
-                <!-- This would be replaced with actual reactor.JPG image -->
-                <div style="background: #f0f0f0; height: 400px; display: flex; align-items: center; justify-content: center; color: #333; font-size: 16px; font-family: Arial, sans-serif; text-align: center; padding: 20px;">
-                    <div>
-                        <strong>EXPERIMENTAL SODPF REACTOR</strong><br><br>
-                        [Image: reactor.JPG]<br><br>
-                        Components shown:<br>
-                        1. Vacuum chamber with RF excitation<br>
-                        2. Ti-W + U-238 + CNT composite target<br>
-                        3. Laser interferometry diagnostics<br>
-                        4. Alpha particle detectors<br>
-                        5. X-ray/neutron diagnostics<br>
-                        6. Temperature/pressure sensors
-                    </div>
-                </div>
+                <img src="reactor.JPG" alt="Experimental SODPF Reactor" class="reactor-image">
             </div>
             <div class="figure-caption">Schematic of experimental SODPF reactor showing key components and diagnostic systems for validation of resonant energy localization effects.</div>
         </div>
@@ -1060,12 +1047,12 @@
                 options: {
                     ...chartOptions,
                     scales: {
-                        x: { 
-                            ...chartOptions.scales.x, 
+                        x: {
+                            ...chartOptions.scales.x,
                             title: { display: true, text: 'Localization Length Ratio ℓ_loc/ξ' }
                         },
-                        y: { 
-                            ...chartOptions.scales.y, 
+                        y: {
+                            ...chartOptions.scales.y,
                             title: { display: true, text: 'Q_eff / Q_0' }
                         }
                     }
@@ -1100,13 +1087,13 @@
                 options: {
                     ...chartOptions,
                     scales: {
-                        x: { 
-                            ...chartOptions.scales.x, 
+                        x: {
+                            ...chartOptions.scales.x,
                             title: { display: true, text: 'Q-factor' },
                             type: 'logarithmic'
                         },
-                        y: { 
-                            ...chartOptions.scales.y, 
+                        y: {
+                            ...chartOptions.scales.y,
                             title: { display: true, text: 'Energy (eV)' }
                         }
                     }
@@ -1131,12 +1118,12 @@
                 options: {
                     ...chartOptions,
                     scales: {
-                        x: { 
-                            ...chartOptions.scales.x, 
+                        x: {
+                            ...chartOptions.scales.x,
                             title: { display: true, text: 'Coulomb Barrier Reduction (%)' }
                         },
-                        y: { 
-                            ...chartOptions.scales.y, 
+                        y: {
+                            ...chartOptions.scales.y,
                             title: { display: true, text: 'Tunneling Probability Enhancement' }
                         }
                     }
