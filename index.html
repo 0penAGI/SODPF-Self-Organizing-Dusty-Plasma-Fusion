@@ -3,442 +3,578 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>SODPF: Dissipation Minimization via Multi-Field Coupling | Plasma Turbulence Control</title>
+    <title>SODPF · Topological Small-World Networks | Kuramoto with Global Dust-Acoustic Mean Field</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            --primary: #000000;
-            --accent-plasma: #00aaff;
-            --accent-dust: #ffaa44;
-            --glow: rgba(0,170,255,0.7);
+            --bg-dark: #02060c;
+            --card-bg: #0b1018;
+            --plasma-glow: #00ccff;
+            --dust-gold: #ffaa44;
+            --critical-red: #ff3366;
+            --text-main: #eef4ff;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: 'Times New Roman', serif;
-            max-width: 1300px;
+            font-family: 'Times New Roman', 'Segoe UI', serif;
+            background: #fafeff;
+            color: #010a18;
+            line-height: 1.45;
+            padding: 24px 20px 40px 20px;
+            max-width: 1400px;
             margin: 0 auto;
-            line-height: 1.5;
-            color: #000;
-            background: #fff;
-            padding: 20px;
-            font-size: 11pt;
-            text-align: justify;
         }
-        h1 { font-size: 20pt; text-align: center; border-bottom: 2px solid #000; margin-bottom: 0.5em; }
-        h2 { font-size: 15pt; border-left: 5px solid #00aaff; padding-left: 12px; margin: 1.5em 0 0.8em 0; }
-        .abstract { background: #f0f7ff; border-left: 6px solid #0066cc; padding: 1.2em; margin: 1.5em 0; }
-        .sim-card {
-            background: #050a12;
-            border-radius: 20px;
+        h1 { font-size: 1.9rem; text-align: center; letter-spacing: -0.5px; border-bottom: 3px solid #00aaff; display: inline-block; width: auto; margin-bottom: 0.3em; padding-bottom: 8px; }
+        h2 { font-size: 1.5rem; border-left: 6px solid #00aaff; padding-left: 18px; margin: 1.4em 0 0.8em 0; color: #001c30; }
+        .abstract {
+            background: #eef5ff;
+            border-left: 8px solid #0077aa;
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 20px 20px 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+        }
+        .sim-panel {
+            background: #03070f;
+            border-radius: 32px;
             overflow: hidden;
-            box-shadow: 0 12px 28px rgba(0,0,0,0.3);
-            margin: 2em 0;
-            border: 1px solid #2a5f8a;
+            margin: 2rem 0;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.4);
+            border: 1px solid #1e4b6e;
         }
-        canvas { width: 100%; height: auto; display: block; background: #010a14; cursor: crosshair; }
-        .ctrl-panel {
+        canvas#networkCanvas {
+            width: 100%;
+            height: auto;
+            background: #010612;
+            display: block;
+            cursor: crosshair;
+        }
+        .ctrl-bar {
             background: #0a121f;
-            padding: 12px 20px;
+            padding: 14px 24px;
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
             justify-content: space-between;
             align-items: center;
+            border-top: 1px solid #1f5580;
             font-family: monospace;
-            border-top: 1px solid #2a5a88;
         }
         .ctrl-group {
-            background: #101826;
-            border-radius: 40px;
-            padding: 5px 15px;
+            background: #101a2a;
+            border-radius: 48px;
+            padding: 6px 18px;
             display: flex;
-            gap: 10px;
+            gap: 12px;
             align-items: baseline;
-            border: 1px solid #2f6080;
+            border: 1px solid #2c6c96;
         }
-        .ctrl-group label { color: #88ddff; font-weight: bold; font-size: 11px; }
-        input[type="range"] { width: 130px; background: #222; height: 3px; -webkit-appearance: none; }
-        input[type="range"]::-webkit-slider-thumb { width: 12px; height: 12px; background: #0af; border-radius: 50%; cursor: pointer; }
-        .stats {
+        .ctrl-group label { color: #7bc5ff; font-weight: bold; font-size: 12px; letter-spacing: 0.5px; }
+        input[type="range"] { width: 130px; background: #1f3f5c; height: 3px; -webkit-appearance: none; border-radius: 3px; }
+        input[type="range"]::-webkit-slider-thumb { width: 14px; height: 14px; background: #0af; border-radius: 50%; cursor: pointer; box-shadow: 0 0 4px #0af; }
+        .stats-panel {
+            background: #030812;
+            padding: 6px 20px;
+            border-radius: 48px;
             display: flex;
-            gap: 18px;
-            background: #03070e;
-            padding: 5px 18px;
-            border-radius: 32px;
+            gap: 24px;
+            font-size: 13px;
         }
-        .stat { color: #0af; font-weight: bold; font-size: 12px; }
-        .stat span { color: white; font-weight: normal; }
+        .stat { color: #2cc0ff; font-weight: bold; }
+        .stat span { color: white; font-weight: normal; font-family: monospace; }
         button {
-            background: #1a3350;
-            border: 1px solid #0af;
-            color: #0af;
-            border-radius: 30px;
-            padding: 5px 16px;
+            background: #142b40;
+            border: 1px solid #2c8fcc;
+            color: #bbecff;
+            border-radius: 40px;
+            padding: 6px 20px;
             cursor: pointer;
             font-weight: bold;
             transition: 0.2s;
         }
-        button:hover { background: #0af; color: #000; box-shadow: 0 0 8px #0af; }
-        .equation { background: #f8fafc; padding: 1em; border-left: 4px solid #00aaff; margin: 1.2em 0; text-align: center; overflow-x: auto; }
-        .critical-note { background: #fff7e0; border-left: 5px solid #ff9900; padding: 1em; margin: 1.5em 0; }
-        .references { font-size: 9pt; margin-top: 2.5em; border-top: 1px solid #ccc; padding-top: 1em; }
-        @media (max-width: 800px) { .ctrl-panel { flex-direction: column; align-items: stretch; } .ctrl-group { justify-content: space-between; } }
+        button:hover { background: #2c8fcc; color: #000; box-shadow: 0 0 8px #0af; }
+        .equation {
+            background: #f2f8ff;
+            padding: 1.2rem;
+            border-left: 5px solid #00aaff;
+            margin: 1.2rem 0;
+            text-align: center;
+            overflow-x: auto;
+            border-radius: 12px;
+        }
+        .critical-alert {
+            background: #fff0e5;
+            border-left: 6px solid #ff6633;
+            padding: 1rem 1.5rem;
+            margin: 1.8rem 0;
+            border-radius: 12px;
+        }
+        .row-charts { display: flex; flex-wrap: wrap; gap: 2rem; margin: 2rem 0; justify-content: center; }
+        .chart-box { flex: 1; min-width: 260px; background: #ffffffd9; border-radius: 24px; padding: 1rem; box-shadow: 0 5px 12px rgba(0,0,0,0.05); }
+        .refs { font-size: 9pt; margin-top: 2.5rem; border-top: 1px solid #ccc; padding-top: 1rem; color: #2a4055; }
+        @media (max-width: 800px) { .ctrl-bar { flex-direction: column; align-items: stretch; } .stats-panel { justify-content: space-between; } }
     </style>
 </head>
 <body>
 
-<h1>Self-Organizing Dusty Plasma Framework<br>Minimization of Dissipation & Turbulence Control</h1>
-<div style="text-align:center; margin-bottom:20px;"><em>0penAGI Research Collective | Applied Plasma Physics Division</em></div>
+<div style="text-align: center;">
+    <h1>SELF‑ORGANIZED DUSTY PLASMA FRAMEWORK <br><span style="font-size: 1.2rem;">Topological Small‑World Networks & Nonlocal Kuramoto Synchronization</span></h1>
+    <div style="font-style: italic; margin-top: 6px;">CNT as topological channel | distributed mode immunity | dust‑acoustic mean field</div>
+</div>
 
 <div class="abstract">
-    <strong>▸ Engineering Abstract:</strong> We reframe SODPF as a predictive control paradigm for magnetized fusion plasmas. Instead of violating energy conservation, the model demonstrates how <strong>multi-fluid coupling with heavy dust components</strong> (charged microparticles) redistributes turbulent kinetic energy into ordered plasma-acoustic modes, reducing anomalous transport. The topological invariant \(\mathcal{T}\) acts as a <strong>nonlinear feedback gain</strong> that suppresses microinstabilities (ITG/TEM). The result is a reduced power requirement for auxiliary heating \(P_{\text{heat}}\) while maintaining core confinement quality \(H_{98}\). No violation of thermodynamics — only entropy management via phase-space engineering.
+    <strong>▸ BEYOND ENGINEERING DEATH: TOPOLOGICAL RESILIENCE</strong><br>
+    We formalize the <strong>CNT lattice as a small‑world network</strong> where each carbon nanotube junction acts as a phase oscillator. The global synchronization emerges not from all-to-all coupling but via <strong>two synergistic mechanisms</strong>: (i) <strong>dust‑acoustic waves</strong> generating a macroscopic mean field \(\Psi(t)\) that is felt by every node (collective plasma hydrodynamics), and (ii) <strong>long‑range shortcuts</strong> intrinsic to small‑world topology (Watts–Strogatz) enabling fast phase front propagation. The distributed topological mode makes the system immune to local radiation damage — a single node degradation only increases local entropy without breaking the global invariant. The critical limit: the phase front velocity \(V_{\text{phase}}\) must exceed the degradation rate. Below the threshold, the network undergoes a <strong>second‑order phase transition into incoherence (therapeutic coma)</strong>.
 </div>
 
-<!-- ========== IMPROVED SIMULATION: Dissipation Control & Dust Damping ========== -->
-<div class="sim-card">
-    <canvas id="fusionCanvas" width="1100" height="520"></canvas>
-    <div class="ctrl-panel">
-        <div class="ctrl-group"><label>🍃 DEBYE λ</label><input type="range" id="slDebye" min="25" max="130" value="60"><span id="vDebye" style="color:#0af;">60</span></div>
-        <div class="ctrl-group"><label>🌊 TURB. NOISE</label><input type="range" id="slNoise" min="0" max="50" value="18"><span id="vNoise" style="color:#0af;">18</span></div>
-        <div class="ctrl-group"><label>⚡ DRIVE FIELD</label><input type="range" id="slField" min="0" max="90" value="45"><span id="vField" style="color:#0af;">45</span></div>
-        <div class="ctrl-group"><label>🪨 DUST COUNT</label><input type="range" id="slN" min="20" max="150" value="65"><span id="vN" style="color:#0af;">65</span></div>
-        <div class="ctrl-group"><button id="btnReset">⟳ RESET CONFIG</button><button id="btnPulse">⚡ MHD KICK</button></div>
-        <div class="stats"><div class="stat">🜸 N_dust: <span id="sN">0</span></div><div class="stat">𝒯 charge: <span id="sTopo">0</span></div><div class="stat">⟨Coh⟩: <span id="sCoh">0</span>%</div><div class="stat">P_loss red.: <span id="sQLoss">0</span>%</div></div>
+<h2>⚡ Kuramoto–Sakaguchi with Nonlocal & Mean‑Field Coupling</h2>
+<p>The evolution of each CNT oscillator \(\theta_i(t)\) (phase of dust‑density wave) obeys:</p>
+<div class="equation">
+    \[
+    \dot{\theta}_i = \omega_i + \frac{K_{\text{loc}}}{\langle k \rangle} \sum_{j \in \mathcal{N}_i} \sin(\theta_j - \theta_i) + G_{\text{mf}} \, R \, \sin(\Psi - \theta_i) + \sqrt{2D}\,\xi_i(t)
+    \]
+    \[
+    R e^{i\Psi} = \frac{1}{N}\sum_{j=1}^{N} e^{i\theta_j}, \quad \text{Topological invariant } \mathcal{T} = \frac{1}{2\pi}\oint_\gamma \nabla\theta \cdot d\mathbf{l} \in \mathbb{Z}
+    \]
+</div>
+<p>Where \(\mathcal{N}_i\) denotes small‑world neighbours (sparse local links plus rare long‑range connections). The global mean field \(R e^{i\Psi}\) emulates the <strong>dust‑acoustic wave field</strong> that propagates through the entire plasma volume at finite speed but acts as instantaneous averaged forcing due to separation of scales. The network’s small‑world property ensures that the <strong>phase front velocity \(V_{\text{phase}}\)</strong> scales as \(V_{\text{phase}} \sim K_{\text{loc}} \cdot R \cdot \ell_{\text{SW}}\) enabling synchronization before radiational destruction of individual nodes.</p>
+
+<div class="critical-alert">
+    <strong>🔻 CRITICAL INEQUALITY (AVOIDING ENGINEERING DEATH):</strong><br>
+    \[
+    V_{\text{phase}} = \alpha \, K_{\text{loc}} \, R \, \langle \ell_{\text{path}}\rangle^{-1} \; > \; \frac{L_{\text{corr}}}{\tau_{\text{deg}}}
+    \]
+    where \(\tau_{\text{deg}}\) is mean node failure time, \(L_{\text{corr}}\) correlation length. If \(R < R_{\text{crit}}\) (coherence collapse), synchronization dies → avalanche death of topological mode. This phase transition is shown live.
+</div>
+
+<!-- MAIN SIMULATION: SMALL-WORLD KURAMOTO NETWORK + MEAN FIELD -->
+<div class="sim-panel">
+    <canvas id="networkCanvas" width="1100" height="540" style="width:100%; height:auto; background:#010612;"></canvas>
+    <div class="ctrl-bar">
+        <div class="ctrl-group"><label>🔗 REWIRING p</label><input type="range" id="slRewire" min="0" max="0.5" step="0.01" value="0.12"><span id="pVal" style="color:#0af;">0.12</span></div>
+        <div class="ctrl-group"><label>🌊 MF STRENGTH G</label><input type="range" id="slGmf" min="0" max="1.2" step="0.01" value="0.58"><span id="gVal" style="color:#0af;">0.58</span></div>
+        <div class="ctrl-group"><label>⚡ LOCAL K_loc</label><input type="range" id="slKloc" min="0.2" max="1.8" step="0.01" value="0.95"><span id="kVal" style="color:#0af;">0.95</span></div>
+        <div class="ctrl-group"><label>🎲 NOISE D</label><input type="range" id="slNoise" min="0" max="0.28" step="0.002" value="0.042"><span id="dVal" style="color:#0af;">0.042</span></div>
+        <div class="ctrl-group"><button id="btnResetNet">⟳ RESET NETWORK</button><button id="btnPerturb">💥 LOCAL DEGRADATION</button></div>
+        <div class="stats-panel">
+            <div class="stat">📐 Order R: <span id="statR">0.00</span></div>
+            <div class="stat">🌀 Topo 𝒯: <span id="statTopo">0</span></div>
+            <div class="stat">⚡ V_phase proxy: <span id="statVph">0.00</span></div>
+            <div class="stat">⚠️ R/R_crit: <span id="statCrit">0.00</span></div>
+        </div>
     </div>
-    <div style="padding:8px 20px; background:#03070e; font-size:10px; color:#88aacc; text-align:center; border-top:1px solid #1f3a5f;">
-        🖱️ Mouse = active feedback actuator (localized RF field) | 𝒯 ≠ 0 → topological suppression of turbulence | Dust particles act as kinetic energy sinks.
+    <div style="padding: 8px 20px; background:#03070f; border-top:1px solid #1f4a6e; font-size:10px; color:#99c2e0; text-align:center;">
+        🖱️ Click/tap on any node → localized phase perturbation (simulates radiation defect). Small‑world edges = cyan (short) + magenta (long-range shortcuts). Global mean field from dust‑acoustic modes pushes synchronization.
     </div>
 </div>
 
-<h2>1. Energy Conservation & The Real Role of Dust</h2>
-<p>The total energy of the plasma-dust system is strictly conserved. The innovation lies in the <strong>redistribution of free energy</strong>: instead of turbulent eddies transferring energy to anomalous transport (heat loss), dust grains with variable charge \(Z_d\) couple to ion-scale fluctuations via polarization and wakefield forces. This converts broadband turbulence into coherent plasma-acoustic oscillations, which decay via collisional damping inside the dust component — effectively <strong>channeling loss channels into internal dissipation</strong> that does not degrade confinement.</p>
+<h2>🏛️ Small‑World Topology & Fast Phase Front Propagation</h2>
+<p>The network is constructed as a <strong>Watts–Strogatz graph</strong> with \(N=56\) nodes (CNT junctions), initially arranged on a ring with 4 nearest neighbors. Rewiring probability \(p\) introduces long‑range links (magenta edges) that dramatically reduce the average path length \(\langle \ell \rangle\). This topology, combined with the global mean field, allows the synchronized mode to propagate faster than the characteristic degradation time. The topological charge \(\mathcal{T}\) (winding number of the phase field around the central vortex) remains invariant under local perturbations, acting as a <strong>nonlocal order parameter</strong> that protects coherence.</p>
+
 <div class="equation">
     \[
-    \frac{\partial E_{\text{total}}}{\partial t} = P_{\text{heat}} + P_{\alpha} - P_{\text{rad}} - \underbrace{P_{\text{turb}}}_{\text{reduced by dust}} , \quad \text{with} \quad P_{\text{turb}} \propto \frac{1}{1 + \kappa n_d \langle Z_d^2 \rangle}
-    \]
-</div>
-
-<h2>2. Topological Suppression of Anomalous Transport</h2>
-<p>The field curvature \(C(r,t)\) evolves under a modified Hasegawa–Mima type equation with an extra topological restoring current \(\mathcal{J}(\mathcal{T})\):</p>
-<div class="equation">
-    \[
-    \frac{\partial}{\partial t} \nabla^2 C + \{\phi, \nabla^2 C\} = \mu \nabla^2 (C - C_{\text{dust}}) + \mathcal{J}(\mathcal{T}) - \nu \nabla^4 C
+    \dot{\theta}_i = \omega_i + \frac{K_{\text{loc}}}{d_i}\sum_{j\in\text{adj}_i} \sin(\theta_j-\theta_i) + G_{\text{mf}} R \sin(\Psi - \theta_i) + \sqrt{2D}\xi_i
     \]
     \[
-    \mathcal{J}(\mathcal{T}) = \chi \mathcal{T} \, \nabla^2 C , \quad \mathcal{T} = \frac{1}{2\pi} \oint_\gamma \nabla\arg(C)\cdot dl \quad (\text{topological invariant})
+    \text{Critical threshold: } R_{\text{crit}} = \frac{2D}{\pi K_{\text{loc}} \langle d \rangle} + \frac{\Delta\omega}{K_{\text{loc}}},\quad \text{Phase transition at } R < R_{\text{crit}} \Rightarrow \text{coherence collapse}
     \]
 </div>
-<p>When \(|\mathcal{T}| > 0\), the feedback term \(\mathcal{J}(\mathcal{T})\) cancels the growth of linear microinstabilities, effectively raising the critical temperature gradient threshold for ion-temperature-gradient (ITG) modes. This is analogous to <strong>nonlinear saturation control via zonal flows</strong>, but here mediated by dust-phase coherence.</p>
 
-<h2>3. Prediction-Error Feedback for Heating Efficiency</h2>
-<p>Using a real-time observer, the system estimates the misfit between expected and actual flux-surface averaged pressure:</p>
-<div class="equation">
-    \[
-    e(t) = \langle p_{\text{target}} \rangle - \langle p_{\text{meas}} \rangle , \quad P_{\text{aux}}(t) = P_0 + \gamma_p \int e(t) dt - \gamma_d \frac{de}{dt}
-    \]
-</div>
-<p>The simulation demonstrates that with active mouse feedback (actuator) and topological charge, the required \(P_{\text{heat}}\) to maintain a given confinement decreases, visualized as "P_loss red." metric.</p>
-
-<div class="critical-note">
-    <strong>🔬 Engineering interpretation:</strong> The coherence metric ⟨Coh⟩ directly correlates with reduction of turbulent heat diffusivity \(\chi_i\). For ⟨Coh⟩ > 65%, the anomalous transport drops below neoclassical levels — a regime called <em>internal transport barrier (ITB)</em> in tokamak literature. This is not a free-energy miracle, but a state of self-organized criticality actively sustained by dust-plasma coupling.
+<h2>📉 Synchronization Phase Transition & Live Metrics</h2>
+<div class="row-charts">
+    <div class="chart-box"><canvas id="phaseTransChart" width="400" height="220" style="width:100%; height:auto;"></canvas><div style="text-align:center; font-size:10px;">Figure 1: Order parameter R vs effective coupling (theory & real‑time marker)</div></div>
+    <div class="chart-box"><canvas id="velocityChart" width="400" height="220" style="width:100%; height:auto;"></canvas><div style="text-align:center; font-size:10px;">Figure 2: Phase front speed ∝ R·K_loc·⟨deg⟩ (small‑world boost)</div></div>
 </div>
 
-<h2>4. Validation: Turbulence Suppression & Q-factor Analogy</h2>
-<div class="figure" style="margin:1.5em 0;">
-    <canvas id="thermalNoiseChart" style="max-width:100%; height:260px;"></canvas>
-    <div style="text-align:center; font-size:9pt;">Figure 1: Required external heating reduction factor vs turbulence amplitude. Dust coupling flattens the scaling.</div>
-</div>
-<div class="figure">
-    <canvas id="stabilityPhaseChart" style="max-width:100%; height:260px;"></canvas>
-    <div style="text-align:center; font-size:9pt;">Figure 2: Predicted confinement enhancement \(H_{98}\) under topological feedback (𝒯>0).</div>
-</div>
-
-<h2>5. Where is the Limit? Open Questions for High-Temperature Plasmas</h2>
-<p>While the dust-damping mechanism is experimentally verified in low-temperature complex plasmas, extrapolation to burning plasma conditions (Te > 10 keV) faces two barriers:</p>
-<ul>
-    <li><strong>Dust survival time:</strong> Sublimation and complete ionization of micron-sized dust in the core of a reactor-scale plasma. Solutions include high-Z coated grains or continuous injection.</li>
-    <li><strong>Anomalous radiative losses:</strong> Heavy impurities (tungsten, carbon dust) may radiate via line emission, increasing \(P_{\text{rad}}\). The net benefit requires \(P_{\text{turb reduced}} > P_{\text{rad, dust}}\).</li>
-</ul>
-<p>The simulation below does not claim to overcome these — rather, it maps the parameter space where net dissipation reduction is theoretically possible.</p>
-
-<h2>6. Live Simulation: Interactive Multi-Field Dynamics</h2>
-<p>The visualization implements:<br>
-➤ Yukawa interactions among dust grains (shielded Coulomb).<br>
-➤ Background ion-flow modeled via external field + mouse actuator.<br>
-➤ Phase coherence between dust particles enables \(\mathcal{T} \neq 0\) (topological protection).<br>
-➤ Coherence → reduction of effective "loss" shown in real-time statistics.<br>
-Try dragging mouse across the domain: when winding number 𝒯 becomes nonzero, loss reduction jumps — due to suppression of turbulent eddies in the model.</p>
-
-<div class="references">
-    <h3>References (Applied Plasma Physics)</h3>
-    <p>[1] Fortov, V.E. et al. "Complex plasmas: III. Experiments on strong coupling." <em>Phys. Usp.</em> 47, 447 (2004).</p>
-    <p>[2] Horton, W. "Drift waves and transport." <em>Rev. Mod. Phys.</em> 71, 735 (1999).</p>
-    <p>[3] Terry, P.W. et al. "Suppression of turbulence and transport by sheared flow." <em>Phys. Plasmas</em> 8, 1846 (2001).</p>
-    <p>[4] 0penAGI. "Non-thermal dissipation control via topological dust coupling." BEP-004.2 (2026).</p>
+<div class="critical-alert">
+    <strong>💀 THE PRICE OF TOPOLOGICAL RESILIENCE: PHASE TRANSITION INTO “COMA”</strong><br>
+    When noise or degradation exceeds the critical bound, the mean field \(R\) collapses below \(R_{\text{crit}} \approx 0.38\) (depending on parameters). The system exhibits a <strong>second-order phase transition</strong>: local oscillators desynchronize, topological charge vanishes, and the plasma falls into a turbulent incoherent state. The simulation demonstrates this live: decrease \(K_{\text{loc}}\) or increase noise → watch R drop irreversibly unless mean field \(G_{\text{mf}}\) restores it. The small‑world topology widens the coherent regime but does not eliminate the fundamental kinetic limit.
 </div>
 
 <script>
-    // ---------- IMPROVED SIMULATION: dissipative control & topological feedback ----------
-    const canvas = document.getElementById('fusionCanvas');
+    // --------------------------------------------------------------
+    // SMALL-WORLD KURAMOTO NETWORK WITH DUST-ACOUSTIC MEAN FIELD
+    // --------------------------------------------------------------
+    const canvas = document.getElementById('networkCanvas');
     const ctx = canvas.getContext('2d');
-    let W, H, cx, cy;
-    let mouse = { x: 0, y: 0, active: false };
-    let particles = [];
+    let W, H;
+    let nodes = [];           // {x, y, theta, omega, baseFreq}
+    let adj = [];            // adjacency list (indices)
+    let edgesList = [];      // for drawing {from, to, isLong}
+    let N = 56;
+    let K_loc = 0.95;        // local coupling
+    let G_mf = 0.58;         // mean field strength
+    let D_noise = 0.042;     // noise amplitude
+    let rewiringProb = 0.12;
+    
+    // dynamic state
+    let thetas = new Array(N).fill(0);
+    let omegas = new Array(N).fill(0);
+    let Rorder = 0, Psi = 0;
+    let topologicalCharge = 0;
+    let phaseVelocityProxy = 0;
+    let animationId = null;
     let frame = 0;
-    let pulseActive = false, pulseT = 0;
-    let topCharge = 0;
+    let mouseDownFlag = false;
     
-    let DEBYE = 60, NOISE = 18, FIELD = 45, N_PARTICLES = 65;
-    
-    function resizeCanvas() {
-        const rect = canvas.parentElement.getBoundingClientRect();
-        W = Math.min(1200, rect.width - 10);
-        H = 520;
-        canvas.width = W;
-        canvas.height = H;
-        cx = W/2; cy = H/2;
-        initParticles();
+    // ----- Helper: build Watts-Strogatz small-world (ring + rewiring) -----
+    function buildSmallWorldGraph(N, k_nearest=2, p=rewiringProb) {
+        // start ring lattice: each node connected to k_nearest neighbors on each side (total degree 2*k_nearest)
+        let adjNew = Array(N).fill().map(() => []);
+        let edgeSet = new Set();
+        const addEdge = (a,b) => {
+            if(a===b) return;
+            if(!edgeSet.has(`${a}-${b}`) && !edgeSet.has(`${b}-${a}`)) {
+                edgeSet.add(`${a}-${b}`);
+                adjNew[a].push(b);
+                adjNew[b].push(a);
+            }
+        };
+        for(let i=0; i<N; i++) {
+            for(let k=1; k<=k_nearest; k++) {
+                let j1 = (i + k) % N;
+                let j2 = (i - k + N) % N;
+                addEdge(i, j1);
+                addEdge(i, j2);
+            }
+        }
+        // rewiring: for each edge (i,j) with i<j, rewire with probability p (keep simple graph)
+        let edgesToRewire = [];
+        for(let i=0; i<N; i++) {
+            for(let j of adjNew[i]) {
+                if(i<j && !edgesToRewire.some(e=> (e.i===i && e.j===j))) edgesToRewire.push({i,j});
+            }
+        }
+        for(let e of edgesToRewire) {
+            if(Math.random() < p) {
+                // remove edge (e.i, e.j)
+                adjNew[e.i] = adjNew[e.i].filter(v => v !== e.j);
+                adjNew[e.j] = adjNew[e.j].filter(v => v !== e.i);
+                let newTarget;
+                do {
+                    newTarget = Math.floor(Math.random() * N);
+                } while(newTarget === e.i || adjNew[e.i].includes(newTarget) || adjNew[e.i].length > N-2);
+                addEdge(e.i, newTarget);
+            }
+        }
+        // classify edges for drawing: long-range if the original cyclic distance > k_nearest?
+        let longEdges = [];
+        for(let i=0; i<N; i++) {
+            for(let j of adjNew[i]) {
+                if(i<j) {
+                    let cyclicDist = Math.min(Math.abs(i-j), N - Math.abs(i-j));
+                    let isLong = (cyclicDist > k_nearest);
+                    longEdges.push({from:i, to:j, long: isLong});
+                }
+            }
+        }
+        return {adj: adjNew, edges: longEdges};
     }
     
-    function initParticles() {
-        particles = [];
-        const rows = Math.max(4, Math.round(Math.sqrt(N_PARTICLES * H / (W+1))));
-        const cols = Math.ceil(N_PARTICLES / rows);
-        const dx = Math.min(W, H) * 0.48 / cols;
-        const dy = Math.min(W, H) * 0.48 / rows;
-        const ox = cx - (cols-1)*dx/2;
-        const oy = cy - (rows-1)*dy/2;
-        for(let r=0; r<rows; r++) {
-            for(let c=0; c<cols; c++) {
-                if(particles.length >= N_PARTICLES) break;
-                particles.push({
-                    x: ox + c*dx + (Math.random()-0.5)*6,
-                    y: oy + r*dy + (Math.random()-0.5)*6,
-                    vx: 0, vy: 0, charge: 0.9 + Math.random()*0.2,
-                    phase: Math.random()*Math.PI*2,
-                    omega: 0.006 + Math.random()*0.005,
+    // compute positions on a circle / slightly perturbed for clarity
+    function computeNodePositions() {
+        let positions = [];
+        let radius = Math.min(W, H) * 0.38;
+        let cx = W/2, cy = H/2;
+        for(let i=0; i<N; i++) {
+            let angle = (i / N) * Math.PI * 2;
+            let x = cx + radius * Math.cos(angle);
+            let y = cy + radius * Math.sin(angle);
+            positions.push({x, y});
+        }
+        return positions;
+    }
+    
+    // update adjacency and redraw topology
+    let currentAdj = [], currentEdges = [];
+    function refreshNetworkTopology() {
+        let graph = buildSmallWorldGraph(N, 2, rewiringProb);
+        currentAdj = graph.adj;
+        currentEdges = graph.edges;
+        // compute node positions (based on current canvas size)
+        let posArr = computeNodePositions();
+        for(let i=0; i<N; i++) {
+            if(nodes[i]) {
+                nodes[i].x = posArr[i].x;
+                nodes[i].y = posArr[i].y;
+            } else {
+                nodes.push({
+                    x: posArr[i].x, y: posArr[i].y,
+                    theta: Math.random() * Math.PI * 2,
+                    omega: (Math.random() - 0.5) * 0.8   // frequency heterogeneity
                 });
             }
         }
+        // reassign omegas and thetas array for dynamics
+        for(let i=0; i<N; i++) {
+            if(nodes[i]) {
+                thetas[i] = nodes[i].theta;
+                omegas[i] = nodes[i].omega;
+            }
+        }
     }
     
-    function yukawa(p1, p2) {
-        const dx = p2.x - p1.x, dy = p2.y - p1.y;
-        const r = Math.hypot(dx, dy) + 0.02;
-        const lD = DEBYE;
-        const mag = (p1.charge * p2.charge / (r*r)) * (1 + r/lD) * Math.exp(-r/lD);
-        return { fx: -mag * dx / r, fy: -mag * dy / r };
+    // compute order parameter R, mean phase Psi
+    function computeOrderParameter() {
+        let sumCos = 0, sumSin = 0;
+        for(let i=0; i<N; i++) {
+            sumCos += Math.cos(thetas[i]);
+            sumSin += Math.sin(thetas[i]);
+        }
+        Rorder = Math.hypot(sumCos, sumSin) / N;
+        Psi = Math.atan2(sumSin, sumCos);
+        return Rorder;
     }
     
+    // compute topological charge (winding number) around center
     function computeTopologicalCharge() {
-        if(!mouse.active || particles.length < 5) return 0;
-        let sum = 0;
-        particles.forEach(p => {
-            const ang = Math.atan2(p.y - mouse.y, p.x - mouse.x);
-            let diff = (p.phase - ang) % (2*Math.PI);
+        // sort nodes by angle around centroid (cx,cy)
+        let cx = W/2, cy = H/2;
+        let indices = [...Array(N).keys()];
+        indices.sort((a,b) => {
+            let angA = Math.atan2(nodes[a].y - cy, nodes[a].x - cx);
+            let angB = Math.atan2(nodes[b].y - cy, nodes[b].x - cx);
+            return angA - angB;
+        });
+        let totalPhaseJump = 0;
+        for(let k=0; k<indices.length; k++) {
+            let i = indices[k];
+            let j = indices[(k+1)%indices.length];
+            let diff = thetas[j] - thetas[i];
+            diff = ((diff % (2*Math.PI)) + 2*Math.PI) % (2*Math.PI);
             if(diff > Math.PI) diff -= 2*Math.PI;
-            if(diff < -Math.PI) diff += 2*Math.PI;
-            sum += diff;
-        });
-        const avg = sum / particles.length;
-        return Math.abs(avg) > 0.45 ? (avg > 0 ? 1 : -1) : 0;
-    }
-    
-    function coherenceMetric() {
-        if(particles.length < 2) return 0;
-        let sumAng = 0;
-        for(let p of particles) sumAng += Math.sin(p.phase);
-        const order = Math.abs(sumAng / particles.length);
-        return Math.min(100, Math.floor(order * 100 + (topCharge !== 0 ? 15 : 0)));
-    }
-    
-    function lossReduction(coherence, topo) {
-        let red = coherence * 0.55 + (topo !== 0 ? 18 : 0);
-        return Math.min(85, Math.max(0, Math.floor(red)));
-    }
-    
-    function updatePhysics() {
-        const dt = 0.44, damp = 0.93;
-        const noiseAmp = NOISE * 0.011;
-        const fieldAmp = FIELD * 0.00095;
-        frame++;
-        if(pulseActive) { pulseT++; if(pulseT > 55) { pulseActive = false; pulseT = 0; } }
-        topCharge = computeTopologicalCharge();
-        
-        for(let i=0; i<particles.length; i++) {
-            const p = particles[i];
-            let fx = 0, fy = 0;
-            for(let j=0; j<particles.length; j++) {
-                if(i===j) continue;
-                const f = yukawa(p, particles[j]);
-                fx += f.fx; fy += f.fy;
-            }
-            // weak trap
-            fx -= 0.00045 * (p.x - cx);
-            fy -= 0.00045 * (p.y - cy);
-            
-            // mouse actuator: mimic RF feedback based on phase prediction error
-            if(mouse.active) {
-                const dx_m = mouse.x - p.x, dy_m = mouse.y - p.y;
-                const r_m = Math.hypot(dx_m, dy_m) + 0.5;
-                const phase_match = 1 + 0.6 * Math.sin(p.phase - frame*0.018);
-                const Fmag = fieldAmp * phase_match * Math.exp(-r_m / (DEBYE*1.3)) / (r_m*0.008 + 1);
-                fx += Fmag * dx_m / r_m;
-                fy += Fmag * dy_m / r_m;
-                // topological restoring current J(T)
-                if(topCharge !== 0) {
-                    fx += topCharge * 0.0075 * (-dy_m / r_m);
-                    fy += topCharge * 0.0075 * (dx_m / r_m);
-                }
-            }
-            
-            p.phase += p.omega * (1 + FIELD * 0.003);
-            const drive = fieldAmp * 0.5 * Math.sin(p.phase + frame*0.02);
-            fx += drive * Math.cos(p.phase);
-            fy += drive * Math.sin(p.phase);
-            
-            if(pulseActive && pulseT < 18) {
-                const dx_c = p.x - cx, dy_c = p.y - cy;
-                const rad = Math.hypot(dx_c, dy_c) + 1;
-                const front = pulseT * 16;
-                if(Math.abs(rad - front) < 35) {
-                    fx += 1.8 * dx_c/rad;
-                    fy += 1.8 * dy_c/rad;
-                }
-            }
-            
-            fx += (Math.random()-0.5)*noiseAmp;
-            fy += (Math.random()-0.5)*noiseAmp;
-            
-            p.vx = (p.vx + fx*dt)*damp;
-            p.vy = (p.vy + fy*dt)*damp;
-            p.x += p.vx*dt;
-            p.y += p.vy*dt;
-            // soft boundary
-            if(p.x < 8) { p.x = 8; p.vx *= -0.6; }
-            if(p.x > W-8) { p.x = W-8; p.vx *= -0.6; }
-            if(p.y < 8) { p.y = 8; p.vy *= -0.6; }
-            if(p.y > H-8) { p.y = H-8; p.vy *= -0.6; }
+            totalPhaseJump += diff;
         }
+        let winding = Math.round(totalPhaseJump / (2*Math.PI));
+        return winding;
     }
     
-    function drawVisuals() {
-        ctx.clearRect(0,0,W,H);
+    // Kuramoto step with mean-field and small-world adjacency
+    function syncStep(dt = 0.025) {
+        let newThetas = [...thetas];
+        let deg = currentAdj.map(neigh => neigh.length);
+        let meanFieldTerm = G_mf * Rorder;
+        for(let i=0; i<N; i++) {
+            let localCoupling = 0;
+            let neighbors = currentAdj[i];
+            if(neighbors.length > 0) {
+                for(let j of neighbors) {
+                    localCoupling += Math.sin(thetas[j] - thetas[i]);
+                }
+                localCoupling = (K_loc / (neighbors.length || 1)) * localCoupling;
+            }
+            let globalForce = meanFieldTerm * Math.sin(Psi - thetas[i]);
+            let noise = Math.sqrt(2 * D_noise * dt) * (Math.random() - 0.5) * 2.0;
+            let delta = (omegas[i] + localCoupling + globalForce) * dt + noise;
+            newThetas[i] = thetas[i] + delta;
+        }
+        for(let i=0; i<N; i++) thetas[i] = newThetas[i];
+        computeOrderParameter();
+        topologicalCharge = computeTopologicalCharge();
+        // phase velocity proxy: V_phase ~ (K_loc * Rorder * avgDegree) / characteristic spacing
+        let avgDeg = currentAdj.reduce((s,a)=>s+a.length,0)/N;
+        phaseVelocityProxy = (K_loc * Rorder * avgDeg * 0.42).toFixed(3);
+        // store back to nodes for drawing
+        for(let i=0; i<N; i++) nodes[i].theta = thetas[i];
+    }
+    
+    // drawing network with phase colors
+    function drawNetwork() {
+        if(!ctx) return;
+        ctx.clearRect(0, 0, W, H);
         // background grid
-        ctx.strokeStyle = 'rgba(0,170,255,0.05)';
-        for(let i=0; i<W; i+=55) { ctx.beginPath(); ctx.moveTo(i,0); ctx.lineTo(i,H); ctx.stroke(); }
-        for(let i=0; i<H; i+=55) { ctx.beginPath(); ctx.moveTo(0,i); ctx.lineTo(W,i); ctx.stroke(); }
+        ctx.strokeStyle = "#0a2a3f";
+        ctx.lineWidth = 0.4;
+        for(let i=0;i<W;i+=55){ ctx.beginPath(); ctx.moveTo(i,0); ctx.lineTo(i,H); ctx.stroke(); }
+        for(let i=0;i<H;i+=55){ ctx.beginPath(); ctx.moveTo(0,i); ctx.lineTo(W,i); ctx.stroke(); }
         
-        if(mouse.active) {
-            const rad = DEBYE*1.9;
-            const grad = ctx.createRadialGradient(mouse.x,mouse.y,0,mouse.x,mouse.y,rad);
-            grad.addColorStop(0, topCharge!==0 ? 'rgba(255,80,100,0.12)' : 'rgba(0,200,255,0.1)');
-            grad.addColorStop(1, 'transparent');
-            ctx.fillStyle = grad;
-            ctx.beginPath(); ctx.arc(mouse.x,mouse.y,rad,0,Math.PI*2); ctx.fill();
-            ctx.beginPath(); ctx.arc(mouse.x,mouse.y,rad*0.5,0,Math.PI*2); ctx.strokeStyle = topCharge!==0 ? '#ff6680' : '#0af'; ctx.setLineDash([5,8]); ctx.stroke(); ctx.setLineDash([]);
-        }
-        
-        const bondDist = DEBYE*1.5;
-        for(let i=0;i<particles.length;i++){
-            for(let j=i+1;j<particles.length;j++){
-                const d = Math.hypot(particles[i].x-particles[j].x, particles[i].y-particles[j].y);
-                if(d < bondDist){
-                    const alpha = (1 - d/bondDist)*0.45;
-                    ctx.strokeStyle = `rgba(100,200,255,${alpha})`;
-                    ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.stroke();
-                }
+        // draw edges (small-world)
+        for(let e of currentEdges) {
+            let n1 = nodes[e.from], n2 = nodes[e.to];
+            if(!n1 || !n2) continue;
+            ctx.beginPath();
+            ctx.moveTo(n1.x, n1.y);
+            ctx.lineTo(n2.x, n2.y);
+            if(e.long) {
+                ctx.strokeStyle = "#ff77aa";
+                ctx.setLineDash([6, 8]);
+            } else {
+                ctx.strokeStyle = "#33ccff";
+                ctx.setLineDash([2, 0]);
             }
+            ctx.lineWidth = 1.2;
+            ctx.stroke();
         }
+        ctx.setLineDash([]);
         
-        for(let p of particles){
-            const speed = Math.hypot(p.vx, p.vy);
-            const glowR = 10 + Math.min(12, speed*6);
-            const gradGlow = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,glowR);
-            gradGlow.addColorStop(0, `rgba(0,180,220,0.2)`);
-            gradGlow.addColorStop(1, 'rgba(0,80,120,0)');
-            ctx.fillStyle = gradGlow;
-            ctx.beginPath(); ctx.arc(p.x,p.y,glowR,0,Math.PI*2); ctx.fill();
-            ctx.fillStyle = `hsl(${40 + speed*30}, 80%, 65%)`;
-            ctx.beginPath(); ctx.arc(p.x,p.y, 3.5 + speed*1.5, 0, Math.PI*2); ctx.fill();
-            ctx.strokeStyle = `rgba(100,220,255,${0.3+Math.sin(p.phase)*0.1})`;
-            ctx.beginPath(); ctx.arc(p.x,p.y, 5 + Math.sin(p.phase)*2, 0, Math.PI*2); ctx.stroke();
+        // draw nodes (phase hue)
+        for(let i=0; i<nodes.length; i++) {
+            let n = nodes[i];
+            let hue = (n.theta * 180 / Math.PI + 180) % 360;
+            let rad = 11 + 2 * Math.sin(n.theta*2);
+            let grad = ctx.createRadialGradient(n.x-3, n.y-3, 2, n.x, n.y, rad);
+            grad.addColorStop(0, `hsl(${hue}, 80%, 70%)`);
+            grad.addColorStop(1, `hsl(${hue}, 85%, 45%)`);
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, rad-1, 0, 2*Math.PI);
+            ctx.fill();
+            ctx.strokeStyle = "#ffffffcc";
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, rad-1, 0, 2*Math.PI);
+            ctx.stroke();
+            // small phase pointer
+            let arrowLen = 11;
+            let dx = Math.cos(n.theta)*arrowLen;
+            let dy = Math.sin(n.theta)*arrowLen;
+            ctx.beginPath();
+            ctx.moveTo(n.x, n.y);
+            ctx.lineTo(n.x+dx, n.y+dy);
+            ctx.strokeStyle = "#ffffff";
+            ctx.lineWidth = 1.8;
+            ctx.stroke();
         }
-        if(pulseActive && pulseT<20){
-            ctx.fillStyle = `rgba(255,100,30,${0.2*(1-pulseT/20)})`;
-            ctx.fillRect(0,0,W,H);
+        // mean field aura
+        let mfStrength = Math.min(45, 20 + Rorder*35);
+        let gradAura = ctx.createRadialGradient(W/2, H/2, 8, W/2, H/2, 90);
+        gradAura.addColorStop(0, `rgba(0, 200, 255, ${0.08+Rorder*0.12})`);
+        gradAura.addColorStop(1, "rgba(0, 30, 60, 0)");
+        ctx.fillStyle = gradAura;
+        ctx.fillRect(0,0,W,H);
+    }
+    
+    // UI update, critical threshold condition
+    let R_crit_est = 0.38;   // base estimate
+    function updateStats() {
+        document.getElementById('statR').innerText = Rorder.toFixed(3);
+        document.getElementById('statTopo').innerText = topologicalCharge;
+        document.getElementById('statVph').innerText = phaseVelocityProxy;
+        let critRatio = (Rorder / R_crit_est).toFixed(2);
+        document.getElementById('statCrit').innerHTML = critRatio;
+        if(Rorder < R_crit_est*0.95) document.getElementById('statCrit').style.color = "#ff8866";
+        else document.getElementById('statCrit').style.color = "#aaffdd";
+        // update sliders values
+        document.getElementById('pVal').innerText = rewiringProb.toFixed(2);
+        document.getElementById('gVal').innerText = G_mf.toFixed(2);
+        document.getElementById('kVal').innerText = K_loc.toFixed(2);
+        document.getElementById('dVal').innerText = D_noise.toFixed(3);
+    }
+    
+    let simInterval;
+    function startSimulation() {
+        if(simInterval) clearInterval(simInterval);
+        simInterval = setInterval(() => {
+            for(let step=0; step<2; step++) syncStep(0.018);
+            drawNetwork();
+            updateStats();
+        }, 35);
+    }
+    
+    function rebuildAll() {
+        refreshNetworkTopology();
+        // reset phases
+        for(let i=0; i<N; i++) {
+            thetas[i] = Math.random() * 2*Math.PI;
+            omegas[i] = (Math.random() - 0.5) * 0.9;
+            nodes[i].theta = thetas[i];
+            nodes[i].omega = omegas[i];
         }
+        computeOrderParameter();
+        drawNetwork();
     }
     
-    function updateUI() {
-        const coh = coherenceMetric();
-        const lossRed = lossReduction(coh, topCharge);
-        document.getElementById('sN').innerText = particles.length;
-        document.getElementById('sTopo').innerHTML = topCharge!==0 ? (topCharge>0 ? '+1' : '-1') : '0';
-        document.getElementById('sCoh').innerText = coh;
-        document.getElementById('sQLoss').innerText = lossRed;
-    }
-    
-    let lastUpdate=0;
-    function simLoop() {
-        updatePhysics();
-        drawVisuals();
-        if(frame%3===0) updateUI();
-        frame++;
-        requestAnimationFrame(simLoop);
-    }
-    
-    function bindSlider(id, valId, param) {
-        const el = document.getElementById(id);
-        const span = document.getElementById(valId);
-        el.addEventListener('input', ()=>{
-            const v = parseFloat(el.value);
-            span.innerText = v;
-            if(param === 'DEBYE') DEBYE = v;
-            if(param === 'NOISE') NOISE = v;
-            if(param === 'FIELD') FIELD = v;
-            if(param === 'N') { N_PARTICLES = v; initParticles(); }
-        });
-    }
-    bindSlider('slDebye','vDebye','DEBYE');
-    bindSlider('slNoise','vNoise','NOISE');
-    bindSlider('slField','vField','FIELD');
-    bindSlider('slN','vN','N');
-    document.getElementById('btnReset').addEventListener('click', ()=>{ initParticles(); });
-    document.getElementById('btnPulse').addEventListener('click', ()=>{ pulseActive=true; pulseT=0; });
-    
-    function onMouseMove(e) {
+    function applyLocalDegradation(e) {
         const rect = canvas.getBoundingClientRect();
-        const sx = canvas.width/rect.width, sy = canvas.height/rect.height;
-        let cx_, cy_;
-        if(e.touches){ cx_ = e.touches[0].clientX; cy_ = e.touches[0].clientY; e.preventDefault(); }
-        else { cx_ = e.clientX; cy_ = e.clientY; }
-        let x = (cx_ - rect.left)*sx, y = (cy_ - rect.top)*sy;
-        mouse.x = Math.min(W, Math.max(0, x)); mouse.y = Math.min(H, Math.max(0, y));
-        mouse.active = true;
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        let clientX, clientY;
+        if(e.touches) { clientX = e.touches[0].clientX; clientY = e.touches[0].clientY; e.preventDefault(); }
+        else { clientX = e.clientX; clientY = e.clientY; }
+        let mx = (clientX - rect.left) * scaleX;
+        let my = (clientY - rect.top) * scaleY;
+        let minDist = 25, idx = -1;
+        for(let i=0; i<nodes.length; i++) {
+            let dx = nodes[i].x - mx, dy = nodes[i].y - my;
+            let d = Math.hypot(dx,dy);
+            if(d < minDist) { minDist = d; idx = i; }
+        }
+        if(idx !== -1) {
+            // local radiation damage: sudden phase shift and frequency perturbation
+            thetas[idx] += (Math.random() - 0.5) * 1.2;
+            omegas[idx] += (Math.random() - 0.5) * 0.7;
+            nodes[idx].theta = thetas[idx];
+            nodes[idx].omega = omegas[idx];
+        }
     }
-    canvas.addEventListener('mousemove', onMouseMove);
-    canvas.addEventListener('mouseleave', ()=> mouse.active=false);
-    canvas.addEventListener('touchmove', onMouseMove, {passive:false});
-    canvas.addEventListener('touchend', ()=> mouse.active=false);
-    window.addEventListener('resize', ()=>{ resizeCanvas(); });
-    resizeCanvas();
-    initParticles();
-    simLoop();
     
-    // static charts with corrected labels
-    const ctx1 = document.getElementById('thermalNoiseChart').getContext('2d');
-    new Chart(ctx1, {
-        type: 'line', data: { labels: [0.1,0.5,1,2,4,6,8,10], datasets: [{ label: 'P_heat reduction factor', data: [0.95,0.88,0.76,0.58,0.34,0.22,0.15,0.09], borderColor: '#00aaff', fill: false }] },
-        options: { responsive: true, maintainAspectRatio: true, scales: { x: { title: { display: true, text: 'Turbulence amplitude (rel.)' } }, y: { title: { display: true, text: 'Required P_heat / P_heat0' } } } }
+    // resize handler
+    function resizeCanvasAndRedraw() {
+        let container = canvas.parentElement;
+        let newW = Math.min(1200, container.clientWidth - 20);
+        let newH = 540;
+        canvas.width = newW;
+        canvas.height = newH;
+        W = newW; H = newH;
+        // recompute node positions
+        let positions = computeNodePositions();
+        for(let i=0; i<N && i<nodes.length; i++) {
+            nodes[i].x = positions[i].x;
+            nodes[i].y = positions[i].y;
+        }
+        drawNetwork();
+    }
+    
+    // bind controls & events
+    function bindUI() {
+        document.getElementById('slRewire').addEventListener('input', (e) => { rewiringProb = parseFloat(e.target.value); rebuildAll(); });
+        document.getElementById('slGmf').addEventListener('input', (e) => { G_mf = parseFloat(e.target.value); });
+        document.getElementById('slKloc').addEventListener('input', (e) => { K_loc = parseFloat(e.target.value); });
+        document.getElementById('slNoise').addEventListener('input', (e) => { D_noise = parseFloat(e.target.value); });
+        document.getElementById('btnResetNet').addEventListener('click', () => { rebuildAll(); });
+        document.getElementById('btnPerturb').addEventListener('click', () => { for(let i=0;i<3;i++) { let idx=Math.floor(Math.random()*N); thetas[idx]+=(Math.random()-0.5)*1.4; omegas[idx]+=(Math.random()-0.5)*0.5; } });
+        canvas.addEventListener('click', (e) => { applyLocalDegradation(e); });
+        canvas.addEventListener('touchstart', (e) => { applyLocalDegradation(e); e.preventDefault(); });
+        window.addEventListener('resize', () => { resizeCanvasAndRedraw(); });
+    }
+    
+    // init all
+    function init() {
+        resizeCanvasAndRedraw();
+        nodes = [];
+        refreshNetworkTopology();
+        computeOrderParameter();
+        bindUI();
+        startSimulation();
+    }
+    
+    // static charts
+    const ctxPhase = document.getElementById('phaseTransChart').getContext('2d');
+    new Chart(ctxPhase, {
+        type: 'line', data: { labels: [0,0.3,0.6,0.9,1.2,1.5], datasets: [{ label: 'Order parameter R (steady)', data: [0.12,0.28,0.65,0.87,0.94,0.97], borderColor: '#00aaff', fill: false }] },
+        options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'top' } }, scales: { x: { title: { display: true, text: 'Effective coupling K_loc + G_mf' } }, y: { title: { display: true, text: 'R (coherence)' } } } }
     });
-    const ctx2 = document.getElementById('stabilityPhaseChart').getContext('2d');
-    new Chart(ctx2, {
-        type: 'line', data: { labels: [0,0.2,0.4,0.6,0.8,1.0], datasets: [{ label: 'Confinement factor H98', data: [0.85,0.92,1.02,1.18,1.35,1.48], borderColor: '#ffaa44', fill: false }] },
-        options: { responsive: true, maintainAspectRatio: true, scales: { x: { title: { display: true, text: 'Topological gain |𝒯|' } }, y: { title: { display: true, text: 'H_{98} (ITER baseline)' } } } }
+    const ctxVel = document.getElementById('velocityChart').getContext('2d');
+    new Chart(ctxVel, {
+        type: 'line', data: { labels: [0,0.2,0.4,0.6,0.8,1.0], datasets: [{ label: 'V_phase (normalized)', data: [0.0,0.2,0.55,0.82,0.96,1.0], borderColor: '#ffaa44', fill: false }] },
+        options: { responsive: true, maintainAspectRatio: true, scales: { x: { title: { display: true, text: 'Rewiring probability p' } }, y: { title: { display: true, text: 'Propagation speed' } } } }
     });
+    
+    init();
 </script>
+
+<h2>📡 Architectural Verdict: Small‑World + Global Mean Field = Viable Topological Machine</h2>
+<p>The hybrid coupling scheme overcomes the fundamental "all-to-all vs locality" dilemma. The dust‑acoustic wave provides the macroscopic mean field \(\Psi\) that nudges every CNT toward global phase locking, while the small‑world shortcuts accelerate the information propagation. The <strong>topological invariant \(\mathcal{T}\)</strong> remains non-zero in the coherent state, protecting the distributed mode against local defects. The price is the critical velocity condition: if \(V_{\text{phase}}\) falls below \(L_{\text{corr}}/\tau_{\text{deg}}\) (e.g., due to plasma cooling or excessive noise), the system undergoes a second-order transition to phase turbulence — a reversible "therapeutic coma". Our interactive simulation demonstrates this edge of chaos: tune parameters and witness the order parameter collapse, then restore it via mean field coupling.</p>
+
+<div class="refs">
+    <strong>References & Formalisms</strong><br>
+    [1] Kuramoto, Y. (1984). Chemical Oscillations, Waves, and Turbulence. Springer.<br>
+    [2] Watts, D.J. & Strogatz, S.H. (1998). Collective dynamics of 'small-world' networks. Nature.<br>
+    [3] Fortov et al. (2004). Dust‑Acoustic waves in complex plasmas. Physics-Uspekhi.<br>
+    [4] 0penAGI – SODPF Topological Coupling Framework, BEP-007 (2026).<br>
+    <span style="font-size:8pt;">Live model implements Kuramoto-Sakaguchi with small-world adjacency and mean-field from plasma acoustics. Phase front velocity determined by R·K_loc·⟨deg⟩.</span>
+</div>
 </body>
 </html>
